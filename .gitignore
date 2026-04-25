@@ -25,3 +25,5 @@ npm-debug.log*
 
 # Beroenden (om vi någon gång lägger till dem)
 node_modules/
+
+.vercel

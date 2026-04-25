@@ -2,7 +2,7 @@
 
 En interaktiv utbildning som lär noviser hur en modern webbapp hänger ihop — genom att låta dem bygga sin egen "Makrodata-raffineringsapp" steg för steg.
 
-**Live:** _(uppdatera med Vercel-URL efter deploy)_
+**Live:** https://sifferverket.vercel.app
 
 ## Vad är detta?
 
