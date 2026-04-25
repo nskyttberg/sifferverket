@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sifferverket — Personalutbildning</title>
+<meta name="description" content="En lekfull utbildning i hur en modern webbapp hänger ihop. För dig som inte kodar — men vill förstå.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* ============ SIDSPECIFIK STYLING (LANDNING) ============ */
+  .welcome {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .welcome .stamp {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 28px;
+  }
+
+  .welcome h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 96px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+
+  .welcome h1 em {
+    font-style: italic;
+    color: var(--teal-deep);
+  }
+
+  .welcome .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink-soft);
+    margin-bottom: 56px;
+  }
+
+  .welcome .seal {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 40px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    position: relative;
+    animation: gentle-spin 60s linear infinite;
+  }
+
+  .welcome .seal::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.5px solid var(--ink);
+    border-radius: 50%;
+  }
+
+  .welcome .seal-inner {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 500;
+  }
+
+  .welcome .meta-info {
+    display: inline-block;
+    text-align: left;
+    border: 1px solid var(--rule);
+    padding: 18px 24px;
+    margin: 32px auto 0;
+    font-size: 11px;
+    line-height: 2;
+    letter-spacing: 0.1em;
+    background: var(--paper);
+  }
+
+  .welcome .meta-info span {
+    color: var(--teal-deep);
+    margin-left: 12px;
+  }
+
+  /* ============ INTRO-TEXT ============ */
+  .intro {
+    max-width: 64ch;
+    margin: 0 auto 80px;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .intro p { margin-bottom: 18px; }
+
+  .intro p:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+
+  .intro strong { font-weight: 500; color: var(--teal-deep); }
+
+  /* ============ SPRINT-LISTA ============ */
+  .sprint-list-heading {
+    text-align: center;
+    margin: 80px 0 40px;
+  }
+
+  .sprint-list-heading .label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+
+  .sprint-list-heading h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .sprint-list-heading h2 em {
+    font-style: italic;
+    color: var(--teal-deep);
+  }
+
+  .sprint-list {
+    display: grid;
+    gap: 16px;
+  }
+
+  .sprint-card {
+    display: grid;
+    grid-template-columns: 80px 1fr 140px;
+    align-items: center;
+    padding: 24px 28px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    gap: 24px;
+  }
+
+  .sprint-card:hover {
+    border-color: var(--ink);
+    background: var(--paper-warm);
+  }
+
+  .sprint-card.locked {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .sprint-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 56px;
+    color: var(--teal);
+    line-height: 1;
+    text-align: center;
+  }
+
+  .sprint-card .info .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .sprint-card .info .sub {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--ink-faint);
+    font-size: 16px;
+  }
+
+  .sprint-card .meta {
+    text-align: right;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    line-height: 1.6;
+  }
+
+  .sprint-card .meta .duration {
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+
+  .sprint-card .meta .status-done {
+    color: var(--teal);
+  }
+
+  .sprint-card .meta .status-todo {
+    color: var(--warning);
+  }
+
+  /* ============ META-DOGFOOD-RUTA ============ */
+  .meta-note {
+    margin: 80px 0;
+    padding: 36px 40px;
+    border: 1px dashed var(--teal-deep);
+    background: rgba(78, 197, 203, 0.04);
+    text-align: center;
+  }
+
+  .meta-note h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--teal-deep);
+    margin-bottom: 14px;
+  }
+
+  .meta-note p {
+    max-width: 56ch;
+    margin: 0 auto 12px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .meta-note .repo-link {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 20px;
+    border: 1px solid var(--teal-deep);
+    color: var(--teal-deep);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .meta-note .repo-link:hover {
+    background: var(--teal-deep);
+    color: var(--paper);
+  }
+
+  @media (max-width: 640px) {
+    .welcome h1 { font-size: 56px; }
+    .sprint-card {
+      grid-template-columns: 60px 1fr;
+      gap: 16px;
+    }
+    .sprint-card .meta { display: none; }
+    .sprint-card .num { font-size: 40px; }
+    .sprint-list-heading h2 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Reviderad 2026.04</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<main class="stage">
+
+  <!-- ============ VÄLKOMSTSEKTION ============ -->
+  <section class="welcome">
+    <div class="stamp">Konfidentiellt · Endast Internt Bruk</div>
+    <div class="seal"><span class="seal-inner">S</span></div>
+    <h1>Välkommen till<br><em>Sifferverket</em></h1>
+    <p class="tagline">"En siffra raffinerad är en själ försonad."</p>
+    <div class="meta-info">
+      Avdelning <span>Makrodata-raffinering</span><br>
+      Anställd <span id="employeeName">[Klicka för att ange]</span><br>
+      Tjänstgöring inleds <span id="startDate"></span><br>
+      Handledare <span>Claude (extern konsult)</span>
+    </div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section class="intro">
+    <p>Grattis. Du är nyanställd på Sifferverket — en fiktiv institution där siffror sorteras efter sin känslomässiga laddning. Din uppgift de kommande timmarna är inte bara att lära dig sortera siffror. Det är att förstå hur en hel app byggs.</p>
+    <p>Det finns en bedräglig övertygelse i världen: att den som inte kan koda är utestängd från att bygga sin egen mjukvara. Den övertygelsen var sann under en tid, men den är det inte längre. Den här utbildningen vilar på en enkel premiss:</p>
+    <p><strong>Du behöver inte kunna koda för att bygga något verkligt — men du behöver förstå flödet.</strong></p>
+    <p>Med <em>flödet</em> menar vi: var bor koden, var bor datan, vad händer när du klickar "spara", och hur i hela friden hänger allt ihop? När du har det i magkänslan kan du be Claude (din digitala kollega) att skriva koden — och du kommer förstå vad du tittar på.</p>
+  </section>
+
+  <!-- ============ SPRINT-ÖVERSIKT ============ -->
+  <div class="sprint-list-heading">
+    <div class="label">Tjänstgöringsschema</div>
+    <h2>De <em>sju sprintarna</em></h2>
+  </div>
+
+  <nav class="sprint-list">
+
+    <a href="/sprint-0/" class="sprint-card">
+      <div class="num">0</div>
+      <div class="info">
+        <div class="title">Anställningsdagen</div>
+        <div class="sub">— eller, vad i hela friden är det här jag har skrivit på?</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 20 min</div>
+        <div>Inga konton än</div>
+      </div>
+    </a>
+
+    <a href="/sprint-1/" class="sprint-card">
+      <div class="num">i</div>
+      <div class="info">
+        <div class="title">Ditt skrivbord</div>
+        <div class="sub">— din första sida på internet, med ditt namn på.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 30 min</div>
+        <div>Första deploy</div>
+      </div>
+    </a>
+
+    <a href="#" class="sprint-card locked">
+      <div class="num">ii</div>
+      <div class="info">
+        <div class="title">Siffrorna anländer</div>
+        <div class="sub">— en databas, ett arkiv, en ny lojalitet.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 30 min</div>
+        <div>Kommer snart</div>
+      </div>
+    </a>
+
+    <a href="#" class="sprint-card locked">
+      <div class="num">iii</div>
+      <div class="info">
+        <div class="title">Hämta från arkivet</div>
+        <div class="sub">— när receptionen lär sig prata med arkivet.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 40 min</div>
+        <div>Kommer snart</div>
+      </div>
+    </a>
+
+    <a href="#" class="sprint-card locked">
+      <div class="num">iv</div>
+      <div class="info">
+        <div class="title">Raffineringen</div>
+        <div class="sub">— siffrorna sorteras i sina rättmätiga hinkar.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 40 min</div>
+        <div>Kommer snart</div>
+      </div>
+    </a>
+
+    <a href="#" class="sprint-card locked">
+      <div class="num">v</div>
+      <div class="info">
+        <div class="title">Ångra, ångra, ångra</div>
+        <div class="sub">— biblioteket öppnar och tidsmaskinen demonstreras.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 25 min</div>
+        <div>Kommer snart</div>
+      </div>
+    </a>
+
+    <a href="#" class="sprint-card locked">
+      <div class="num">vi</div>
+      <div class="info">
+        <div class="title">Flera avdelningar</div>
+        <div class="sub">— huset växer, och du växer med det.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 35 min</div>
+        <div>Kommer snart</div>
+      </div>
+    </a>
+
+    <a href="#" class="sprint-card locked">
+      <div class="num">vii</div>
+      <div class="info">
+        <div class="title">Examen</div>
+        <div class="sub">— en uppgift utan facit, en tilltro utan prov.</div>
+      </div>
+      <div class="meta">
+        <div class="duration">~ 30 min</div>
+        <div>Kommer snart</div>
+      </div>
+    </a>
+
+  </nav>
+
+  <!-- ============ META-DOGFOOD-RUTA ============ -->
+  <aside class="meta-note">
+    <h3>En liten metakommentar</h3>
+    <p>Sajten du läser nu är byggd och deployad på exakt det sätt du själv ska göra om en stund. Den ligger på Vercel. Källkoden ligger öppen på GitHub. Du kan när som helst trycka på "Visa källkod" i din webbläsare och se hur den är gjord.</p>
+    <p>Det är inte magi. Det är öppna kort.</p>
+    <a class="repo-link" href="https://github.com/" target="_blank" rel="noopener">Se källkoden ↗</a>
+  </aside>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+/* =============================================================
+   SIFFERVERKET — DELAD STILMALL
+   Använd i alla sidor: index.html, sprint-N/index.html, etc.
+   ============================================================= */
+
+:root {
+  --paper: #e8e6dd;
+  --paper-dim: #d8d4c4;
+  --paper-warm: #ddd8c8;
+  --ink: #0a2a30;
+  --ink-soft: #1d3a40;
+  --ink-faint: #5a6b6e;
+  --teal: #2a8a90;
+  --teal-deep: #0e4d52;
+  --teal-glow: #4ec5cb;
+  --warning: #c44a1f;
+  --rule: #8a9395;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at top, rgba(78, 197, 203, 0.06), transparent 60%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(10, 42, 48, 0.012) 2px,
+      rgba(10, 42, 48, 0.012) 3px
+    );
+}
+
+/* ============ ÖVERLIGGANDE GRAIN ============ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.04 0 0 0 0 0.16 0 0 0 0 0.19 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  z-index: 100;
+}
+
+/* ============ HEADER ============ */
+.corp-header {
+  border-bottom: 1px solid var(--rule);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 500;
+  position: relative;
+}
+
+.logo-mark::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 0.5px solid var(--ink);
+  border-radius: 50%;
+}
+
+.logo-text { line-height: 1.1; }
+
+.logo-text .name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.logo-text .sub {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+.header-meta {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: right;
+  line-height: 1.5;
+}
+
+.header-meta .doc-id {
+  color: var(--teal-deep);
+}
+
+/* ============ FRAMSTEGSFÄLT ============ */
+.progress-bar {
+  height: 3px;
+  background: var(--paper-dim);
+  position: sticky;
+  top: 73px;
+  z-index: 49;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--teal);
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+/* ============ NAVIGATION (för sprintar) ============ */
+.sprint-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--paper);
+}
+
+.sprint-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.sprint-nav a:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.sprint-nav .nav-center {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--teal-deep);
+}
+
+.sprint-nav a.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ============ HUVUDLAYOUT ============ */
+.stage {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 60px 32px 120px;
+}
+
+/* ============ SPRINT-CARD ============ */
+.sprint {
+  margin-bottom: 80px;
+}
+
+.sprint-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 6px 14px 6px 6px;
+  border: 1px solid var(--ink);
+  border-radius: 24px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.sprint-marker .num {
+  background: var(--ink);
+  color: var(--paper);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.sprint-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.sprint-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--teal-deep);
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.sprint-meta {
+  display: flex;
+  gap: 32px;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 40px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.sprint-meta strong {
+  color: var(--ink);
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+/* ============ TEXT ============ */
+.prose {
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 64ch;
+}
+
+.prose p { margin-bottom: 18px; }
+
+.prose .lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+
+.prose strong { font-weight: 500; color: var(--teal-deep); }
+
+/* ============ SECTION HEADING ============ */
+.step-heading {
+  margin: 56px 0 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.step-heading .step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 38px;
+  color: var(--teal);
+  line-height: 1;
+}
+
+.step-heading .step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+/* ============ INFO-RUTA ============ */
+.memo {
+  background: var(--paper-dim);
+  border-left: 3px solid var(--teal);
+  padding: 22px 26px;
+  margin: 32px 0;
+  font-size: 14px;
+  position: relative;
+}
+
+.memo::before {
+  content: 'INTERNT MEDDELANDE';
+  position: absolute;
+  top: -8px;
+  left: 18px;
+  background: var(--paper);
+  padding: 0 8px;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: var(--teal-deep);
+}
+
+.memo p { margin-bottom: 10px; }
+.memo p:last-child { margin-bottom: 0; }
+
+/* ============ AKTION-RUTA ============ */
+.action {
+  border: 1.5px solid var(--ink);
+  padding: 28px 32px;
+  margin: 32px 0;
+  background: var(--paper);
+  position: relative;
+}
+
+.action-tag {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4px 14px;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.action h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  margin-top: 6px;
+}
+
+.action ol {
+  list-style: none;
+  counter-reset: act;
+}
+
+.action ol li {
+  counter-increment: act;
+  padding: 10px 0 10px 44px;
+  position: relative;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.action ol li:last-child { border-bottom: none; }
+
+.action ol li::before {
+  content: counter(act, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--teal);
+  background: var(--paper-dim);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* ============ KNAPP "JAG ÄR KLAR" ============ */
+.completion {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-wrap input {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.checkbox-wrap input:checked {
+  background: var(--teal-deep);
+  border-color: var(--teal-deep);
+}
+
+.checkbox-wrap input:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.checkbox-wrap span {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ============ KOD-RUTA ============ */
+.code-block {
+  background: var(--ink);
+  color: #b8d4d6;
+  padding: 22px 26px;
+  margin: 24px 0;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 2px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.code-block::before {
+  content: 'KOD';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--teal-glow);
+  opacity: 0.7;
+}
+
+.code-block .comment { color: var(--ink-faint); font-style: italic; }
+.code-block .keyword { color: var(--teal-glow); }
+.code-block .string { color: #d4a574; }
+
+/* ============ SAMTAL MED CLAUDE ============ */
+.claude-prompt {
+  border: 1px dashed var(--teal-deep);
+  background: rgba(78, 197, 203, 0.06);
+  padding: 22px 26px;
+  margin: 24px 0;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  line-height: 1.5;
+  position: relative;
+}
+
+.claude-prompt::before {
+  content: 'SÄG TILL CLAUDE';
+  position: absolute;
+  top: -10px;
+  left: 18px;
+  background: var(--paper);
+  padding: 0 8px;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: var(--teal-deep);
+  font-style: normal;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.claude-prompt .copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--paper);
+  border: 1px solid var(--teal-deep);
+  color: var(--teal-deep);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-style: normal;
+  transition: all 0.2s;
+}
+
+.claude-prompt .copy-btn:hover {
+  background: var(--teal-deep);
+  color: var(--paper);
+}
+
+.claude-prompt .copy-btn.copied {
+  background: var(--teal-deep);
+  color: var(--paper);
+}
+
+/* ============ ORDLISTA ============ */
+.definition {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px dotted var(--rule);
+  font-size: 14px;
+}
+
+.definition:last-child { border-bottom: none; }
+
+.definition dt {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--teal-deep);
+}
+
+/* ============ AVSLUTANDE BESLUTSPUNKT ============ */
+.decision {
+  margin-top: 60px;
+  padding: 36px;
+  background: var(--ink);
+  color: var(--paper);
+  text-align: center;
+  border-radius: 2px;
+}
+
+.decision h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.decision p {
+  font-size: 14px;
+  color: rgba(232, 230, 221, 0.7);
+  margin-bottom: 24px;
+}
+
+.decision a, .decision button {
+  display: inline-block;
+  background: var(--paper);
+  color: var(--ink);
+  border: none;
+  padding: 14px 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.decision a:hover, .decision button:hover {
+  background: var(--teal-glow);
+  color: var(--ink);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  border-top: 1px solid var(--rule);
+  padding: 32px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.footer .motto {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--teal-deep);
+  margin-bottom: 12px;
+}
+
+/* ============ DIAGRAM ============ */
+.diagram {
+  margin: 36px 0;
+  padding: 32px;
+  background: var(--paper-dim);
+  border-radius: 2px;
+}
+
+.diagram-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  margin-bottom: 24px;
+  text-align: center;
+  color: var(--teal-deep);
+}
+
+.diagram-row {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr 40px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.diagram-box {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 18px 12px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.diagram-box .icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--teal-deep);
+}
+
+.diagram-arrow {
+  text-align: center;
+  color: var(--teal);
+  font-size: 18px;
+}
+
+/* ============ METAFORRUTA "TRE RUM" ============ */
+.metaphor {
+  margin: 36px 0;
+  padding: 32px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+
+.metaphor h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: var(--teal-deep);
+}
+
+.rooms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.room {
+  padding: 18px;
+  background: var(--paper-dim);
+  text-align: center;
+}
+
+.room .room-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--teal-deep);
+  margin-bottom: 6px;
+}
+
+.room .room-tech {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 10px;
+}
+
+.room .room-desc {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ============ ANIMATIONER ============ */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sprint, .welcome { animation: fade-in-up 0.6s ease both; }
+
+@keyframes gentle-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 640px) {
+  .stage { padding: 32px 20px 80px; }
+  .welcome h1 { font-size: 56px !important; }
+  .sprint-title { font-size: 40px; }
+  .sprint-meta { flex-direction: column; gap: 8px; }
+  .corp-header { padding: 12px 20px; }
+  .header-meta { display: none; }
+  .definition { grid-template-columns: 1fr; gap: 4px; }
+  .rooms { grid-template-columns: 1fr; }
+  .diagram-row { grid-template-columns: 1fr; gap: 16px; }
+  .diagram-arrow { transform: rotate(90deg); }
+  .sprint-nav { padding: 16px 20px; flex-wrap: wrap; gap: 8px; }
+}

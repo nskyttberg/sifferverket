@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 0: Anställningsdagen — Sifferverket</title>
+<meta name="description" content="Sprint 0 av Sifferverket-utbildningen: Anställningsdagen. Skaffa dina fyra konton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 0 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/" >← Översikt</a>
+  <span class="nav-center">Sprint 0 — Anställningsdagen</span>
+  <a href="/sprint-1/">Sprint 1 →</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">0</span>
+    <span>Sprint Noll</span>
+  </div>
+  <h2 class="sprint-title">Anställningsdagen</h2>
+  <p class="sprint-subtitle">— eller, vad i hela friden är det här jag har skrivit på?</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 20 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> En e-postadress</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">Innan du raffinerar någon enda siffra behöver du verktygslådan. I den här sprinten skaffar du fyra gratiskonton, kopplar ihop dem, och får en första aning om vad varje verktyg är till för. Inget mer.</p>
+
+    <p>Det är en lugnare sprint än de följande, och det är meningen. Att samla verktygen är en sprint i sig. Lägg ingen prestige i tempot — den som rusar förbi konton brukar fastna senare.</p>
+  </div>
+
+  <div class="metaphor">
+    <h4>Tänk dig en arbetsplats med tre rum</h4>
+    <p style="font-size: 14px; line-height: 1.6;">Hela den moderna webben kan förstås genom den här metaforen. Det enda du behöver hålla i huvudet just nu är att <strong>varje rum gör en sak</strong>:</p>
+    <div class="rooms">
+      <div class="room">
+        <div class="room-name">Receptionen</div>
+        <div class="room-tech">Frontend · HTML</div>
+        <div class="room-desc">Det användaren ser och klickar på. Knappar, siffror, färger.</div>
+      </div>
+      <div class="room">
+        <div class="room-name">Arkivet</div>
+        <div class="room-tech">Databas · Supabase</div>
+        <div class="room-desc">Där all data bevaras. Vad användaren skrev. Vilka siffror finns kvar.</div>
+      </div>
+      <div class="room">
+        <div class="room-name">Biblioteket</div>
+        <div class="room-tech">Versionshantering · GitHub</div>
+        <div class="room-desc">Där varje version av byggnaden finns sparad. Tidsmaskinen.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>En kommentar från ledningen:</strong> Du kommer märka att vi använder ord som <em>frontend</em>, <em>databas</em> och <em>repository</em>. Det är inte för att skrämma dig. Det är för att de är de rätta orden, och du kommer behöva dem när du pratar med Claude. Vi tar dem en åt gången.</p>
+  </div>
+
+  <!-- ============ STEG 1 — GITHUB ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Skaffa ett GitHub-konto</div>
+  </div>
+
+  <div class="prose">
+    <p>GitHub är vårt <em>bibliotek</em>. Det är där varje version av din app kommer att bo. Du behöver ett konto. Det är gratis. Det krävs inget kort.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Öppna ett konto på GitHub</h4>
+    <ol>
+      <li>Gå till <strong>github.com</strong> i din webbläsare.</li>
+      <li>Klicka på "Sign up" uppe till höger.</li>
+      <li>Använd en e-postadress du har koll på.</li>
+      <li>Välj ett användarnamn — detta kommer synas publikt. Kort och enkelt är bra. (Inte ditt-personnummer1985.)</li>
+      <li>Bekräfta din e-post genom att klicka på länken de skickar dig.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="github">
+        <span>Jag har ett GitHub-konto</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ STEG 2 — SUPABASE ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Skaffa ett Supabase-konto</div>
+  </div>
+
+  <div class="prose">
+    <p>Supabase är vårt <em>arkiv</em>. Det är en databas som bor på internet och som du kan styra utan att skriva en enda rad kod. Det kostar inget upp till en viss storlek — och den storleken kommer du aldrig nå i den här utbildningen.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Öppna ett konto på Supabase</h4>
+    <ol>
+      <li>Gå till <strong>supabase.com</strong>.</li>
+      <li>Klicka "Start your project".</li>
+      <li>Välj "Continue with GitHub" — det kopplar ihop dina konton, vilket är smidigt.</li>
+      <li>Godkänn behörigheterna när GitHub frågar.</li>
+      <li>Du landar på en dashboard. Klicka inte på "New project" än. Vi gör det i Sprint 2.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="supabase">
+        <span>Jag har ett Supabase-konto</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ STEG 3 — VERCEL ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Skaffa ett Vercel-konto</div>
+  </div>
+
+  <div class="prose">
+    <p>Vercel är där din app kommer leva på internet. Det är som att betala för en postbox — fast utan att betala. När du senare uppdaterar koden på GitHub kommer Vercel automatiskt uppdatera din live-app. Magiskt, men inte särskilt mystiskt när man förstår hur.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Öppna ett konto på Vercel</h4>
+    <ol>
+      <li>Gå till <strong>vercel.com</strong>.</li>
+      <li>Klicka "Sign Up".</li>
+      <li>Välj "Continue with GitHub" — samma trick som med Supabase.</li>
+      <li>Godkänn behörigheterna.</li>
+      <li>Hoppa över alla "import a project"-rutor. Vi behöver inte importera något än.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="vercel">
+        <span>Jag har ett Vercel-konto</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ STEG 4 — CLAUDE ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Säg hej till Claude</div>
+  </div>
+
+  <div class="prose">
+    <p>Claude är din kollega. Inte din lärare, inte din chef — din kollega. Du kommer be Claude om hjälp på samma sätt som du skulle be en kunnig person bredvid dig. Det viktiga är att <em>du förstår vad ni gör tillsammans</em>. Vi kommer öva på att be om hjälp på rätt sätt.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Öppna Claude i en flik</h4>
+    <ol>
+      <li>Gå till <strong>claude.ai</strong>.</li>
+      <li>Logga in eller skapa ett konto (gratisversionen räcker).</li>
+      <li>Du ska ha denna flik öppen genom hela utbildningen.</li>
+      <li>Säg hej. Pröva: "Hej Claude, jag ska bygga en app som heter Sifferverket. Är du redo?"</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="claude">
+        <span>Jag har Claude öppen</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ AVSLUTNING ============ -->
+  <div class="memo">
+    <p><strong>Vad du nyss gjorde:</strong> Du har skaffat fyra konton, alla gratis, alla utan kort. Du har kopplat dem till varandra (GitHub-inloggningen i Supabase och Vercel sparar dig timmar senare). Du har precis byggt grunden för din digitala arbetsplats.</p>
+    <p>Det finns inget mer att göra i den här sprinten. Det är meningen.</p>
+  </div>
+
+  <div class="decision">
+    <h3>Sprint 0 avklarad</h3>
+    <p>Ta en kaffe. När du är redo, gå vidare till nästa sprint.</p>
+    <a href="/sprint-1/">Gå till Sprint 1 →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 1: Ditt skrivbord — Sifferverket</title>
+<meta name="description" content="Sprint 1 av Sifferverket-utbildningen: Ditt skrivbord. Få upp din första sida på internet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 1 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-0/">← Sprint 0</a>
+  <span class="nav-center">Sprint 1 — Ditt skrivbord</span>
+  <a href="#" class="disabled">Sprint 2 (snart)</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">1</span>
+    <span>Sprint Ett</span>
+  </div>
+  <h2 class="sprint-title">Ditt skrivbord</h2>
+  <p class="sprint-subtitle">— din första sida på internet, med ditt namn på.</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 30 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> Sprint 0 avklarad</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">I den här sprinten ska du få upp en webbsida på internet. Riktigt på internet. En adress du kan skicka till din pappa. Du kommer inte skriva en enda rad kod själv — Claude skriver den, du flyttar den till rätt plats, och Vercel publicerar den.</p>
+
+    <p>Det är viktigt att vi gör detta innan vi gör något annat. Anledningen är pedagogisk: när du har en URL som funkar, blir resten av utbildningen påtaglig. Du har nu en plats där siffrorna ska leva, en värld de ska bo i.</p>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Vad som händer i denna sprint</div>
+    <div class="diagram-row">
+      <div class="diagram-box">
+        <span class="icon">C</span>
+        Claude<br>skriver kod
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">G</span>
+        GitHub<br>förvarar koden
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">V</span>
+        Vercel<br>visar appen
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STEG 1 — BE CLAUDE ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Be Claude om en startsida</div>
+  </div>
+
+  <div class="prose">
+    <p>Vi börjar med det enklaste: en sida som säger ditt namn. Vi gör det med <strong>HTML</strong> — ett av webbens äldsta språk. HTML är inte programmering i den läskiga meningen; det är mer som att skriva en checklista som webbläsaren följer.</p>
+  </div>
+
+  <div class="claude-prompt">
+    Skriv en enkel HTML-sida för min app "Sifferverket". Den ska visa "Välkommen till Sifferverket" som rubrik och under det texten "Anställd: [DITT NAMN]". Bakgrunden ska vara off-white och texten mörkblågrön. Använd serif-typsnitt. Hela koden i en enda fil som heter index.html. Inga externa länkar.
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Få koden från Claude</h4>
+    <ol>
+      <li>Klistra in prompten ovan i din Claude-flik. Byt ut [DITT NAMN] mot ditt riktiga namn.</li>
+      <li>Claude kommer svara med en kodbit. Den börjar med <code>&lt;!DOCTYPE html&gt;</code>.</li>
+      <li>Klicka på "Copy"-knappen som dyker upp i Claudes svar — så slipper du markera manuellt.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="copy-code">
+        <span>Jag har koden i urklipp</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ STEG 2 — SPARA FILEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Skapa en fil på din dator</div>
+  </div>
+
+  <div class="prose">
+    <p>Nu ska den där koden landa i en fil. Vi använder Anteckningar (Notepad) — ja, det enkla programmet som funnits på Windows i decennier. Det räcker mer än väl.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Spara koden som en HTML-fil</h4>
+    <ol>
+      <li>Tryck på Windows-knappen och skriv "Anteckningar" — öppna programmet.</li>
+      <li>Klistra in koden (Ctrl + V).</li>
+      <li>Välj <strong>Arkiv → Spara som</strong>.</li>
+      <li>Skapa en ny mapp på skrivbordet som heter <strong>sifferverket</strong> och navigera in i den.</li>
+      <li>I rutan "Filnamn" skriv: <strong>"index.html"</strong> (med citattecken runt — annars lägger Anteckningar till .txt på slutet).</li>
+      <li>Under "Filformat" välj "Alla filer".</li>
+      <li>Klicka Spara.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="save-file">
+        <span>Jag har en fil index.html på min dator</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Pröva nu:</strong> Dubbelklicka på filen index.html i din mapp. Den ska öppnas i din webbläsare och visa din startsida. Ser du den? Då fungerar HTML på din dator — men det är bara du som ser den. Nästa steg: göra den synlig för hela världen.</p>
+  </div>
+
+  <!-- ============ STEG 3 — GITHUB ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Lägg upp koden på GitHub</div>
+  </div>
+
+  <div class="prose">
+    <p>Nu ska din fil flytta från ditt skrivbord till <em>biblioteket</em>. Vi gör det via GitHubs hemsida — du behöver inte installera något.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skapa ett repository och ladda upp filen</h4>
+    <ol>
+      <li>Gå till <strong>github.com</strong> och logga in.</li>
+      <li>Klicka på den gröna knappen "New" (eller "+" uppe till höger → "New repository").</li>
+      <li>Repository name: <strong>sifferverket-min-app</strong></li>
+      <li>Sätt det till <strong>Public</strong>.</li>
+      <li>Bocka i <strong>"Add a README file"</strong>.</li>
+      <li>Klicka "Create repository".</li>
+      <li>På nästa sida — klicka "Add file" → "Upload files".</li>
+      <li>Dra och släpp din index.html-fil från mappen på skrivbordet.</li>
+      <li>Scrolla ner. Skriv ett kort meddelande i fältet "Commit changes": <em>Första versionen</em>.</li>
+      <li>Klicka "Commit changes".</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="github-upload">
+        <span>Min fil ligger på GitHub</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad du precis gjorde:</strong> Du gjorde en <em>commit</em>. En commit är en ögonblicksbild av din kod. Du har just skapat den första versionen av din app, och GitHub kommer komma ihåg den för alltid. Senare kommer du göra fler commits, och kunna gå tillbaka till vilken som helst. Det är tidsmaskinen vi pratade om.</p>
+  </div>
+
+  <!-- ============ STEG 4 — VERCEL ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Koppla ihop GitHub med Vercel</div>
+  </div>
+
+  <div class="prose">
+    <p>Detta är magin. Du säger till Vercel: "Den här mappen på GitHub är min app. Visa den för världen." Och varje gång du ändrar något på GitHub kommer Vercel uppdatera världen automatiskt.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Publicera appen via Vercel</h4>
+    <ol>
+      <li>Gå till <strong>vercel.com</strong> och logga in.</li>
+      <li>Klicka "Add New..." → "Project".</li>
+      <li>Du ser en lista över dina GitHub-repositories. Hitta <strong>sifferverket-min-app</strong>.</li>
+      <li>Klicka "Import".</li>
+      <li>Lämna alla inställningar som de är. Klicka "Deploy".</li>
+      <li>Vänta 30–60 sekunder. Du ser konfetti när det är klart.</li>
+      <li>Klicka på den genererade URL-en.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="deploy">
+        <span>Min app är live på internet</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Andas.</strong> Du har en URL. Den fungerar på din mobil. Den fungerar för din kompis i Australien. Du har en app på internet. Det här är hela programmerar-yrkets grunddröm — från ingenting till något som finns. Du har just gjort det.</p>
+  </div>
+
+  <!-- ============ ORDLISTA ============ -->
+  <div class="step-heading">
+    <div class="step-num">v.</div>
+    <div class="step-title">Vad du nu kan</div>
+  </div>
+
+  <div class="prose">
+    <p>Innan vi går vidare — fyra ord du nu förstår, åtminstone i magkänslan:</p>
+  </div>
+
+  <dl style="margin-top: 24px;">
+    <div class="definition">
+      <dt>HTML</dt>
+      <dd>Språket som beskriver strukturen på en webbsida. "Här är en rubrik. Här är en knapp." Det är inte farligt.</dd>
+    </div>
+    <div class="definition">
+      <dt>Repository</dt>
+      <dd>En mapp på GitHub där en app:s kod bor. Förkortas "repo". Du har precis ett.</dd>
+    </div>
+    <div class="definition">
+      <dt>Commit</dt>
+      <dd>En sparpunkt. Som en sparad fil i ett gammalt datorspel — du kan alltid återvända hit.</dd>
+    </div>
+    <div class="definition">
+      <dt>Deploy</dt>
+      <dd>Att publicera en version av appen så att andra kan se den. Det är vad Vercel just gjorde åt dig.</dd>
+    </div>
+  </dl>
+
+  <div class="decision">
+    <h3>Sprint 1 avklarad</h3>
+    <p>Skicka URL-en till någon. Det är meningen att skryta lite nu.</p>
+    <a href="/">Tillbaka till översikten →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

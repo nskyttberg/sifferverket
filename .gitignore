@@ -1,0 +1,27 @@
+# Operativsystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editorer
+.vscode/
+.idea/
+*.swp
+*~
+
+# Claude Code
+.claude/
+
+# Lokala anteckningar
+NOTES.md
+TODO-private.md
+
+# Vercel (lokala build-artefakter, ej källkod)
+.vercel/
+
+# Loggar
+*.log
+npm-debug.log*
+
+# Beroenden (om vi någon gång lägger till dem)
+node_modules/
