@@ -257,6 +257,153 @@
     color: var(--paper);
   }
 
+  /* ============ NÄSTA TJÄNSTGÖRING ============ */
+  .next-mission { margin: 60px 0 24px; }
+  .next-mission:empty { display: none; }
+
+  .next-mission .label {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 18px;
+  }
+
+  .next-mission-card {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 36px 40px;
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+
+  .next-mission-card::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+
+  .next-mission-card:hover {
+    background: var(--paper-warm);
+  }
+
+  .next-mission-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 88px;
+    color: var(--teal-deep);
+    line-height: 1;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .next-mission-card .info .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    line-height: 1.15;
+  }
+
+  .next-mission-card .info .sub {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--ink-soft);
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .next-mission-card .info .progress-note {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+
+  .next-mission-card .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .next-mission-card:hover .cta {
+    background: var(--teal-deep);
+    border-color: var(--teal-deep);
+  }
+
+  /* ============ TIDIGARE TJÄNSTGÖRING ============ */
+  .past-record { margin: 0 0 60px; }
+  .past-record:empty { display: none; }
+
+  .past-record-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 24px;
+    border: 1px dashed var(--rule);
+    background: rgba(78, 197, 203, 0.04);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+
+  .past-record-card:hover {
+    border-color: var(--teal-deep);
+    background: rgba(78, 197, 203, 0.08);
+  }
+
+  .past-record-card .label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .past-record-card .text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  .past-record-card .text strong {
+    color: var(--teal-deep);
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .past-record-card .review {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    white-space: nowrap;
+  }
+
+  /* ============ STATUS-PIPS PÅ SPRINT-CARDS ============ */
+  .sprint-card.status-done .meta .status { color: var(--teal-deep); font-weight: 500; }
+  .sprint-card.status-in-progress .meta .status { color: var(--warning); }
+  .sprint-card.status-not-started .meta .status { color: var(--ink-faint); }
+
   @media (max-width: 640px) {
     .welcome h1 { font-size: 56px; }
     .sprint-card {
@@ -266,6 +413,20 @@
     .sprint-card .meta { display: none; }
     .sprint-card .num { font-size: 40px; }
     .sprint-list-heading h2 { font-size: 32px; }
+    .next-mission-card {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .next-mission-card .num { font-size: 64px; }
+    .next-mission-card .info .title { font-size: 26px; }
+    .next-mission-card .info .sub { font-size: 16px; }
+    .past-record-card {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      text-align: center;
+    }
   }
 </style>
 </head>
@@ -313,110 +474,22 @@
     <p>Med <em>flödet</em> menar vi: var bor koden, var bor datan, vad händer när du klickar "spara", och hur i hela friden hänger allt ihop? När du har det i magkänslan kan du be Claude (din digitala kollega) att skriva koden — och du kommer förstå vad du tittar på.</p>
   </section>
 
+  <!-- ============ NÄSTA + TIDIGARE TJÄNSTGÖRING (dynamiska) ============ -->
+  <section class="next-mission" id="nextMission"></section>
+  <section class="past-record" id="pastRecord"></section>
+
   <!-- ============ SPRINT-ÖVERSIKT ============ -->
   <div class="sprint-list-heading">
     <div class="label">Tjänstgöringsschema</div>
     <h2>De <em>sju sprintarna</em></h2>
   </div>
 
-  <nav class="sprint-list">
-
-    <a href="/sprint-0/" class="sprint-card">
-      <div class="num">0</div>
-      <div class="info">
-        <div class="title">Anställningsdagen</div>
-        <div class="sub">— eller, vad i hela friden är det här jag har skrivit på?</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 20 min</div>
-        <div>Inga konton än</div>
-      </div>
-    </a>
-
-    <a href="/sprint-1/" class="sprint-card">
-      <div class="num">i</div>
-      <div class="info">
-        <div class="title">Ditt skrivbord</div>
-        <div class="sub">— din första sida på internet, med ditt namn på.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 30 min</div>
-        <div>Första deploy</div>
-      </div>
-    </a>
-
-    <a href="/sprint-2/" class="sprint-card">
-      <div class="num">ii</div>
-      <div class="info">
-        <div class="title">Siffrorna anländer</div>
-        <div class="sub">— en databas, ett arkiv, en ny lojalitet.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 30 min</div>
-        <div>Första databasen</div>
-      </div>
-    </a>
-
-    <a href="#" class="sprint-card locked">
-      <div class="num">iii</div>
-      <div class="info">
-        <div class="title">Hämta från arkivet</div>
-        <div class="sub">— när receptionen lär sig prata med arkivet.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 40 min</div>
-        <div>Kommer snart</div>
-      </div>
-    </a>
-
-    <a href="#" class="sprint-card locked">
-      <div class="num">iv</div>
-      <div class="info">
-        <div class="title">Raffineringen</div>
-        <div class="sub">— siffrorna sorteras i sina rättmätiga hinkar.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 40 min</div>
-        <div>Kommer snart</div>
-      </div>
-    </a>
-
-    <a href="#" class="sprint-card locked">
-      <div class="num">v</div>
-      <div class="info">
-        <div class="title">Ångra, ångra, ångra</div>
-        <div class="sub">— biblioteket öppnar och tidsmaskinen demonstreras.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 25 min</div>
-        <div>Kommer snart</div>
-      </div>
-    </a>
-
-    <a href="#" class="sprint-card locked">
-      <div class="num">vi</div>
-      <div class="info">
-        <div class="title">Flera avdelningar</div>
-        <div class="sub">— huset växer, och du växer med det.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 35 min</div>
-        <div>Kommer snart</div>
-      </div>
-    </a>
-
-    <a href="#" class="sprint-card locked">
-      <div class="num">vii</div>
-      <div class="info">
-        <div class="title">Examen</div>
-        <div class="sub">— en uppgift utan facit, en tilltro utan prov.</div>
-      </div>
-      <div class="meta">
-        <div class="duration">~ 30 min</div>
-        <div>Kommer snart</div>
-      </div>
-    </a>
-
+  <nav class="sprint-list" id="sprintList">
+    <noscript>
+      <p style="text-align:center; color: var(--ink-faint); font-size:14px;">
+        Sprintlistan kräver JavaScript. Aktivera det och ladda om sidan.
+      </p>
+    </noscript>
   </nav>
 
   <!-- ============ META-DOGFOOD-RUTA ============ -->
@@ -435,5 +508,176 @@
 </footer>
 
 <script src="/assets/scripts.js"></script>
+
+<script>
+/* =============================================================
+   LANDNINGSSIDA — SPRINT-DATA OCH DYNAMISK RENDERING
+   Lägg bara till nya sprintar i SPRINTS-arrayen — inget HTML-arbete.
+   - url: null betyder "ej släppt än" (renderas låst)
+   - steps: id:n som matchar checkboxar (data-step) på sprintsidorna
+   ============================================================= */
+(function () {
+  'use strict';
+
+  const SPRINTS = [
+    { id: 0, num: '0',   title: 'Anställningsdagen',
+      sub: '— eller, vad i hela friden är det här jag har skrivit på?',
+      duration: '~ 20 min', meta: 'Inga konton än',
+      url: '/sprint-0/',
+      steps: ['github', 'supabase', 'vercel', 'claude'] },
+
+    { id: 1, num: 'i',   title: 'Ditt skrivbord',
+      sub: '— din första sida på internet, med ditt namn på.',
+      duration: '~ 30 min', meta: 'Första deploy',
+      url: '/sprint-1/',
+      steps: ['copy-code', 'save-file', 'github-upload', 'deploy'] },
+
+    { id: 2, num: 'ii',  title: 'Siffrorna anländer',
+      sub: '— en databas, ett arkiv, en ny lojalitet.',
+      duration: '~ 30 min', meta: 'Första databasen',
+      url: '/sprint-2/',
+      steps: ['supabase-project', 'supabase-table', 'supabase-rows'] },
+
+    { id: 3, num: 'iii', title: 'Hämta från arkivet',
+      sub: '— när receptionen lär sig prata med arkivet.',
+      duration: '~ 40 min', meta: 'Kommer snart',
+      url: null, steps: [] },
+
+    { id: 4, num: 'iv',  title: 'Raffineringen',
+      sub: '— siffrorna sorteras i sina rättmätiga hinkar.',
+      duration: '~ 40 min', meta: 'Kommer snart',
+      url: null, steps: [] },
+
+    { id: 5, num: 'v',   title: 'Ångra, ångra, ångra',
+      sub: '— biblioteket öppnar och tidsmaskinen demonstreras.',
+      duration: '~ 25 min', meta: 'Kommer snart',
+      url: null, steps: [] },
+
+    { id: 6, num: 'vi',  title: 'Flera avdelningar',
+      sub: '— huset växer, och du växer med det.',
+      duration: '~ 35 min', meta: 'Kommer snart',
+      url: null, steps: [] },
+
+    { id: 7, num: 'vii', title: 'Examen',
+      sub: '— en uppgift utan facit, en tilltro utan prov.',
+      duration: '~ 30 min', meta: 'Kommer snart',
+      url: null, steps: [] }
+  ];
+
+  function stepsDone(s) {
+    return s.steps.filter(k => localStorage.getItem('sv-step-' + k) === 'true').length;
+  }
+
+  function getStatus(s) {
+    if (!s.url) return 'locked';
+    if (!s.steps.length) return 'not-started';
+    const done = stepsDone(s);
+    if (done === 0) return 'not-started';
+    if (done >= s.steps.length) return 'done';
+    return 'in-progress';
+  }
+
+  function findNextSprint() {
+    return SPRINTS.find(s => s.url && getStatus(s) !== 'done') || null;
+  }
+
+  function findLastDone() {
+    const done = SPRINTS.filter(s => getStatus(s) === 'done');
+    return done.length ? done[done.length - 1] : null;
+  }
+
+  const CTA = {
+    'not-started': 'Påbörja',
+    'in-progress': 'Återuppta',
+    'done':        'Granska igen'
+  };
+
+  function metaLine(s, status) {
+    if (status === 'locked')      return s.meta;
+    if (status === 'done')        return 'Klar ✓';
+    if (status === 'in-progress') return stepsDone(s) + ' av ' + s.steps.length + ' steg';
+    return s.meta;  /* not-started: visa flavor-text */
+  }
+
+  function escape(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  function renderNextMission() {
+    const host = document.getElementById('nextMission');
+    if (!host) return;
+    const next = findNextSprint();
+    if (!next) { host.innerHTML = ''; return; }
+    const status = getStatus(next);
+    let note = '';
+    if (status === 'in-progress') {
+      note = '<div class="progress-note">' + stepsDone(next) + ' av ' + next.steps.length + ' steg klara</div>';
+    } else if (status === 'not-started') {
+      note = '<div class="progress-note">' + (next.id === 0 ? 'Börja här' : 'Redo att starta') + '</div>';
+    }
+    host.innerHTML =
+      '<div class="label">Nästa Tjänstgöring</div>' +
+      '<a class="next-mission-card" href="' + next.url + '">' +
+        '<div class="num">' + escape(next.num) + '</div>' +
+        '<div class="info">' +
+          '<div class="title">' + escape(next.title) + '</div>' +
+          '<div class="sub">' + escape(next.sub) + '</div>' +
+          note +
+        '</div>' +
+        '<div class="cta">' + CTA[status] + ' →</div>' +
+      '</a>';
+  }
+
+  function renderPastRecord() {
+    const host = document.getElementById('pastRecord');
+    if (!host) return;
+    const past = findLastDone();
+    if (!past) { host.innerHTML = ''; return; }
+    host.innerHTML =
+      '<a class="past-record-card" href="' + past.url + '">' +
+        '<div class="label">Senast slutfört</div>' +
+        '<div class="text">Sprint ' + escape(past.num) + ' — <strong>' + escape(past.title) + '</strong></div>' +
+        '<div class="review">Granska igen →</div>' +
+      '</a>';
+  }
+
+  function renderSprintList() {
+    const host = document.getElementById('sprintList');
+    if (!host) return;
+    host.innerHTML = SPRINTS.map(s => {
+      const status = getStatus(s);
+      const isLocked = status === 'locked';
+      const href = isLocked ? '#' : s.url;
+      const cls = 'sprint-card status-' + status + (isLocked ? ' locked' : '');
+      return '<a href="' + href + '" class="' + cls + '">' +
+               '<div class="num">' + escape(s.num) + '</div>' +
+               '<div class="info">' +
+                 '<div class="title">' + escape(s.title) + '</div>' +
+                 '<div class="sub">' + escape(s.sub) + '</div>' +
+               '</div>' +
+               '<div class="meta">' +
+                 '<div class="duration">' + escape(s.duration) + '</div>' +
+                 '<div class="status">' + metaLine(s, status) + '</div>' +
+               '</div>' +
+             '</a>';
+    }).join('');
+  }
+
+  function renderAll() {
+    renderNextMission();
+    renderPastRecord();
+    renderSprintList();
+  }
+
+  document.addEventListener('DOMContentLoaded', renderAll);
+
+  /* Re-render om en annan flik bockar i något */
+  window.addEventListener('storage', e => {
+    if (e.key && e.key.indexOf('sv-step-') === 0) renderAll();
+  });
+})();
+</script>
 </body>
 </html>
