@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 2: Siffrorna anländer — Sifferverket</title>
+<meta name="description" content="Sprint 2 av Sifferverket-utbildningen: Siffrorna anländer. Skapa din första databas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* ============ SIFFERVERKETS PRINCIPER ============
+     Återkommande visuell komponent. Återanvänds i Sprint 3, 4, ...
+     Bara byt .numeral, .canon, .gloss-innehåll. */
+  .principle {
+    margin: 56px auto;
+    max-width: 64ch;
+    padding: 56px 48px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    position: relative;
+    text-align: left;
+  }
+
+  .principle::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+
+  .principle::before {
+    content: '· Sifferverkets Principer ·';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 16px;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .principle .preamble {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    text-align: center;
+  }
+
+  .principle .numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--teal-deep);
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .principle .canon {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ink);
+    text-align: center;
+    margin: 0 auto 36px;
+    max-width: 24ch;
+    letter-spacing: -0.005em;
+  }
+
+  .principle .gloss {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .principle .gloss p {
+    margin-bottom: 14px;
+  }
+
+  .principle .gloss p:last-child {
+    margin-bottom: 0;
+  }
+
+  .principle .gloss em {
+    color: var(--teal-deep);
+    font-style: normal;
+  }
+
+  .principle .closing {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--rule);
+    text-align: right;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 640px) {
+    .principle { padding: 44px 28px; }
+    .principle .numeral { font-size: 48px; }
+    .principle .canon { font-size: 22px; }
+    .principle .gloss { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 2 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-1/">← Sprint 1</a>
+  <span class="nav-center">Sprint 2 — Siffrorna anländer</span>
+  <a href="#" class="disabled">Sprint 3 (snart)</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">2</span>
+    <span>Sprint Två</span>
+  </div>
+  <h2 class="sprint-title">Siffrorna anländer</h2>
+  <p class="sprint-subtitle">— en databas, ett arkiv, en ny lojalitet.</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 30 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> Sprint 1 avklarad</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">I förra sprinten reste sig din reception. Stolt, tom, väntande. Nu är det dags att bygga arkivet — det rum där siffrorna ska bo. Du kommer inte koppla ihop dem än. Det är meningen. Tomma rum ska vara tomma en stund innan möblerna kommer in.</p>
+
+    <p>Hittills har du jobbat med <strong>HTML</strong> — språket för det användaren ser. I den här sprinten möter du något helt annat: en <strong>databas</strong>. Det är en separat plats där information bevaras strukturerat. Inte i en fil på din dator. Inte på Vercel. På en egen server, i ett eget rum, med en egen ingång.</p>
+
+    <p>Tjänsten vi använder heter <strong>Supabase</strong>. Den ger dig en riktig databas, gratis, utan att du behöver installera något. Du klickar dig fram i deras webbgränssnitt — precis som du klickade dig fram i Vercels.</p>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Vad ett arkiv består av</div>
+    <div class="diagram-row">
+      <div class="diagram-box">
+        <span class="icon">P</span>
+        Projekt<br>en hel byggnad
+      </div>
+      <div class="diagram-arrow">⊃</div>
+      <div class="diagram-box">
+        <span class="icon">T</span>
+        Tabell<br>ett rum
+      </div>
+      <div class="diagram-arrow">⊃</div>
+      <div class="diagram-box">
+        <span class="icon">R</span>
+        Rad<br>ett dokument
+      </div>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Översättning:</strong> Ditt <em>projekt</em> är hela databasen — som hela huset. Inuti finns en eller flera <em>tabeller</em> — som rummen i huset. Varje tabell innehåller <em>rader</em> — som enskilda kort i ett kortregister. Varje rad har samma fält (kolumner) men olika värden.</p>
+    <p>Idag skapar du ett projekt, ett rum (tabell), och fyra kort (rader). Det är allt.</p>
+  </div>
+
+  <!-- ============ STEG i — SUPABASE-PROJEKT ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Skapa ditt Supabase-projekt</div>
+  </div>
+
+  <div class="prose">
+    <p>I Sprint 0 skapade du ett Supabase-konto, men du klickade aldrig på "New project". Nu är det dags. Ett projekt motsvarar en hel databas — ditt eget privata datakassaskåp.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skapa ett nytt projekt på Supabase</h4>
+    <ol>
+      <li>Gå till <strong>supabase.com</strong> och logga in.</li>
+      <li>Klicka på "New project" (grön knapp).</li>
+      <li>Project name: <strong>sifferverket</strong></li>
+      <li>Database password: klicka på "Generate a password" och spara den i en lösenordshanterare. Du kommer behöva den senare. (Inga oroligheter om du tappar bort den — det går att återställa.)</li>
+      <li>Region: välj <strong>Europe (Frankfurt)</strong> — närmast Sverige.</li>
+      <li>Pricing plan: Free.</li>
+      <li>Klicka "Create new project". Du får vänta 1–2 minuter medan Supabase bygger din databas. Drick vatten.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="supabase-project">
+        <span>Mitt Supabase-projekt är skapat</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad du nyss gjorde:</strong> Du har just startat upp en riktig PostgreSQL-databas i ett datacenter någonstans i Frankfurt. Du har en egen server. Det är inte en delad mapp — det är <em>din</em> databas, med <em>ditt</em> lösenord. Det är en stor sak, även om det inte kändes så när du klickade.</p>
+  </div>
+
+  <!-- ============ STEG ii — SKAPA TABELLEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Skapa din första tabell</div>
+  </div>
+
+  <div class="prose">
+    <p>När projektet har laddat klart landar du på en dashboard. I vänstermarginalen finns en rad ikoner — den vi vill åt ser ut som ett rutnät, en liten tabell. Det är <strong>Table Editor</strong>.</p>
+    <p>Här inne ska du skapa ditt första rum: tabellen <code>siffror</code>. Den kommer ha fyra kolumner: ett id, ett värde, en känsla, och en tidsstämpel. Det räcker för all vår framtida raffineringsvirksamhet.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skapa tabellen "siffror"</h4>
+    <ol>
+      <li>Klicka på rutnäts-ikonen i vänstermarginalen — "Table Editor".</li>
+      <li>Klicka "Create a new table" (grön knapp i mitten av sidan).</li>
+      <li>Name: <strong>siffror</strong></li>
+      <li>Description: <em>Råa och raffinerade siffror.</em> (valfritt men trevligt)</li>
+      <li>Lämna "Enable Row Level Security" påklickad. Vi kommer behöva förstå den senare; just nu litar vi på Supabases standardsäkerhet.</li>
+      <li>Under "Columns" ser du två förvalda: <code>id</code> och <code>created_at</code>. Lämna dem.</li>
+      <li>Klicka "Add column" två gånger till för att lägga till:
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li><strong>varde</strong> · Type: <code>int4</code> · Default: lämna tomt</li>
+          <li><strong>kansla</strong> · Type: <code>text</code> · Default: lämna tomt</li>
+        </ul>
+      </li>
+      <li>Klicka "Save". Vänta några sekunder.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="supabase-table">
+        <span>Tabellen "siffror" finns</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>En liten språkkommentar:</strong> Vi använder <code>varde</code> och <code>kansla</code> utan å, ä, ö. Det är ingen ren språklig princip — det är en teknisk vana. Databaser hanterar svenska tecken bra, men kod runt dem hanterar dem ojämnt. När du senare frågar Claude att skriva kod blir det enklare om kolumnnamnen är ASCII-rena.</p>
+  </div>
+
+  <!-- ============ STEG iii — LÄGGA IN RADERNA ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Lägg in dina första fyra rader</div>
+  </div>
+
+  <div class="prose">
+    <p>I Sifferverket sorteras siffror efter sin känslomässiga laddning. Det finns fyra hinkar — fyra <em>känslor</em> som varje siffra till slut ska tillhöra:</p>
+  </div>
+
+  <dl style="margin: 24px 0; max-width: 64ch;">
+    <div class="definition">
+      <dt>Oro</dt>
+      <dd>Siffror som rör sig långsamt, viskande. De som ligger kvar i bakhuvudet.</dd>
+    </div>
+    <div class="definition">
+      <dt>Glädje</dt>
+      <dd>Siffror som lyfter. Som verkar för stora, för runda, nästan misstänksamt nöjda.</dd>
+    </div>
+    <div class="definition">
+      <dt>Vrede</dt>
+      <dd>Siffror med vass kant. De som tycks ha ett ärende.</dd>
+    </div>
+    <div class="definition">
+      <dt>Längtan</dt>
+      <dd>Siffror som pekar mot något som inte finns. Asymmetriska, ofärdiga.</dd>
+    </div>
+  </dl>
+
+  <div class="prose">
+    <p>Du ska nu lägga in en exempel-siffra för varje känsla. Det är test-data — den behövs för att vi i Sprint 3 ska ha något att hämta när receptionen pratar med arkivet för första gången.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Lägg in fyra rader manuellt</h4>
+    <ol>
+      <li>I Table Editor, med tabellen "siffror" öppen, klicka på "Insert" → "Insert row".</li>
+      <li>Lämna <code>id</code> och <code>created_at</code> tomma — Supabase fyller i dem automatiskt.</li>
+      <li>Fyll i: <code>varde</code>: <strong>17</strong> · <code>kansla</code>: <strong>oro</strong> — klicka Save.</li>
+      <li>Upprepa tre gånger till:
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li><code>varde</code>: <strong>42</strong> · <code>kansla</code>: <strong>glädje</strong></li>
+          <li><code>varde</code>: <strong>83</strong> · <code>kansla</code>: <strong>vrede</strong></li>
+          <li><code>varde</code>: <strong>9</strong> · <code>kansla</code>: <strong>längtan</strong></li>
+        </ul>
+      </li>
+      <li>När du är klar ska tabellen ha fyra rader. Du kan nu se dem i listan.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="supabase-rows">
+        <span>Fyra rader finns i tabellen</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Stanna en sekund.</strong> Det du tittar på i Supabase nu är en riktig databas. Den finns. Du har skapat den. Den ligger i Frankfurt och kommer ligga kvar oavsett om du stänger din dator. Om någon annan med rätt nyckel skulle fråga den "vilka siffror har du?" så skulle den svara med just dessa fyra. Det är en stor sak.</p>
+  </div>
+
+  <!-- ============ INFORMATION FRÅN LEDNINGEN — PRINCIP I ============ -->
+  <aside class="principle">
+    <div class="preamble">
+      Sifferverket är måna om sina siffror. När du i kommande sprintar låter Claude skriva kod som rör arkivet — kom ihåg detta:
+    </div>
+
+    <div class="numeral">I.</div>
+
+    <p class="canon">Skriv kod om siffrorna. Skriv aldrig siffrorna i koden.</p>
+
+    <div class="gloss">
+      <p>Tänk dig att du anlitar en snickare för att bygga ett vitrinskåp. Snickaren ritar, mäter, väljer trä, sätter samman. Snickaren behöver inte se vad du tänker ställa i skåpet.</p>
+      <p>Claude är din snickare. Koden hen skriver är vitrinskåpet. Siffrorna är det du ställer in.</p>
+      <p>När du i kommande sprintar arbetar med Claude — visa hur arkivet är uppbyggt, hur tabellen ser ut, vad som ska hända när någon klickar. Men låt aldrig Claude se de faktiska siffrorna i ditt arkiv. De <em>stannar i Frankfurt</em>. De passerar din egen reception. De behöver aldrig passera Claude.</p>
+      <p>Det är inte misstroende. Det är arbetshygien.</p>
+    </div>
+
+    <div class="closing">— Sifferverkets Ledning</div>
+  </aside>
+
+  <!-- ============ ORDLISTA ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Vad du nu kan</div>
+  </div>
+
+  <div class="prose">
+    <p>Tre nya ord du nu förstår, åtminstone i magkänslan:</p>
+  </div>
+
+  <dl style="margin-top: 24px;">
+    <div class="definition">
+      <dt>Databas</dt>
+      <dd>En plats där data bevaras strukturerat. Inte en fil — en tjänst. Du frågar den, den svarar.</dd>
+    </div>
+    <div class="definition">
+      <dt>Tabell</dt>
+      <dd>En samling rader med samma struktur. Som ett kalkylblad, men på allvar. Alla rader har samma kolumner.</dd>
+    </div>
+    <div class="definition">
+      <dt>Rad</dt>
+      <dd>Ett enskilt dokument i tabellen. I vårt fall: en siffra med en känsla. Ett <em>kort i registret</em>.</dd>
+    </div>
+  </dl>
+
+  <div class="decision">
+    <h3>Sprint 2 avklarad</h3>
+    <p>Arkivet är byggt. Receptionen står tom och väntar. I nästa sprint kopplar vi ihop dem.</p>
+    <a href="/">Tillbaka till översikten →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

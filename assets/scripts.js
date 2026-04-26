@@ -59,7 +59,9 @@
     // Sprint 0
     'github', 'supabase', 'vercel', 'claude',
     // Sprint 1
-    'copy-code', 'save-file', 'github-upload', 'deploy'
+    'copy-code', 'save-file', 'github-upload', 'deploy',
+    // Sprint 2
+    'supabase-project', 'supabase-table', 'supabase-rows'
   ];
 
   function initProgressTracking() {
