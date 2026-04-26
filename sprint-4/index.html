@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 4: Raffineringen — Sifferverket</title>
+<meta name="description" content="Sprint 4 av Sifferverket-utbildningen: Raffinera siffrorna i ditt arkiv för första gången.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* ============ SIFFERVERKETS PRINCIPER ============
+     Återkommande visuell komponent. Kopierad från sprint-2/3.
+     Strukturen är fast — bara .numeral, .canon, .gloss-innehåll varierar. */
+  .principle {
+    margin: 56px auto;
+    max-width: 64ch;
+    padding: 56px 48px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    position: relative;
+    text-align: left;
+  }
+
+  .principle::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+
+  .principle::before {
+    content: '· Sifferverkets Principer ·';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 16px;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .principle .preamble {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    text-align: center;
+  }
+
+  .principle .numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--teal-deep);
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .principle .canon {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ink);
+    text-align: center;
+    margin: 0 auto 36px;
+    max-width: 24ch;
+    letter-spacing: -0.005em;
+  }
+
+  .principle .gloss {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .principle .gloss p {
+    margin-bottom: 14px;
+  }
+
+  .principle .gloss p:last-child {
+    margin-bottom: 0;
+  }
+
+  .principle .gloss em {
+    color: var(--teal-deep);
+    font-style: normal;
+  }
+
+  .principle .closing {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--rule);
+    text-align: right;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 640px) {
+    .principle { padding: 44px 28px; }
+    .principle .numeral { font-size: 48px; }
+    .principle .canon { font-size: 22px; }
+    .principle .gloss { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 4 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-3/">← Sprint 3</a>
+  <span class="nav-center">Sprint 4 — Raffineringen</span>
+  <a href="#" class="disabled">Sprint 5 (snart)</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">4</span>
+    <span>Sprint Fyra</span>
+  </div>
+  <h2 class="sprint-title">Raffineringen</h2>
+  <p class="sprint-subtitle">— det arbete som givit Sifferverket sitt namn.</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 40 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> Sprint 3 avklarad</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">I förra sprinten såg du dina siffror för första gången. Idag ska du göra något med dem. Du ska raffinera dem — sortera dem, varsamt, en efter en, mot deras rättmätiga känsla. Det är arbetet som har givit Sifferverket dess namn. Det är därför du är anställd.</p>
+
+    <p>Hittills har din app bara <strong>läst</strong> från arkivet. Idag lär du den att <strong>skriva</strong> tillbaka. När du drar en siffra mot ett hörn händer två saker samtidigt: siffran flyttas visuellt på din skärm, och en rad i din databas i Frankfurt uppdateras. Det är samma rörelse — bara att den ena är synlig och den andra inte.</p>
+
+    <p>Innan vi börjar måste vi göra en liten justering i arkivet. När vi byggde tabellen i Sprint 2 visste vi inte ännu vad vi förberedde för. Det vet vi nu. Det är så det fungerar i alla riktiga arkiv: man bygger om medan man bygger upp.</p>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Vad som händer i denna sprint</div>
+    <div class="diagram-row">
+      <div class="diagram-box">
+        <span class="icon">A</span>
+        Arkivet<br>får ny kolumn
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">K</span>
+        Koden<br>uppdateras
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">D</span>
+        Du<br>raffinerar
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STEG i — LÄGG TILL STATUS-KOLUMNEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Lägg till status-kolumnen</div>
+  </div>
+
+  <div class="prose">
+    <p>Hittills har varje rad i tabellen <code>siffror</code> haft tre kolumner som betyder något: <code>id</code>, <code>varde</code>, och <code>kansla</code>. Idag lägger vi till en till: <code>status</code>. Den ska säga om en siffra är <strong>inkommande</strong> (väntar på att bli raffinerad) eller <strong>raffinerad</strong> (klar, sorterad, försonad).</p>
+    <p>Alla dina fyra befintliga siffror kommer automatiskt få status <em>inkommande</em>. Det är så det ska vara. De har varit inkommande sedan Sprint 2 — vi har bara inte haft ord för det.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Lägg till en kolumn i tabellen "siffror"</h4>
+    <ol>
+      <li>Gå till <strong>supabase.com</strong> och öppna ditt sifferverket-projekt.</li>
+      <li>Klicka på Table Editor (rutnäts-ikonen i vänstermarginalen).</li>
+      <li>Öppna tabellen <strong>siffror</strong>.</li>
+      <li>Klicka på <strong>"+"</strong> bredvid den sista kolumnen — eller "Edit table" och sedan "Add column" beroende på Supabases aktuella gränssnitt.</li>
+      <li>Konfigurera den nya kolumnen:
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li>Name: <strong>status</strong></li>
+          <li>Type: <strong>text</strong></li>
+          <li>Default value: <strong>inkommande</strong></li>
+          <li>Lämna "Is Nullable" påklickad — det är okej</li>
+        </ul>
+      </li>
+      <li>Klicka Save.</li>
+      <li>Gå tillbaka till tabellvyn. Alla fyra rader ska nu ha <code>status = "inkommande"</code> automatiskt.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="refine-add-status">
+        <span>Status-kolumnen finns och alla rader är "inkommande"</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad du nyss gjorde:</strong> Du gjorde en <em>schema-migration</em>. Tabellens form ändrades, men datan inuti den följde med — alla befintliga rader fick sin nya kolumn ifylld med default-värdet. Det är en av de vanligaste operationerna i programmerandets vardag, och du gjorde den på 30 sekunder med musen.</p>
+  </div>
+
+  <!-- ============ PRINCIP III — INFORMATION FRÅN LEDNINGEN ============ -->
+  <aside class="principle">
+    <div class="preamble">
+      Sifferverket är måna om sina siffror — och om vad siffrorna <em>är på väg att bli</em>. Idag möter du det första exemplet på att en rad inte är fast i sin form. Den lever i tillstånd.
+    </div>
+
+    <div class="numeral">III.</div>
+
+    <p class="canon">Datan är inte sin form. Datan är sina tillstånd.</p>
+
+    <div class="gloss">
+      <p>En rad i ett arkiv är inte ett föremål. Den är ett <em>förlopp</em>. Idag är samma rad <em>inkommande</em>; imorgon kan den vara <em>raffinerad</em>; om en månad kan den vara <em>arkiverad</em>. Värdet i kolumnen <em>varde</em> kanske aldrig ändras — men radens roll i världen ändras hela tiden.</p>
+      <p>Det är därför vi inte raderar siffror när vi är klara med dem. Vi flyttar inte heller över dem till en annan tabell. Vi <em>uppdaterar deras tillstånd</em>. Den 17 du raffinerar idag kommer att finnas kvar imorgon — fast som en annan version av sig själv.</p>
+      <p>När du senare bygger system där människor anställs, varor levereras, fakturor betalas — kom ihåg detta. Tabellen ska inte heta <em>anställda</em>. Den ska heta <em>anställningar</em>. Inte <em>fakturor</em>, utan <em>fakturors_tillstånd</em>. Inte ett substantiv, utan ett verb i förändring.</p>
+      <p>Det är inte bara teknik. Det är ett sätt att se världen.</p>
+    </div>
+
+    <div class="closing">— Sifferverkets Ledning</div>
+  </aside>
+
+  <!-- ============ STEG ii — BE CLAUDE SKRIVA RAFFINERINGS-KODEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Be Claude bygga raffineringen</div>
+  </div>
+
+  <div class="prose">
+    <p>Nu ska din app växa. Den ska inte bara visa siffror längre — den ska låta dig <em>flytta</em> dem. Du klistrar in nedanstående prompt i Claude. Märk att vi fortfarande inte ger Claude några siffror — bara strukturen, färgerna, beteendet. Princip I.</p>
+  </div>
+
+  <div class="claude-prompt">
+    Hej Claude. Jag ska uppdatera min Sifferverket-app. Den finns redan och hämtar rader från en Supabase-tabell "siffror" som nu har kolumnerna: id, varde (heltal), kansla (text — ett av "oro", "gladje", "vrede", "langtan"), status (text — "inkommande" eller "raffinerad"), created_at. Skriv en ny komplett index.html som:
+
+    (1) Visar rubriken "Välkommen till Sifferverket" och under det "Anställd: [DITT NAMN]".
+
+    (2) Hämtar alla rader där status = 'inkommande', sorterade efter created_at fallande. Visar upp till 8 av dem i en 3×3-matris — mittencellen ska alltid visa bokstaven S inom en cirkel (Sifferverkets sigill). Övriga celler som saknar siffra ska visa en liten prick (·).
+
+    (3) Varje siffra visas i italic Cormorant Garamond serif, stor (cirka 48px), och färgsätts efter sin kansla:
+      - oro = #5a6b6e (dimgrå)
+      - gladje = #c4a574 (varm gul-brun)
+      - vrede = #c44a1f (rost)
+      - langtan = #0e4d52 (djup teal)
+
+    (4) Runt matrisen ska fyra cirkulära "hörn-zoner" placeras: uppe-vänster = Oro, uppe-höger = Glädje, nere-vänster = Vrede, nere-höger = Längtan. Varje hörn har sin namn-etikett i italic serif och en romersk siffra (I, II, III, IV) under. Hörnens kantfärg matchar respektive känslofärg.
+
+    (5) Varje siffra ska kunna dras (drag and drop) med både mus och touch (använd Pointer Events). När en siffra dras: om den släpps över hörnet med samma kansla — uppdatera raden i Supabase med status='raffinerad', animera siffran in i hörnet och låt den fade:a bort, hämta sedan om datan så matrisen uppdateras. Om den släpps över FEL hörn — visa kort meddelande "Den siffran hör inte hemma där", låt hörnet skälva, och låt siffran glida tillbaka till sin plats. Om släppt utanför ett hörn — bara glid tillbaka, inget meddelande.
+
+    (6) När det inte finns några inkommande siffror kvar: dölj matrisen och visa istället texten "Inga inkommande siffror. Tjänstgöringen kan fortgå när nya siffror anländer." i italic Cormorant Garamond.
+
+    (7) Använd off-white bakgrund (#e8e6dd) och mörkblågrön text (#0a2a30) som baspalett. Hela koden i en fil. Inga externa filer förutom Cormorant Garamond från Google Fonts och Supabase JS från CDN. Ersätt {SUPABASE_URL} och {SUPABASE_ANON_KEY} med platshållare jag själv ska byta ut.
+
+    (8) Kommentera varje viktig kodrad med // så att en novis förstår vad som händer. Var särskilt tydlig kring UPDATE-anropet till Supabase — det är nytt för mig.
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skicka prompten till Claude</h4>
+    <ol>
+      <li>Klistra in prompten ovan i din Claude-flik. Byt ut <strong>[DITT NAMN]</strong> mot ditt riktiga namn.</li>
+      <li>Claude svarar med en lång HTML-fil. Den är längre än någon tidigare — det är väntat.</li>
+      <li>Klicka på "Copy"-knappen i Claudes svar för att få hela koden i urklipp.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="refine-write-prompt">
+        <span>Jag har den nya koden i urklipp</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Lägg märke till:</strong> Du har just bett Claude bygga ett interaktivt arbetsverktyg utan att Claude någonsin sett en enda av dina siffror. Strukturen räckte. Det är vad Princip I är värd: en hel app, byggd kring data som aldrig lämnar din kontroll.</p>
+  </div>
+
+  <!-- ============ STEG iii — KLISTRA IN DEN NYA KODEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Uppdatera index.html lokalt</div>
+  </div>
+
+  <div class="prose">
+    <p>Samma flöde som i Sprint 3: byt ut filen, sätt in dina värden, testa lokalt.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Byt ut din lokala index.html</h4>
+    <ol>
+      <li>Öppna mappen <strong>sifferverket</strong> på ditt skrivbord.</li>
+      <li>Högerklicka på <strong>index.html</strong> → "Öppna med" → "Anteckningar".</li>
+      <li>Markera allt (Ctrl+A) och radera. Klistra sedan in den nya koden från Claude (Ctrl+V).</li>
+      <li>Använd Sök &amp; ersätt (Ctrl+H):
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li>Sök efter: <code>{SUPABASE_URL}</code> · Ersätt med: din egen URL (samma som i Sprint 3)</li>
+          <li>Sök efter: <code>{SUPABASE_ANON_KEY}</code> · Ersätt med: din egen anon-nyckel</li>
+        </ul>
+      </li>
+      <li>Spara filen (Ctrl+S).</li>
+      <li>Dubbelklicka på filen för att öppna den i webbläsaren.</li>
+      <li>Du ska se: rubriken, ditt namn, en 3×3-matris med fyra färgade siffror, fyra färgmatchade hörn, och S-sigillet i mitten.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="refine-paste-code">
+        <span>Den nya appen visas korrekt lokalt</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Pröva nu — försiktigt.</strong> Dra en siffra till sitt rätta hörn (samma färg). Om den absorberas och försvinner: din app skriver till databasen. Du kan kontrollera det genom att gå till Supabase Table Editor — den raden ska nu ha <code>status = "raffinerad"</code>. Vad du gjort på din skärm har <em>verkligen hänt</em> i Frankfurt.</p>
+    <p>Drar du fel siffra till fel hörn ska den glida tillbaka och hörnet ska skaka kort. Inget skadas. Du kan inte göra fel — bara försöka igen.</p>
+  </div>
+
+  <!-- ============ STEG iv — PUSHA TILL GITHUB ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Pusha den nya versionen</div>
+  </div>
+
+  <div class="prose">
+    <p>Samma som i Sprint 3 — vi laddar upp den nya koden via GitHubs hemsida.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Ladda upp den uppdaterade index.html</h4>
+    <ol>
+      <li>Gå till <strong>github.com</strong> och öppna ditt repository.</li>
+      <li>Klicka på filen <strong>index.html</strong>.</li>
+      <li>Klicka på pennan ("Edit this file") uppe till höger.</li>
+      <li>Markera allt i editorn (Ctrl+A) och radera. Klistra sedan in din uppdaterade kod från Anteckningar.</li>
+      <li>Scrolla ner. Skriv ett kort meddelande i fältet "Commit changes": <em>Sprint 4: raffineringen</em>.</li>
+      <li>Klicka "Commit changes".</li>
+      <li>Vänta ~30 sekunder. Vercel auto-deployar.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="refine-deploy">
+        <span>Den nya versionen är live</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ STEG v — RAFFINERA DINA SIFFROR ============ -->
+  <div class="step-heading">
+    <div class="step-num">v.</div>
+    <div class="step-title">Utför arbetet</div>
+  </div>
+
+  <div class="prose">
+    <p>Din live-app väntar. Öppna den. Lugnt. Detta är vad Sifferverket har anställt dig för.</p>
+    <p>Det finns fyra siffror i din matris idag. Ta dem en åt gången. Dra varje siffra till hörnet med samma färg. När alla fyra är raffinerade kommer matrisen byta till sitt tom-tillstånd. Det är meningen att det ska kännas som ett färdigt skift — inte som ett spel som är slut.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Raffinera de fyra inkommande siffrorna</h4>
+    <ol>
+      <li>Öppna din Vercel-URL.</li>
+      <li>Dra <strong>17</strong> mot hörnet "Oro".</li>
+      <li>Dra <strong>42</strong> mot hörnet "Glädje".</li>
+      <li>Dra <strong>83</strong> mot hörnet "Vrede".</li>
+      <li>Dra <strong>9</strong> mot hörnet "Längtan".</li>
+      <li>När matrisen visar "Inga inkommande siffror" — gå till Supabase Table Editor och bekräfta att alla fyra rader nu har <code>status = "raffinerad"</code>.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="refine-perform">
+        <span>Alla fyra siffror är raffinerade</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Stanna en sekund.</strong> Du har precis byggt en app som inte bara <em>visar</em> data — den <em>förändrar</em> data. Det är skillnaden mellan att läsa en bok och att skriva i den. De flesta konsumenttjänster du använder dagligen — banken, journalsystemet, e-handeln — gör i grunden detta: läser och skriver tillbaka. Du har just byggt sammhanget som är hjärtat i nästan all mjukvara som faktiskt används.</p>
+    <p>Och de fyra siffrorna i ditt arkiv har nu, för första gången, <em>blivit något</em>. Inte bara siffror. Sorterade. Försonade.</p>
+  </div>
+
+  <!-- ============ ORDLISTA ============ -->
+  <div class="step-heading">
+    <div class="step-num">vi.</div>
+    <div class="step-title">Vad du nu kan</div>
+  </div>
+
+  <div class="prose">
+    <p>Tre nya ord du nu förstår, åtminstone i magkänslan:</p>
+  </div>
+
+  <dl style="margin-top: 24px;">
+    <div class="definition">
+      <dt>UPDATE</dt>
+      <dd>Att ändra en befintlig rad i en databas. Inte att skapa en ny, inte att radera den — bara ändra något om den. Det är vad som händer när du drar en siffra till sitt hörn.</dd>
+    </div>
+    <div class="definition">
+      <dt>Schema-migration</dt>
+      <dd>Att ändra formen på en tabell — lägga till en kolumn, ta bort en, byta typ. Du gjorde din första idag när du la till <code>status</code>.</dd>
+    </div>
+    <div class="definition">
+      <dt>Tillstånd</dt>
+      <dd>Vad en rad <em>är just nu</em>, snarare än vad den <em>innehåller</em>. Princip III. En av programmeringens viktigaste tankefigurer.</dd>
+    </div>
+  </dl>
+
+  <div class="decision">
+    <h3>Sprint 4 avklarad</h3>
+    <p>Du har raffinerat dina första siffror. Arbetet är inte slut — det väntar på fler. I nästa sprint öppnar vi biblioteket: tidsmaskinen som låter dig återgå till vilken som helst version av din app.</p>
+    <a href="/">Tillbaka till översikten →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

@@ -63,7 +63,9 @@
     // Sprint 2
     'supabase-project', 'supabase-table', 'supabase-rows',
     // Sprint 3
-    'fetch-credentials', 'fetch-write-prompt', 'fetch-paste-code', 'fetch-deploy', 'fetch-verify'
+    'fetch-credentials', 'fetch-write-prompt', 'fetch-paste-code', 'fetch-deploy', 'fetch-verify',
+    // Sprint 4
+    'refine-add-status', 'refine-write-prompt', 'refine-paste-code', 'refine-deploy', 'refine-perform'
   ];
 
   function initProgressTracking() {
