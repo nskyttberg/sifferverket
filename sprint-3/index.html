@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 3: Receptionen pratar med arkivet — Sifferverket</title>
+<meta name="description" content="Sprint 3 av Sifferverket-utbildningen: Hämta data från din databas och visa den på din webbsida.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* ============ SIFFERVERKETS PRINCIPER ============
+     Återkommande visuell komponent. Kopierad från sprint-2/index.html.
+     Strukturen är fast — bara .numeral, .canon, .gloss-innehåll varierar. */
+  .principle {
+    margin: 56px auto;
+    max-width: 64ch;
+    padding: 56px 48px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    position: relative;
+    text-align: left;
+  }
+
+  .principle::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+
+  .principle::before {
+    content: '· Sifferverkets Principer ·';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 16px;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .principle .preamble {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    text-align: center;
+  }
+
+  .principle .numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--teal-deep);
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .principle .canon {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ink);
+    text-align: center;
+    margin: 0 auto 36px;
+    max-width: 24ch;
+    letter-spacing: -0.005em;
+  }
+
+  .principle .gloss {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .principle .gloss p {
+    margin-bottom: 14px;
+  }
+
+  .principle .gloss p:last-child {
+    margin-bottom: 0;
+  }
+
+  .principle .gloss em {
+    color: var(--teal-deep);
+    font-style: normal;
+  }
+
+  .principle .closing {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--rule);
+    text-align: right;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 640px) {
+    .principle { padding: 44px 28px; }
+    .principle .numeral { font-size: 48px; }
+    .principle .canon { font-size: 22px; }
+    .principle .gloss { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 3 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-2/">← Sprint 2</a>
+  <span class="nav-center">Sprint 3 — Receptionen pratar med arkivet</span>
+  <a href="#" class="disabled">Sprint 4 (snart)</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">3</span>
+    <span>Sprint Tre</span>
+  </div>
+  <h2 class="sprint-title">Receptionen pratar med arkivet</h2>
+  <p class="sprint-subtitle">— det första anropet, den första bekräftelsen.</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 40 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> Sprint 2 avklarad</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">Hittills har receptionen och arkivet stått som två separata rum, blint för varandra. Det är dags att de hälsar på varandra för första gången. När den här sprinten är klar kommer din webbsida — den du fick upp i Sprint 1 — visa siffrorna ur ditt eget arkiv. Ingen kommer att tycka att det är ett mirakel. Du kommer.</p>
+
+    <p>Den här sprinten är längre än de tidigare. Det är meningen. Du möter två nya saker: en <strong>API-nyckel</strong> (en sorts behörighet) och din första rad <strong>JavaScript</strong> (det språk som får webbsidor att <em>göra</em> saker, inte bara <em>visa</em> saker). Båda är fundamentala och förtjänar tid.</p>
+
+    <p>Som vanligt skriver du inget själv. Claude skriver koden. Du förstår vad den gör.</p>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Vad som händer i denna sprint</div>
+    <div class="diagram-row">
+      <div class="diagram-box">
+        <span class="icon">N</span>
+        Nyckel<br>från Supabase
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">K</span>
+        Kod<br>från Claude
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">S</span>
+        Siffror<br>på din sida
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STEG i — HÄMTA NYCKEL OCH URL ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Hämta din nyckel och adress</div>
+  </div>
+
+  <div class="prose">
+    <p>För att din webbsida ska kunna prata med ditt arkiv behöver den två saker: <strong>vart</strong> arkivet finns (en URL) och <strong>vem</strong> som får fråga (en nyckel). Båda finns i Supabase och är gratis att hämta.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Plocka ut URL och nyckel från Supabase</h4>
+    <ol>
+      <li>Gå till <strong>supabase.com</strong> och öppna ditt sifferverket-projekt.</li>
+      <li>Klicka på kugghjulet i vänstermarginalen ("Project Settings").</li>
+      <li>Klicka på "Data API" i undermenyn.</li>
+      <li>Du ser nu två rutor du behöver kopiera värden ur:
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li><strong>Project URL</strong> — börjar med <code>https://</code> och slutar med <code>.supabase.co</code></li>
+          <li><strong>API Keys → anon public</strong> — en lång sträng som börjar med <code>eyJ...</code></li>
+        </ul>
+      </li>
+      <li>Spara båda två tillfälligt i ett textdokument (Anteckningar). Du behöver dem om en stund.</li>
+      <li>Stäng <em>inte</em> Supabase-fliken än.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="fetch-credentials">
+        <span>Jag har min URL och min anon-nyckel</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad är "anon"?</strong> Det betyder <em>anonymous</em> — anonym. Det är en nyckel som vem som helst kan använda, men som bara får läsa det du har gett dem rätt att läsa. Det låter motsägelsefullt; det blir tydligt på nästa sida.</p>
+  </div>
+
+  <!-- ============ PRINCIP II — INFORMATION FRÅN LEDNINGEN ============ -->
+  <aside class="principle">
+    <div class="preamble">
+      Sifferverket är måna om sin byggnad. Idag möter du en nyckel — och nycklar förtjänar omsorg, även de mest välkomnande.
+    </div>
+
+    <div class="numeral">II.</div>
+
+    <p class="canon">Nyckeln är inte siffrorna. Nyckeln öppnar dörren till huvudentréen.</p>
+
+    <div class="gloss">
+      <p>Sifferverket har många dörrar. Den nyckel du nyss kopierade öppnar bara <em>en</em> av dem — huvudentréen. Den släpper in vem som helst som har den, men bara dit huset har bestämt att gäster får gå.</p>
+      <p>Det betyder konkret: anon-nyckeln är inte en hemlighet. Den får ligga i din webbsidas kod, synlig för alla som besöker sidan. Det är så den är gjord. Vad som skyddar dina siffror är inte att nyckeln är hemlig — det är att huset har bestämt vad nyckeln får göra.</p>
+      <p>Det finns andra nycklar i Supabase, för andra dörrar. <em>Service role-nyckeln</em>, till exempel, är husets <em>generalnyckel</em>. Den ska aldrig — aldrig — ligga i en webbsida. Den ska aldrig klistras in i en chatt. Den hör hemma i låst skåp.</p>
+      <p>Idag rör vi bara huvudentréen. Imorgon kommer du veta skillnaden i magkänslan.</p>
+    </div>
+
+    <div class="closing">— Sifferverkets Ledning</div>
+  </aside>
+
+  <!-- ============ STEG ii — BE CLAUDE SKRIVA KODEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Be Claude skriva hämta-koden</div>
+  </div>
+
+  <div class="prose">
+    <p>Du har URL:en, du har nyckeln. Nu ska Claude skriva den kod som låter din webbsida hämta siffrorna och visa dem. Du klistrar in nedanstående prompt rakt av — märk att vi <em>inte</em> ger Claude våra siffror, bara strukturen. Princip I i praktiken.</p>
+  </div>
+
+  <div class="claude-prompt">
+    Hej Claude. Jag bygger en webbsida i ren HTML och JavaScript som heter Sifferverket. Jag har en Supabase-databas med en tabell "siffror" som har kolumnerna id, varde (heltal), kansla (text, kan vara tom), och created_at. Skriv en komplett index.html som:
+
+    (1) Visar rubriken "Välkommen till Sifferverket" och under det "Anställd: [DITT NAMN]".
+
+    (2) Hämtar alla rader ur tabellen "siffror" via Supabase JS-biblioteket (CDN-länk inkluderat). Sortera resultatet efter created_at fallande så att de senaste siffrorna kommer först.
+
+    (3) Visar siffrorna i en 3x3-matris (totalt 9 celler). Mittencellen ska alltid visa bokstaven S inom en cirkel — det är Sifferverkets sigill. De övriga 8 cellerna fylls med upp till 8 siffror från databasen i ordning. Om det finns färre än 8 siffror ska de tomma cellerna visa en liten prick (·) i mitten. Om det finns fler än 8 ska bara de 8 senaste visas.
+
+    (4) Varje sifferruta ska visa heltalsvärdet stort i italic Cormorant Garamond serif. De siffror där kansla är tom (NULL eller tom sträng) ska gråtonas och visa texten "ej raffinerad" under värdet i små versaler. Siffror som har en kansla visas i full färg utan etikett (det blir relevant först i nästa sprint).
+
+    (5) Använd off-white bakgrund (#e8e6dd) och mörkblågrön text (#0a2a30). Använd serif-typsnitt. Hela koden i en fil, inga externa filer förutom Cormorant Garamond från Google Fonts och Supabase JS från CDN. Ersätt {SUPABASE_URL} och {SUPABASE_ANON_KEY} med platshållare jag själv ska byta ut.
+
+    (6) Kommentera varje viktig kodrad med // så att en novis förstår vad som händer.
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skicka prompten till Claude</h4>
+    <ol>
+      <li>Klistra in prompten ovan i din Claude-flik. Byt ut <strong>[DITT NAMN]</strong> mot ditt riktiga namn.</li>
+      <li>Claude svarar med en komplett HTML-fil. Den är längre än den från Sprint 1 — det är väntat.</li>
+      <li>Klicka på "Copy"-knappen i Claudes svar för att få hela koden i urklipp.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="fetch-write-prompt">
+        <span>Jag har koden i urklipp</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Lägg märke till:</strong> Du gav Claude tabellens <em>struktur</em> men inte dess <em>innehåll</em>. Du nämnde inga konkreta siffror, inga konkreta känslor. Det räckte. Koden Claude skriver kommer fungera mot din databas oavsett vad som faktiskt ligger i den. Det är så det ska vara.</p>
+  </div>
+
+  <!-- ============ STEG iii — KLISTRA IN NYCKEL OCH URL ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Klistra in nyckel och URL i koden</div>
+  </div>
+
+  <div class="prose">
+    <p>Den HTML-fil Claude skickade har två platshållare: <code>{SUPABASE_URL}</code> och <code>{SUPABASE_ANON_KEY}</code>. Du ska byta ut dem mot dina egna värden — de du sparade i Anteckningar tidigare.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Uppdatera index.html lokalt</h4>
+    <ol>
+      <li>Öppna mappen <strong>sifferverket</strong> på ditt skrivbord.</li>
+      <li>Högerklicka på <strong>index.html</strong> → "Öppna med" → "Anteckningar".</li>
+      <li>Markera allt (Ctrl+A) och radera. Klistra sedan in den nya koden från Claude (Ctrl+V).</li>
+      <li>Använd Sök &amp; ersätt (Ctrl+H i Anteckningar):
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li>Sök efter: <code>{SUPABASE_URL}</code> · Ersätt med: din egen URL</li>
+          <li>Sök efter: <code>{SUPABASE_ANON_KEY}</code> · Ersätt med: din egen anon-nyckel</li>
+        </ul>
+      </li>
+      <li>Spara filen (Ctrl+S).</li>
+      <li>Dubbelklicka på filen för att öppna den i webbläsaren — du ska nu se dina siffror i matrisen.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="fetch-paste-code">
+        <span>Jag ser mina siffror lokalt</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Om du inte ser siffrorna:</strong> Öppna webbläsarens utvecklarverktyg (F12) och kolla "Console"-fliken. Ofta står där ett tydligt felmeddelande. Vanligaste orsaken är ett extra mellanslag i URL:en eller nyckeln när du klistrade in. Det är ingen skam att försöka igen.</p>
+  </div>
+
+  <!-- ============ STEG iv — PUSHA TILL GITHUB ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Pusha den nya versionen till GitHub</div>
+  </div>
+
+  <div class="prose">
+    <p>Din lokala fil fungerar — men ute på internet visas fortfarande den gamla versionen från Sprint 1. Vi laddar upp den nya på samma sätt som tidigare: via GitHubs hemsida, drag och släpp.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Ladda upp den nya index.html</h4>
+    <ol>
+      <li>Gå till <strong>github.com</strong> och öppna ditt repository.</li>
+      <li>Klicka på filen <strong>index.html</strong> i listan.</li>
+      <li>Klicka på pennan ("Edit this file") uppe till höger.</li>
+      <li>Markera allt i editorn (Ctrl+A) och radera. Klistra sedan in din uppdaterade kod från Anteckningar.</li>
+      <li>Scrolla ner. Skriv ett kort meddelande i fältet "Commit changes": <em>Sprint 3: hämta från arkivet</em>.</li>
+      <li>Klicka "Commit changes".</li>
+      <li>Vänta ~30 sekunder. Vercel auto-deployar.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="fetch-deploy">
+        <span>Den nya versionen är deployad</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ STEG v — VERIFIERA OCH NJUT ============ -->
+  <div class="step-heading">
+    <div class="step-num">v.</div>
+    <div class="step-title">Öppna din live-app</div>
+  </div>
+
+  <div class="prose">
+    <p>Sista steget. Öppna din Vercel-URL — samma som tidigare. Vänta några sekunder så att Vercel hinner deploya den nya versionen. Då ska du se din matris med dina fyra siffror, hämtade i realtid från ditt arkiv i Frankfurt.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Kontrollera att allt fungerar live</h4>
+    <ol>
+      <li>Öppna din Vercel-URL i webbläsaren (eller uppdatera fliken om du redan har den öppen).</li>
+      <li>Du ska se: rubriken, ditt namn, en 3×3-matris med fyra ifyllda celler, fem tomma, och S-sigillet i mitten.</li>
+      <li>Pröva att öppna URL:en i din mobiltelefon. Det fungerar.</li>
+      <li>Skicka URL:en till någon. Säg inte att det är magi. Det är öppna kort.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="fetch-verify">
+        <span>Min app hämtar och visar siffror från arkivet</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Stanna en sekund.</strong> Det du nyss byggde är inte trivialt. Din webbsida — den som besökaren laddar i sin webbläsare — gör ett anrop till en server i Frankfurt, hämtar fyra rader ur en tabell, och presenterar dem visuellt. Det är samma grundmönster som driver Spotify, 1177, internetbanken, och varje annan modern webbtjänst. Du har just byggt ett av världens vanligaste arbetsflöden, från grunden, utan att skriva en rad kod själv.</p>
+    <p>Och de fyra siffrorna i din matris — 17, 42, 83, 9 — är de första du registrerade. De är nu permanent del av Sifferverkets arkiv. De är dina daldjur. De stannar kvar.</p>
+  </div>
+
+  <!-- ============ ORDLISTA ============ -->
+  <div class="step-heading">
+    <div class="step-num">vi.</div>
+    <div class="step-title">Vad du nu kan</div>
+  </div>
+
+  <div class="prose">
+    <p>Tre nya ord du nu förstår, åtminstone i magkänslan:</p>
+  </div>
+
+  <dl style="margin-top: 24px;">
+    <div class="definition">
+      <dt>API</dt>
+      <dd>Ett gränssnitt där en sida (din webbsida) kan ställa frågor till en annan (din databas). Kort för <em>application programming interface</em>. Du har just gjort ditt första API-anrop.</dd>
+    </div>
+    <div class="definition">
+      <dt>API-nyckel</dt>
+      <dd>En sträng som identifierar vem som ringer på dörren. Anon-nyckeln är publik — andra nycklar är inte det. Princip II.</dd>
+    </div>
+    <div class="definition">
+      <dt>JavaScript</dt>
+      <dd>Webbens språk för <em>handling</em>. HTML beskriver vad sidan visar; JavaScript beskriver vad den <em>gör</em>. Du har just sett din första.</dd>
+    </div>
+  </dl>
+
+  <div class="decision">
+    <h3>Sprint 3 avklarad</h3>
+    <p>Receptionen och arkivet pratar med varandra. Hela det moderna webbmaskineriet är nu, i miniatyr, ditt eget. I nästa sprint anländer ditt riktiga arbete.</p>
+    <a href="/">Tillbaka till översikten →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

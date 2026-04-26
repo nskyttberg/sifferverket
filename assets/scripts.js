@@ -61,7 +61,9 @@
     // Sprint 1
     'copy-code', 'save-file', 'github-upload', 'deploy',
     // Sprint 2
-    'supabase-project', 'supabase-table', 'supabase-rows'
+    'supabase-project', 'supabase-table', 'supabase-rows',
+    // Sprint 3
+    'fetch-credentials', 'fetch-write-prompt', 'fetch-paste-code', 'fetch-deploy', 'fetch-verify'
   ];
 
   function initProgressTracking() {
