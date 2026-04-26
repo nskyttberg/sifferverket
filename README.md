@@ -30,7 +30,9 @@ sifferverket/
 │   └── scripts.js          Delad klientlogik (progress, namn, etc.)
 ├── vercel.json             Vercel-konfiguration
 ├── .gitignore
-├── DEPLOY.md               Instruktioner för deploy
+├── DEPLOY.md               Engångs-instruktion för första deploy
+├── PROJECT-CONVENTIONS.md  Levande arkitektur- och stilreferens
+├── SPRINT-TEMPLATE.md      Mall för nya sprint-leveranser
 └── README.md
 ```
 
