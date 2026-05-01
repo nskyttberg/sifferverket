@@ -65,7 +65,9 @@
     // Sprint 3
     'fetch-credentials', 'fetch-create-policy', 'fetch-write-prompt', 'fetch-paste-code', 'fetch-deploy', 'fetch-verify',
     // Sprint 4
-    'refine-add-status', 'refine-create-policy', 'refine-write-prompt', 'refine-paste-code', 'refine-deploy', 'refine-perform'
+    'refine-add-status', 'refine-create-policy', 'refine-write-prompt', 'refine-paste-code', 'refine-deploy', 'refine-perform',
+    // Sprint 5
+    'library-browse-history', 'library-view-old-commit', 'library-break-something', 'library-revert'
   ];
 
   function initProgressTracking() {

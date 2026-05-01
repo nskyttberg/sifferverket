@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 5: Biblioteket öppnar — Sifferverket</title>
+<meta name="description" content="Sprint 5 av Sifferverket-utbildningen: Versionshantering — vandra i din apps historia och återställ förlorade värden.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 5 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-4/">← Sprint 4</a>
+  <span class="nav-center">Sprint 5 — Biblioteket öppnar</span>
+  <a href="#" class="disabled">Sprint 6 (snart)</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">5</span>
+    <span>Sprint Fem</span>
+  </div>
+  <h2 class="sprint-title">Biblioteket öppnar</h2>
+  <p class="sprint-subtitle">— en lugn vandring i dina egna verk.</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 25–30 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> Sprint 4 avklarad</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">Du har redan committat din kod fyra gånger. Du visste det inte, eller åtminstone inte vad det egentligen betydde. Idag öppnar vi biblioteket — det tredje rummet vi nämnde redan i Sprint 0 — och du får för första gången se vad du faktiskt har gjort.</p>
+
+    <p>Den här sprinten är annorlunda än de hittills. Du ska inte bygga något nytt. Du ska <em>se</em>. Och i slutet ska du göra något du tidigare hade undvikit till varje pris: medvetet förstöra din app, för att sedan återställa den. Det är så vi förstår vad biblioteket faktiskt är värt.</p>
+
+    <p>Det här är en lugn sprint. Ta den i lugn takt.</p>
+  </div>
+
+  <!-- ============ STEG i — ÖPPNA BIBLIOTEKET ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Öppna biblioteket</div>
+  </div>
+
+  <div class="prose">
+    <p>Allt arbete du gjort har sparats som <em>commits</em> i ditt GitHub-repository. Varje gång du klickade "Commit changes" gjorde du en sparpunkt — en ögonblicksbild av hur hela din app såg ut just då. Idag besöker vi listan över dem.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Hitta din commit-historik på GitHub</h4>
+    <ol>
+      <li>Gå till <strong>github.com</strong> och öppna ditt repository (det heter förmodligen <em>sifferverket-min-app</em> eller liknande från Sprint 1).</li>
+      <li>Du ser en lista över dina filer. Ovanför filerna, leta efter en rad som börjar med en klockikon eller texten <strong>"X commits"</strong> — där X är ett tal (förmodligen 4 eller fler).</li>
+      <li>Klicka på den raden. Du landar på din <em>commit-historik</em>.</li>
+      <li>Du ser en lista över alla dina commits, med dina egna meddelanden ("Första versionen", "Sprint 3: hämta från arkivet", "Sprint 4: raffineringen", och så vidare). Den nyaste högst upp.</li>
+      <li>Stanna en stund. Det här är ditt arbete, datum-stämplat och bevittnat.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="library-browse-history">
+        <span>Jag ser min commit-historik</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad du tittar på:</strong> Varje rad i listan är en sparad version av hela ditt projekt. Klockslagen, dina meddelanden, vem som gjorde dem (du). Det här är inte en backup-kopia. Det är ett arkiv av <em>förändringar</em> — varje commit beskriver vad som var olikt jämfört med den föregående.</p>
+  </div>
+
+  <!-- ============ STEG ii — VANDRA IN I EN GAMMAL VERSION ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Vandra in i en gammal version</div>
+  </div>
+
+  <div class="prose">
+    <p>Nu ska du göra något som känns nästan magiskt: titta tillbaka på hur din app såg ut <em>vid en specifik tidpunkt i det förflutna</em>. Vi går till din allra första commit — den från Sprint 1, innan databasen ens fanns.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Öppna din första commit</h4>
+    <ol>
+      <li>I commit-listan, scrolla ner till den allra första posten — den heter förmodligen "Första versionen" eller liknande.</li>
+      <li>Klicka på commit-meddelandet eller på den korta hashkoden bredvid (en sträng som <code>a3f29b1</code> eller liknande).</li>
+      <li>Du landar på en sida som visar exakt vad som ändrades i den commiten. För din första är allt nytt — det fanns ingenting innan.</li>
+      <li>Leta upp filen <strong>index.html</strong> i listan och klicka på <strong>"View file"</strong> (eller liknande knapp som visar filen "as it was at this commit").</li>
+      <li>Du ser nu din ursprungliga index.html — den simpla sidan med bara ditt namn, från Sprint 1.</li>
+      <li>Stanna här en stund. Den här filen var allt du hade. Inga siffror. Ingen databas. Bara en hälsning.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="library-view-old-commit">
+        <span>Jag har sett min första version</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Tänk på:</strong> Den här gamla versionen finns kvar för alltid. Du kan inte radera den även om du försöker. Det är poängen med biblioteket. Allt har bevarats sedan dagen du började.</p>
+  </div>
+
+  <!-- ============ PRINCIP IV — INFORMATION FRÅN LEDNINGEN ============ -->
+  <aside class="principle">
+    <div class="preamble">
+      Sifferverket är måna om sitt minne. Idag möter du det rum där tiden inte går — utan staplas. Det är fjärde och sista principen.
+    </div>
+
+    <div class="numeral">IV.</div>
+
+    <p class="canon">Inget är förlorat. Allt har skett.</p>
+
+    <div class="gloss">
+      <p>Det du gjorde igår finns kvar. Det du gör idag försvinner inte när du gör det imorgon. Varje commit är en ed: <em>den här versionen av världen har existerat</em>. Den kan inte tas tillbaka.</p>
+      <p>I Sifferverkets bibliotek finns varje gammal version av varje fil — inte som backup, utan som vittnesmål. Du kan vandra in mellan hyllorna när du vill och fråga: hur såg detta ut den 25:e april? Och biblioteket svarar.</p>
+      <p>Det betyder att du får göra fel. Du får experimentera. Du får bryta din app medvetet — vilket du strax ska göra. Inget arbete är slutgiltigt; alla rörelser är vändbara. Det är en frihet de flesta hantverkare inte har.</p>
+      <p>Det är inte ångerfullhet. Det är vördnad inför arbetet.</p>
+    </div>
+
+    <div class="closing">— Sifferverkets Ledning</div>
+  </aside>
+
+  <!-- ============ STEG iii — FÖRSTÖR MED FLIT ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Förstör med flit</div>
+  </div>
+
+  <div class="prose">
+    <p>Nu kommer det märkliga steget. Du ska medvetet bryta din app — inte för att skada den, utan för att kunna återställa den. Det är så du förstår att biblioteket fungerar i verkligheten, inte bara i teorin.</p>
+    <p>Vi gör en mycket liten skada: byter rubriken från "Välkommen till Sifferverket" till något absurt, t.ex. "Välkommen till Sönderverket". Sedan pushar vi den. Sedan ångrar vi. Hela proceduren tar tre minuter.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Bryt din app medvetet</h4>
+    <ol>
+      <li>Gå tillbaka till ditt repositorys huvudsida (klicka på reponamnet uppe till vänster, eller "Code"-fliken).</li>
+      <li>Klicka på filen <strong>index.html</strong>.</li>
+      <li>Klicka på pennan ("Edit this file") uppe till höger.</li>
+      <li>Hitta texten <strong>Välkommen till Sifferverket</strong> i koden — använd Ctrl+F om det är många rader.</li>
+      <li>Ändra den till <strong>Välkommen till Sönderverket</strong>.</li>
+      <li>Scrolla ner. Skriv ett kort meddelande i fältet "Commit changes": <em>oavsiktlig skada</em>.</li>
+      <li>Klicka "Commit changes".</li>
+      <li>Vänta 30 sekunder. Öppna din Vercel-URL i en ny flik — du ska nu se den brutna rubriken live på internet. Skadan är ute i världen.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="library-break-something">
+        <span>Min app är brutet live</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Pulsera lugnt.</strong> Det här ska kännas obekvämt — det är hela poängen. Du har just fört in ett fel i din publika app. Det är synligt för alla. <em>Och det går att ångra.</em> Det ska du göra nu.</p>
+  </div>
+
+  <!-- ============ STEG iv — ÅNGRA MED REVERT ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Ångra med Revert</div>
+  </div>
+
+  <div class="prose">
+    <p>GitHub har en knapp som heter <strong>Revert</strong>. Den gör en ny commit som är en exakt motsats till en tidigare commit. Tänk dig att du i en räknebok skrev "+5" och sen vill ångra — då skriver du "−5". Resultatet blir noll. Bibliotekets historia får båda raderna kvar (5 har skrivits, −5 har skrivits) men summan är som om ingenting hänt.</p>
+    <p>Det är skillnaden mellan att <em>radera</em> historien (omöjligt) och att <em>neutralisera</em> en händelse (alltid möjligt).</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Återställ din app</h4>
+    <ol>
+      <li>Gå till din commit-historik igen (samma plats som i Steg i).</li>
+      <li>Hitta din senaste commit — den med meddelandet "oavsiktlig skada".</li>
+      <li>Klicka på <strong>"..."</strong>-knappen (tre prickar) eller direkt på commitens meddelande för att öppna den.</li>
+      <li>I det övre högra hörnet på commit-sidan, leta efter en knapp som heter <strong>"Revert"</strong>. Klicka på den.</li>
+      <li>GitHub frågar om du vill skapa en ny pull request eller commit direkt. Välj <strong>"Commit directly to the main branch"</strong>.</li>
+      <li>Klicka "Commit changes".</li>
+      <li>Vänta 30 sekunder. Öppna din Vercel-URL och uppdatera. Rubriken ska vara tillbaka till "Välkommen till Sifferverket".</li>
+      <li>Gå tillbaka till commit-historiken. Du har nu <em>fem</em> commits istället för fyra. Den gamla "oavsiktlig skada" är fortfarande där — och en ny "Revert oavsiktlig skada" har lagts till. Båda är bevittnade.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="library-revert">
+        <span>Min app är återställd via Revert</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Stanna en sekund.</strong> Du har precis gjort något som mjukvaruyrket har använt för att rädda sig själv från katastrof i decennier. Du har infört ett medvetet fel, sett det manifesteras, och återställt det utan att rita över historien. Det krävdes inget terminalkommando, ingen specialkunskap — bara en knapp i ett webb-UI.</p>
+    <p>Det här är vad versionshantering är värt. När det börjar gå riktigt fel — vilket det kommer göra någon gång — vet du att biblioteket finns. Det är inte ett räddningsplan. Det är en grund.</p>
+  </div>
+
+  <!-- ============ ORDLISTA ============ -->
+  <div class="step-heading">
+    <div class="step-num">v.</div>
+    <div class="step-title">Vad du nu kan</div>
+  </div>
+
+  <div class="prose">
+    <p>Tre nya ord du nu förstår, åtminstone i magkänslan:</p>
+  </div>
+
+  <dl style="margin-top: 24px;">
+    <div class="definition">
+      <dt>Commit-historik</dt>
+      <dd>Den ordnade listan av alla sparpunkter i ett repository. Varje rad är en ögonblicksbild av hela projektet vid en specifik tidpunkt. Den raderas inte.</dd>
+    </div>
+    <div class="definition">
+      <dt>Hash</dt>
+      <dd>Den korta sträng (typ <code>a3f29b1</code>) som unikt identifierar en commit. Två commits har aldrig samma hash. Hashen är commitens namn — kortare än ett meddelande, exaktare än ett klockslag.</dd>
+    </div>
+    <div class="definition">
+      <dt>Revert</dt>
+      <dd>Att neutralisera en tidigare commit genom att skapa en ny som ångrar den. Skiljer sig från att radera — den gamla finns kvar, men dess effekt upphävs. Princip IV.</dd>
+    </div>
+  </dl>
+
+  <div class="decision">
+    <h3>Sprint 5 avklarad</h3>
+    <p>Du har vandrat in i din egen historia och återställt det du brutit. Inget arbete är slutgiltigt. I nästa sprint öppnar Sifferverket fler dörrar — flera avdelningar växer fram.</p>
+    <a href="/">Tillbaka till översikten →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>
