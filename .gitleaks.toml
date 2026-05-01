@@ -1,0 +1,19 @@
+title = "Sifferverket gitleaks-config"
+
+# Behåll gitleaks default-regler — vi vill bara whitelista en specifik nyckel.
+[extend]
+useDefault = true
+
+# Sifferverkets utbildningssajts publika Supabase-anon-nyckel är medvetet
+# checkad in i koden — den är client-side och INSERT-only RLS skyddar
+# synpunkter-tabellen. Se PROJECT-CONVENTIONS.md "Avdelningen för
+# Personalärenden — icke-sprint-route" för bakgrund.
+#
+# Endast den specifika nyckeln (kopplad till project-ref pukeejqifhzfxvkdgork)
+# whitelistas — andra Supabase-JWT:er blockas fortfarande.
+[allowlist]
+description = "Sifferverket public Supabase anon key (project-ref pukeejqifhzfxvkdgork)"
+regexTarget = "match"
+regexes = [
+  '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1a2VlanFpZmh6Znh2a2Rnb3JrIiwicm9sZSI6ImFub24i[A-Za-z0-9._-]+'''
+]

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avdelningen för Personalärenden — Sifferverket</title>
+<meta name="description" content="Lämna synpunkter och förslag som gör Sifferverket ännu bättre.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<!-- SIFFERVERKET INFORMERAR — direktivband + panel -->
+<div class="directive-band" id="directiveBand" role="button" tabindex="0" aria-label="Öppna direktivlista">
+  <span class="directive-prefix">Sifferverket Informerar</span>
+  <span class="directive-divider">·</span>
+  <span class="directive-current" id="directiveCurrent">Inga direktiv inkomna.</span>
+  <span class="directive-unread" id="directiveUnread" hidden></span>
+</div>
+
+<aside class="directive-panel" id="directivePanel" aria-hidden="true">
+  <div class="directive-panel-inner">
+    <header class="directive-panel-header">
+      <div class="directive-panel-label">Nyheter från Öferdirektören</div>
+      <button class="directive-panel-close" id="directivePanelClose" aria-label="Stäng">✕</button>
+    </header>
+    <ol class="directive-list" id="directiveList"></ol>
+    <footer class="directive-panel-footer">
+      Sifferverket · Avdelning för Personalutveckling · Internt material
+    </footer>
+  </div>
+</aside>
+<div class="directive-backdrop" id="directiveBackdrop" hidden></div>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-HR-001</span></div>
+    <div>Personalärenden</div>
+  </div>
+</header>
+
+<main class="stage hr-stage">
+
+  <p class="hr-stamp">Sifferverket · Avdelning för Personalärenden</p>
+
+  <h1 class="hr-title">Lämna<br>en <em>synpunkt</em></h1>
+
+  <p class="hr-subtitle">Sifferverket är en organisation i ständig förändring och tar tacksamt emot synpunkter från sina anställda.</p>
+
+  <p class="hr-context-note">
+    Du är välkommen att vara så ärlig som du önskar. Synpunkterna läses av <em>Sifferverkets utvecklingsavdelning</em> och påverkar utbildningens fortsatta utveckling.
+  </p>
+
+  <form class="hr-form-frame" id="synpunktForm">
+
+    <!-- Honeypot — ska aldrig fyllas i av människor. Botar gör det ändå. -->
+    <div class="hr-honeypot" aria-hidden="true">
+      <label for="hp-website">Webbplats (lämna tom)</label>
+      <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="hr-field-group">
+      <label class="hr-field-label">Synpunktens art<span class="required">·</span></label>
+      <div class="hr-radio-group">
+        <div class="hr-radio-option">
+          <input type="radio" name="art" value="berom" id="art-berom" checked required>
+          <label for="art-berom">Beröm</label>
+        </div>
+        <div class="hr-radio-option">
+          <input type="radio" name="art" value="forslag" id="art-forslag">
+          <label for="art-forslag">Förslag som gör Sifferverket ännu bättre</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr-field-group">
+      <label class="hr-field-label" for="text">Synpunkt<span class="required">·</span></label>
+      <p class="hr-field-hint">Skriv så mycket eller så lite du vill. Längden påverkar inte hur synpunkten värderas.</p>
+      <textarea id="text" name="text" placeholder="Skriv din synpunkt här..." required maxlength="5000"></textarea>
+    </div>
+
+    <div class="hr-field-group">
+      <label class="hr-field-label" for="sprint">Berör synpunkten en specifik tjänstgöring? (frivilligt)</label>
+      <select id="sprint" name="sprint">
+        <option value="">— Ingen särskild —</option>
+        <option value="0">Sprint 0 · Anställningsdagen</option>
+        <option value="1">Sprint 1 · Ditt skrivbord</option>
+        <option value="2">Sprint 2 · Siffrorna anländer</option>
+        <option value="3">Sprint 3 · Receptionen pratar med arkivet</option>
+        <option value="4">Sprint 4 · Raffineringen</option>
+        <option value="5">Sprint 5 · Biblioteket öppnar</option>
+        <option value="6">Sprint 6 · Avdelningen för Inkommande Siffror</option>
+        <option value="7">Sprint 7 · Avslutning</option>
+        <option value="annat">Övriga delar av utbildningen</option>
+      </select>
+    </div>
+
+    <div class="hr-anon-toggle">
+      <input type="checkbox" id="anon" checked>
+      <label for="anon">Lämna in <em>anonymt</em>. Avbocka om du vill att Sifferverket ska kunna återkomma till dig.</label>
+    </div>
+
+    <div class="hr-name-fields disabled" id="nameFields">
+      <div class="hr-field-group">
+        <label class="hr-field-label" for="namn">Namn (valfritt)</label>
+        <input type="text" id="namn" name="namn" placeholder="Anställningstitel eller riktigt namn" maxlength="200">
+      </div>
+      <div class="hr-field-group">
+        <label class="hr-field-label" for="email">E-post (valfritt)</label>
+        <input type="email" id="email" name="email" placeholder="dittnamn@example.com" maxlength="200">
+      </div>
+      <p class="hr-gdpr-note">
+        Namn och e-post sparas i <strong>30 dagar</strong> och anonymiseras därefter automatiskt. Texten i din synpunkt sparas däremot på obestämd tid för att Sifferverket ska kunna lära av återkopplingen.
+      </p>
+    </div>
+
+    <div class="hr-submit-row">
+      <span class="hr-submit-micro">När du klickar lämnar synpunkten din maskin och anländer i Sifferverket.</span>
+      <button type="submit" class="hr-btn-submit" id="submitBtn">Lämna in synpunkt</button>
+    </div>
+
+  </form>
+
+  <div class="hr-success" id="success" hidden>
+    <div class="hr-success-marker">✓</div>
+    <h2>Synpunkten är mottagen</h2>
+    <p>Sifferverket tackar för bidraget. Återkopplingen kommer behandlas av utvecklingsavdelningen under ordnade former.</p>
+    <a href="/" class="back-link">← Tillbaka till tjänstgöringen</a>
+  </div>
+
+  <div class="hr-error" id="error" hidden>
+    <p><strong>Synpunkten kunde inte mottagas.</strong> Försök gärna igen om en stund. Om problemet kvarstår — vidarebefordra synpunkten via annan kanal.</p>
+  </div>
+
+  <div class="hr-back-row">
+    <a href="/" class="back-link">← Tillbaka till tjänstgöringen</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · <a href="/personalarenden/">Personalärenden ↗</a> · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+
+</body>
+</html>

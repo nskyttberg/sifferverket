@@ -347,6 +347,37 @@ Direktivbandet längst upp på alla sidor visar löpande information från Öfer
 
 ---
 
+## Avdelningen för Personalärenden — icke-sprint-route
+
+`/personalarenden/` är en fristående feedback-sida — **inte** en sprint. Den följer Sifferverket-tonen och delar header/footer/direktivband med övriga sidor, men är medvetet skild från utbildningsflödet.
+
+### Egenskaper
+
+- Räknas inte i progress-baren (`ALL_STEPS`)
+- Listas inte i `SPRINTS`-arrayen
+- Nås bara via footer-länken på alla sidor (eleven *använder* avdelningen, *bygger* den inte)
+- `<meta name="robots" content="noindex">` — sidan ska inte indexeras
+- Lagrar synpunkter i en `synpunkter`-tabell i **Sifferverkets egen Supabase**
+- Anonymiserar `namn`, `email` och `user_agent` efter 30 dagar via pg_cron
+- Honeypot-fält + minimum 10 tecken i text fångar trivial spam
+
+### Två separata Supabase-projekt
+
+Sajten interagerar nu med två olika Supabase-projekt — det är medvetet:
+
+| Projekt | Roll | Anon-nyckel i repot? |
+|---|---|---|
+| Sifferverkets utbildningssajt | Lagrar synpunkter (HR-funktionen) | **Ja** — i `assets/scripts.js` som `SIFFERVERKET_SUPABASE_ANON_KEY` |
+| Elevens egna projekt | Det eleven bygger i sprintarna | **Nej** — eleven sätter upp och håller lokalt |
+
+Generalnyckeln (`service_role`) för Sifferverkets projekt får aldrig hamna i repot — bara anon-nyckeln, som ändå är begränsad av RLS (INSERT-only för anon, ingen SELECT-policy).
+
+### Att läsa synpunkter
+
+Inget dashboard byggs. Synpunkterna läses direkt i Supabase Table Editor av projektägaren. Anonymiserade rader (`anonymized_at IS NOT NULL`) har `namn`/`email`/`user_agent` = NULL men `text` är intakt.
+
+---
+
 ## Reserverat för framtiden — RPC
 
 **RPC** (Remote Procedure Call) — det vill säga, anropa en SQL-funktion på databasservern via `supabase.rpc('namn')` istället för direkt tabelloperation — är **medvetet utelämnat** från kursens nuvarande sprintar.

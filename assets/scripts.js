@@ -72,6 +72,15 @@
     'intake-create-policy', 'intake-build-page', 'intake-add-tabs', 'intake-download-delivery', 'intake-import-and-confirm'
   ];
 
+  // ==================== SIFFERVERKETS EGEN SUPABASE ====================
+  // För feedback-funktionen på /personalarenden/. Separat från elevens egna
+  // Supabase i sprintarna. Anon-nyckeln är OK att ligga publikt här —
+  // INSERT-only RLS skyddar tabellen, och SELECT-policy saknas medvetet
+  // så att synpunkter bara kan läsas i Table Editor som projektägare.
+  const SIFFERVERKET_SUPABASE_URL = 'https://pukeejqifhzfxvkdgork.supabase.co';
+  const SIFFERVERKET_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1a2VlanFpZmh6Znh2a2Rnb3JrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNDUyMzAsImV4cCI6MjA5MjcyMTIzMH0.O6KcveStsJ4PtvwiBrY6MgoaJdGIqPkiKhr39PJurOE';
+  const SYNPUNKT_MIN_LENGTH = 10;
+
   function initProgressTracking() {
     // Ladda sparade tillstånd för bockrutor på den här sidan
     document.querySelectorAll('input[type="checkbox"][data-step]').forEach(cb => {
@@ -144,6 +153,11 @@
   // Direktivlogg från Öferdirektören. Sanningskälla: DIREKTIV-arrayen.
   // Lägg nytt direktiv ÖVERST. Aldrig återanvänd ID.
   const DIREKTIV = [
+    {
+      id: '0007',
+      date: '2026-05-01',
+      text: '<em>Avdelningen för Personalärenden</em> har öppnats. Anställda kan nu inkomma med synpunkter och förslag som gör Sifferverket ännu bättre. Personliga uppgifter anonymiseras automatiskt efter <em>30 dagar</em>.'
+    },
     {
       id: '0006',
       date: '2026-05-01',
@@ -257,6 +271,103 @@
     });
   }
 
+  // ==================== AVDELNINGEN FÖR PERSONALÄRENDEN ====================
+  // Feedback-formulär på /personalarenden/. Skickar INSERT till Sifferverkets
+  // egen Supabase. Honeypot + min-längd-check ger lättviktigt spam-skydd.
+  function initSynpunktForm() {
+    const form = document.getElementById('synpunktForm');
+    if (!form) return; // sidan har inget formulär
+
+    const anonCheckbox = document.getElementById('anon');
+    const nameFields = document.getElementById('nameFields');
+    const submitBtn = document.getElementById('submitBtn');
+    const successDiv = document.getElementById('success');
+    const errorDiv = document.getElementById('error');
+    const errorText = errorDiv.querySelector('p');
+    const errorDefaultHTML = errorText.innerHTML;
+
+    anonCheckbox.addEventListener('change', () => {
+      if (anonCheckbox.checked) {
+        nameFields.classList.add('disabled');
+        document.getElementById('namn').value = '';
+        document.getElementById('email').value = '';
+      } else {
+        nameFields.classList.remove('disabled');
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.hidden = true;
+      errorText.innerHTML = errorDefaultHTML;
+
+      const formData = new FormData(form);
+
+      // Honeypot — bots fyller i fältet, människor ser det inte. Avbryt tyst
+      // och visa success så boten inte får signal att försöka igen.
+      if (formData.get('website')) {
+        form.hidden = true;
+        successDiv.hidden = false;
+        successDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      const text = (formData.get('text') || '').trim();
+      if (text.length < SYNPUNKT_MIN_LENGTH) {
+        errorText.innerHTML = '<strong>Synpunkten är för kort.</strong> Beskriv gärna i minst en mening så Sifferverket har något att arbeta med.';
+        errorDiv.hidden = false;
+        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Synpunkten skickas...';
+
+      const isAnon = anonCheckbox.checked;
+      const payload = {
+        art: formData.get('art'),
+        sprint: formData.get('sprint') || null,
+        text: text,
+        namn: isAnon ? null : (formData.get('namn')?.trim() || null),
+        email: isAnon ? null : (formData.get('email')?.trim() || null),
+        user_agent: isAnon ? null : navigator.userAgent
+      };
+
+      try {
+        // Anropa Supabase REST direkt — undviker att ladda klient-bibliotek
+        // för en enda INSERT.
+        const response = await fetch(
+          `${SIFFERVERKET_SUPABASE_URL}/rest/v1/synpunkter`,
+          {
+            method: 'POST',
+            headers: {
+              'apikey': SIFFERVERKET_SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SIFFERVERKET_SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        form.hidden = true;
+        successDiv.hidden = false;
+        successDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      } catch (err) {
+        console.error('Kunde inte spara synpunkt:', err);
+        errorDiv.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Försök igen';
+        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
   // ==================== INIT ====================
   document.addEventListener('DOMContentLoaded', () => {
     initEmployeeName();
@@ -264,6 +375,7 @@
     initProgressTracking();
     initCopyButtons();
     initDirectives();
+    initSynpunktForm();
   });
 
 })();
