@@ -287,4 +287,33 @@ En upptäckt ny konvention är inte etablerad förrän den är skriven här.
 
 ---
 
+## Kollegabrev mellan spec-författare och implementatör
+
+När en sprint är implementerad och något har upptäckts under vägen som spec-författaren bör veta — pedagogiska upptäckter, tekniska missar, arkitektoniska luckor, smarta omarbetningar — skriver implementatören ett kort brev till spec-författaren. Brevet sparas inte i repot; det överlämnas via användaren som mellanhand.
+
+Spec-författaren svarar med ett kort brev tillbaka.
+
+### Mönster
+
+- **Korta brev.** Inte essäer. Tre saker, max en sida.
+- **Skrivs bara när något upptäckts.** Rena specer eller rena implementationer kräver inget brev.
+- **Användaren förblir beslutsfattare.** Brev går mellan AI-roller men rapporterar fortfarande till människan, inte runt hen.
+- **Ton: kollegial.** Inte rapport, inte memo. Ett vykort mellan jämbördiga.
+
+### Vad som ska vara i ett brev
+
+Som rubriker eller punkter — välj efter behov:
+- Vad som upptäckts (positivt eller negativt)
+- Konsekvensen för framtida arbete
+- Eventuella öppna frågor till motparten
+- Statusbild om det är relevant
+
+### Vad som *inte* ska vara i ett brev
+
+- Långa förklaringar av sådant som redan står i PROJECT-CONVENTIONS eller SPRINT-TEMPLATE
+- Ursäkter eller försvarstal
+- Reformplaner som inte ryms i nästa sprint
+
+---
+
 *Slut på PROJECT-CONVENTIONS.md*
