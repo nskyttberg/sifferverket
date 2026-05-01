@@ -1081,3 +1081,57 @@ body::before {
     gap: 8px;
   }
 }
+
+/* =============================================================
+   AVDELNINGSFLIKAR — delade mellan elevens avdelningar
+   Används i elevens egen index.html och inkommande.html.
+   Inte att förväxla med .sprint-nav som finns i utbildningens sajt.
+   ============================================================= */
+.dept-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0;
+}
+
+.dept-tabs a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 14px 28px;
+  text-decoration: none;
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+
+.dept-tabs a .roman {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--teal-deep);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 2px;
+}
+
+.dept-tabs a:hover {
+  color: var(--ink);
+}
+
+.dept-tabs a.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .dept-tabs a { padding: 10px 16px; font-size: 9px; }
+  .dept-tabs a .roman { font-size: 16px; }
+}

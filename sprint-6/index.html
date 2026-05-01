@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 6: Avdelningen för Inkommande Siffror — Sifferverket</title>
+<meta name="description" content="Sprint 6 av Sifferverket-utbildningen: Öppna en andra avdelning i din app och importera CSV-filer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<!-- SIFFERVERKET INFORMERAR — direktivband + panel -->
+<div class="directive-band" id="directiveBand" role="button" tabindex="0" aria-label="Öppna direktivlista">
+  <span class="directive-prefix">Sifferverket Informerar</span>
+  <span class="directive-divider">·</span>
+  <span class="directive-current" id="directiveCurrent">Inga direktiv inkomna.</span>
+  <span class="directive-unread" id="directiveUnread" hidden></span>
+</div>
+
+<aside class="directive-panel" id="directivePanel" aria-hidden="true">
+  <div class="directive-panel-inner">
+    <header class="directive-panel-header">
+      <div class="directive-panel-label">Nyheter från Öferdirektören</div>
+      <button class="directive-panel-close" id="directivePanelClose" aria-label="Stäng">✕</button>
+    </header>
+    <ol class="directive-list" id="directiveList"></ol>
+    <footer class="directive-panel-footer">
+      Sifferverket · Avdelning för Personalutveckling · Internt material
+    </footer>
+  </div>
+</aside>
+<div class="directive-backdrop" id="directiveBackdrop" hidden></div>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 6 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-5/">← Sprint 5</a>
+  <span class="nav-center">Sprint 6 — Avdelningen för Inkommande Siffror</span>
+  <a href="#" class="disabled">Sprint 7 (snart)</a>
+</nav>
+
+<main class="stage">
+
+<section class="sprint">
+  <div class="sprint-marker">
+    <span class="num">6</span>
+    <span>Sprint Sex</span>
+  </div>
+  <h2 class="sprint-title">Avdelningen för Inkommande Siffror</h2>
+  <p class="sprint-subtitle">— en andra avdelning öppnar; din app växer.</p>
+
+  <div class="sprint-meta">
+    <div><strong>Tid</strong> ca 35–40 min</div>
+    <div><strong>Kostnad</strong> 0 kr</div>
+    <div><strong>Krav</strong> Sprint 5 avklarad</div>
+  </div>
+
+  <div class="prose">
+    <p class="lead">Hittills har din app haft ett rum: Raffineringen. Det är där siffror tas emot och sorteras, en åt gången, lugnt. Idag öppnar Sifferverket sin <em>andra avdelning</em>: <strong>Avdelningen för Inkommande Siffror</strong>. Det är dit nya sändningar kommer innan de blir tillgängliga för raffinering.</p>
+
+    <p>I praktiken: din app får en andra sida. Eleven kan växla mellan dem. Och Sifferverket levererar idag sin första <em>sändning</em> till dig — en CSV-fil med 40 oraffinerade siffror som ska in i ditt arkiv.</p>
+
+    <p>Du lär dig två saker idag: hur en app kan ha flera vyer (varje vy är en egen sida), och hur stora mängder data kan komma in i en databas på en gång — utan att Claude någonsin ser siffrorna. Princip I, fortsatt.</p>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Vad som händer i denna sprint</div>
+    <div class="diagram-row">
+      <div class="diagram-box">
+        <span class="icon">F</span>
+        Fil<br>från Sifferverket
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">II</span>
+        Avdelning II<br>tar emot
+      </div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-box">
+        <span class="icon">A</span>
+        Arkivet<br>får 40 nya rader
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STEG i — INSERT-POLICY ============ -->
+  <div class="step-heading">
+    <div class="step-num">i.</div>
+    <div class="step-title">Lägg till INSERT-policy</div>
+  </div>
+
+  <div class="prose">
+    <p>I Sprint 3 skapade du en SELECT-policy (anon får läsa). I Sprint 4 skapade du en UPDATE-policy (anon får ändra status och kansla). Idag behövs den tredje: en INSERT-policy så anon får <em>lägga till nya rader</em>.</p>
+    <p>Det är samma typ av handling, samma typ av regel. Sifferverket är ordnat: varje operation har sin egen dörr.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skapa en INSERT-policy för anon</h4>
+    <ol>
+      <li>I Supabase, gå till <strong>Authentication</strong> → <strong>Policies</strong> i vänstermarginalen.</li>
+      <li>Hitta tabellen <strong>siffror</strong>. Du har redan två policies på den (SELECT från Sprint 3, UPDATE från Sprint 4). Klicka <strong>"New Policy"</strong>.</li>
+      <li>Välj <strong>"Create a new policy from scratch"</strong> — inte mall-alternativet.</li>
+      <li>Konfigurera policyn:
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li>Policy name: <strong>Anon kan ta emot sändningar</strong></li>
+          <li>Allowed operation: <strong>INSERT</strong></li>
+          <li>Target roles: lägg till <strong>anon</strong></li>
+          <li>WITH CHECK expression: skriv <strong>true</strong></li>
+          <li>(USING expression saknas för INSERT — det är förväntat)</li>
+        </ul>
+      </li>
+      <li>Klicka "Review" och därefter "Save policy".</li>
+      <li>Du ska nu se tre policies på siffror-raden: SELECT, UPDATE, INSERT.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="intake-create-policy">
+        <span>INSERT-policyn är aktiv</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Symmetri värd att notera:</strong> Tre operationer, tre policies. SELECT (Sprint 3) lät dig läsa. UPDATE (Sprint 4) lät dig ändra. INSERT (idag) låter dig lägga till. Det fjärde — DELETE — finns också, men vi rör det inte i den här kursen. Sifferverket raderar inget, det <em>uppdaterar tillstånd</em>. Princip III.</p>
+  </div>
+
+  <!-- ============ STEG ii — BE CLAUDE BYGGA NY AVDELNING ============ -->
+  <div class="step-heading">
+    <div class="step-num">ii.</div>
+    <div class="step-title">Be Claude bygga den nya avdelningen</div>
+  </div>
+
+  <div class="prose">
+    <p>Du behöver en helt ny sida — <code>inkommande.html</code> — som tar emot CSV-filer och lägger in raderna i ditt arkiv. Vi ger Claude exakt struktur och beteende; eleven flyttar koden.</p>
+  </div>
+
+  <div class="claude-prompt">
+    Hej Claude. Jag bygger en mappstruktur för min Sifferverket-app. Skapa en ny fil "inkommande.html" som ska bo i en undermapp med samma namn — alltså filsökvägen blir "inkommande/index.html" i mitt repo. Sidan ska fungera så här:
+
+    (1) Visa rubriken "Inkommande Siffror" där "Siffror" är i italic teal-färg, och under den texten "Sändningar mottas här. En behörig anställd godkänner innehållet och vidarebefordrar till Arkivet."
+
+    (2) Högst upp ska finnas avdelningsflikar — länkar till "I Raffinering" (../) och "II Inkommande" (./). Markera den senare som aktiv. Använd HTML-strukturen:
+      &lt;nav class="dept-tabs"&gt;
+        &lt;a href="../"&gt;&lt;span class="roman"&gt;I&lt;/span&gt;Raffinering&lt;/a&gt;
+        &lt;a href="./" class="active"&gt;&lt;span class="roman"&gt;II&lt;/span&gt;Inkommande&lt;/a&gt;
+      &lt;/nav&gt;
+
+    (3) En "dropzone" — en stor ruta med streckad kant där användaren kan släppa en CSV-fil eller klicka för att välja en. När en fil dras över ska kanten lysa teal. När en fil släpps ska CSV-innehållet parsas (rubrikrad: "varde,kansla"; två kolumner per rad).
+
+    (4) Efter parsing — visa innehållet som en förhandsgranskning. En rubrikruta överst med tre stats: antal rader, antal distinkta känslor, antal ogiltiga rader (oparserbara). Under rubrikrutan en tabell med kolumnerna #, Värde, Känsla. Värdet i italic Cormorant Garamond serif. Känslan färgkodad: oro=#5a6b6e, gladje=#c4a574, vrede=#c44a1f, langtan=#0e4d52. Tabellen scrollbar om innehållet är högt.
+
+    (5) Två knappar under tabellen: "Avbryt sändning" (ramad knapp som återställer dropzonen) och "Vidarebefordra till Arkivet" (mörk knapp som skickar raderna till Supabase).
+
+    (6) När "Vidarebefordra" klickas: gör en INSERT på tabellen "siffror" via Supabase JS v2. Varje rad får varde och kansla från CSV:n, samt status='inkommande'. Efter lyckad insert: visa ett kort meddelande ("40 sändningsposter mottagna i Arkivet") och en länk tillbaka till raffineringsavdelningen ("../").
+
+    (7) Hantera felfall enkelt: om filen inte är CSV eller saknar rubrikrad — visa "Sändningen saknar förväntat format". Om Supabase-anropet misslyckas — visa felmeddelandet i konsolen.
+
+    (8) Använd off-white bakgrund (#e8e6dd) och mörkblågrön text (#0a2a30) som baspalett. Importera Cormorant Garamond från Google Fonts och Supabase JS v2 från CDN (https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2). För CSV-parsning kan du antingen skriva enkel split-på-radbrytning-och-komma, eller importera PapaParse från CDN. Det enklare alternativet är att föredra.
+
+    (9) Ersätt {SUPABASE_URL} och {SUPABASE_ANON_KEY} med platshållare jag själv ska byta ut.
+
+    (10) Kommentera varje viktig kodrad med // så att en novis förstår vad som händer. Var särskilt tydlig kring INSERT-anropet — det är nytt för mig.
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skicka prompten och skapa filen</h4>
+    <ol>
+      <li>Klistra in prompten ovan i din Claude-flik.</li>
+      <li>Claude svarar med en komplett HTML-fil. Klicka "Copy" för att få den i urklipp.</li>
+      <li>I din lokala <strong>sifferverket</strong>-mapp på skrivbordet, skapa en ny undermapp som heter <strong>inkommande</strong>.</li>
+      <li>I den nya mappen, skapa en fil som heter <strong>index.html</strong> (samma trick som i Sprint 1: "Alla filer" valt först, namnet utan citattecken).</li>
+      <li>Klistra in koden från Claude i den nya filen.</li>
+      <li>Använd Sök &amp; ersätt: byt ut <code>{SUPABASE_URL}</code> och <code>{SUPABASE_ANON_KEY}</code> mot dina egna värden (samma som i Sprint 3 och 4).</li>
+      <li>Spara filen.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="intake-build-page">
+        <span>inkommande/index.html är skapad och har rätt nycklar</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Filstrukturen:</strong> Du har nu två mappar: roten (där den ursprungliga <code>index.html</code> bor) och <code>inkommande/</code> (där den nya <code>index.html</code> bor). När du senare deployar via GitHub kommer Vercel automatiskt servera dem som <code>din-app.vercel.app/</code> respektive <code>din-app.vercel.app/inkommande/</code>. Det är så enkelt det är att lägga till en sida i en webbapp.</p>
+  </div>
+
+  <!-- ============ STEG iii — AVDELNINGSFLIKAR I RAFFINERING ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
+    <div class="step-title">Knyt ihop avdelningarna</div>
+  </div>
+
+  <div class="prose">
+    <p>Nu ska din ursprungliga <code>index.html</code> (Avdelning I — Raffineringen) också få avdelningsflikar, så eleven kan ta sig till den nya avdelningen och tillbaka. Vi ber Claude göra en liten justering.</p>
+  </div>
+
+  <div class="claude-prompt">
+    Tack. Lägg nu till avdelningsflikar högst upp i min ursprungliga index.html (raffineringsavdelningen) — direkt efter rubriken och anställd-namnet, men före matrisen. Strukturen ska vara:
+
+    &lt;nav class="dept-tabs"&gt;
+      &lt;a href="./" class="active"&gt;&lt;span class="roman"&gt;I&lt;/span&gt;Raffinering&lt;/a&gt;
+      &lt;a href="inkommande/"&gt;&lt;span class="roman"&gt;II&lt;/span&gt;Inkommande&lt;/a&gt;
+    &lt;/nav&gt;
+
+    Behåll all annan funktionalitet exakt som den är. Jag vill bara att de två avdelningarna länkar till varandra.
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Uppdatera raffineringsavdelningen</h4>
+    <ol>
+      <li>Skicka prompten ovan till Claude.</li>
+      <li>Claude returnerar din uppdaterade index.html. Kopiera den.</li>
+      <li>Öppna din lokala <strong>index.html</strong> (i rotmappen, inte i inkommande-mappen) och ersätt allt innehåll med det nya.</li>
+      <li>Glöm inte att byta ut <code>{SUPABASE_URL}</code> och <code>{SUPABASE_ANON_KEY}</code> igen — Claude tar bort de värden du tidigare klistrat in.</li>
+      <li>Spara filen.</li>
+      <li>Dubbelklicka på den för att öppna lokalt — du ska se avdelningsflikarna högst upp, med Avdelning I aktiv. Klicka på Avdelning II så ska du landa på din nya inkommande-sida.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="intake-add-tabs">
+        <span>Båda avdelningarna länkar till varandra</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Pusha båda filerna nu</strong> — gå till GitHub, ladda upp <code>index.html</code> (uppdaterad) och skapa <code>inkommande/index.html</code> (helt ny). GitHub-webbgränssnittet kan göra båda i samma commit: använd <strong>"Add file" → "Upload files"</strong> och dra hela mappen, eller gör två separata edits. Commit-meddelande: <em>Sprint 6: två avdelningar</em>.</p>
+    <p>Vänta 30 sekunder. Vercel deployar automatiskt. Du har nu två live-sidor.</p>
+  </div>
+
+  <!-- ============ STEG iv — TA EMOT SÄNDNINGEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">iv.</div>
+    <div class="step-title">Ta emot sändningen</div>
+  </div>
+
+  <div class="prose">
+    <p>Sifferverket har förberett en sändning åt dig — en CSV-fil med 40 oraffinerade siffror, jämnt fördelade över de fyra känslorna. Ladda ner den och spara på ditt skrivbord eller i din nedladdningsmapp.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Ladda ner inkommande-leverans-001.csv</h4>
+    <ol>
+      <li>Klicka på länken nedan för att ladda ner filen:</li>
+      <li style="list-style: none; margin: 16px 0; padding-left: 0;">
+        <a href="/assets/leveranser/inkommande-leverans-001.csv" download style="display: inline-block; padding: 12px 24px; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;">
+          ↓ Hämta inkommande-leverans-001.csv
+        </a>
+      </li>
+      <li>Spara filen någonstans där du hittar den (t.ex. skrivbordet eller Hämtade filer).</li>
+      <li>Pröva att öppna den i Excel eller motsvarande för att se vad den innehåller — 40 rader, två kolumner: värde och känsla. Stäng sedan utan att spara om.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="intake-download-delivery">
+        <span>Sändningen är hämtad</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad du tittar på:</strong> Det här är en helt vanlig CSV-fil — Comma Separated Values. Två kolumner separerade med komma, en rad per post, en rubrikrad högst upp. Det är ett av världens äldsta och vanligaste dataformat. Excel öppnar det. Google Sheets öppnar det. Din nya app öppnar det. Det är det universella språket för "rader och kolumner".</p>
+  </div>
+
+  <!-- ============ STEG v — VIDAREBEFORDRA TILL ARKIVET ============ -->
+  <div class="step-heading">
+    <div class="step-num">v.</div>
+    <div class="step-title">Vidarebefordra till Arkivet</div>
+  </div>
+
+  <div class="prose">
+    <p>Din nya avdelning är på plats och du har fått din sändning. Nu sammankopplas allt: du drar filen, granskar innehållet, godkänner sändningen.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Importera siffrorna till Arkivet</h4>
+    <ol>
+      <li>Öppna din live-app i webbläsaren.</li>
+      <li>Klicka på <strong>Avdelning II — Inkommande</strong> i flikraden.</li>
+      <li>Du ser dropzonen. Dra <strong>inkommande-leverans-001.csv</strong> från där du sparade den, in i dropzonen. Eller klicka på dropzonen för att välja filen via dialog.</li>
+      <li>Förhandsgranskningen ska visas: "40 sändningsposter · 4 distinkta känslor · 0 ogiltiga rader". Tabellen scrollar om du vill granska alla.</li>
+      <li>Klicka <strong>"Vidarebefordra till Arkivet"</strong>.</li>
+      <li>Vänta tills bekräftelsen visas: "40 sändningsposter mottagna i Arkivet".</li>
+      <li>Klicka tillbaka till <strong>Avdelning I — Raffinering</strong>. Du ser nu åtta inkommande siffror i din matris (matrisen visar bara åtta åt gången, men det finns 40 i arkivet att raffinera över tid).</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="intake-import-and-confirm">
+        <span>40 nya rader är i Arkivet och raffinerbara</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Stanna en sekund.</strong> Du har just gjort något stort. På fyra sekunder skickade din webbsida 40 separata API-anrop till en server i Frankfurt — eller, om Claude valde att batcha dem, ett enda anrop med alla 40 raderna. Hur som helst: din databas är 40 rader rikare än för en minut sedan. Och Claude har fortfarande aldrig sett en enda av siffrorna. Princip I är intakt — ända in i mängdimport.</p>
+    <p>Avdelningen för Inkommande Siffror existerade inte för en timme sedan. Du byggde den. Den finns på din Vercel-URL, i Sifferverkets fasta inventarium. Den kommer ta emot fler sändningar i framtiden.</p>
+  </div>
+
+  <!-- ============ ORDLISTA ============ -->
+  <div class="step-heading">
+    <div class="step-num">vi.</div>
+    <div class="step-title">Vad du nu kan</div>
+  </div>
+
+  <div class="prose">
+    <p>Tre nya ord du nu förstår, åtminstone i magkänslan:</p>
+  </div>
+
+  <dl style="margin-top: 24px;">
+    <div class="definition">
+      <dt>INSERT</dt>
+      <dd>Att lägga till en ny rad i en databas. Du har gjort SELECT (Sprint 3, läsa), UPDATE (Sprint 4, ändra) och nu INSERT. Tre av databasens fyra grundoperationer. Den fjärde — DELETE — finns men används sällan i moderna applikationer; man uppdaterar tillstånd i stället. Princip III.</dd>
+    </div>
+    <div class="definition">
+      <dt>CSV</dt>
+      <dd>Comma Separated Values. Det enklaste och mest universella tabellformatet. En rad per post, kolumner separerade med komma. Excel, Google Sheets och nästan alla program kan läsa och skriva CSV.</dd>
+    </div>
+    <div class="definition">
+      <dt>Multi-vy-app</dt>
+      <dd>En app som har flera sidor (vyer) för olika uppgifter. Din app är nu en sådan: Avdelning I för raffinering, Avdelning II för inkommande siffror. De delar databas men har egen funktion. Det är hur de flesta riktiga appar är uppbyggda.</dd>
+    </div>
+  </dl>
+
+  <div class="decision">
+    <h3>Sprint 6 avklarad</h3>
+    <p>Sifferverket har två avdelningar. Inkommande sändningar har en plats. Ditt arkiv växer på beställning. I sista sprinten — Sprint 7 — knyts allt samman.</p>
+    <a href="/">Tillbaka till översikten →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

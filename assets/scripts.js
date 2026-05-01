@@ -67,7 +67,9 @@
     // Sprint 4
     'refine-add-status', 'refine-create-policy', 'refine-write-prompt', 'refine-paste-code', 'refine-deploy', 'refine-perform',
     // Sprint 5
-    'library-browse-history', 'library-view-old-commit', 'library-break-something', 'library-revert'
+    'library-browse-history', 'library-view-old-commit', 'library-break-something', 'library-revert',
+    // Sprint 6
+    'intake-create-policy', 'intake-build-page', 'intake-add-tabs', 'intake-download-delivery', 'intake-import-and-confirm'
   ];
 
   function initProgressTracking() {
@@ -142,6 +144,11 @@
   // Direktivlogg från Öferdirektören. Sanningskälla: DIREKTIV-arrayen.
   // Lägg nytt direktiv ÖVERST. Aldrig återanvänd ID.
   const DIREKTIV = [
+    {
+      id: '0006',
+      date: '2026-05-01',
+      text: '<em>Avdelningen för Inkommande Siffror</em> har öppnats. Anställda kan nu ta emot sändningar via formaterad <em>CSV-fil</em>. Sifferverket fortsätter att växa under ordnade former.'
+    },
     {
       id: '0005',
       date: '2026-05-01',
