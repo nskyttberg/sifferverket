@@ -248,9 +248,51 @@
     <div class="closing">— Sifferverkets Ledning</div>
   </aside>
 
-  <!-- ============ STEG ii — BE CLAUDE SKRIVA KODEN ============ -->
+  <!-- ============ STEG ii — RLS-POLICY FÖR ANON (LÄSA) ============ -->
   <div class="step-heading">
     <div class="step-num">ii.</div>
+    <div class="step-title">Öppna dörren för anon-nyckeln</div>
+  </div>
+
+  <div class="prose">
+    <p>I steget ovan kopierade du anon-nyckeln. I principen läste du varför den får ligga öppet: vad som skyddar dina siffror är inte att nyckeln är hemlig, utan att <em>huset har bestämt vad nyckeln får göra</em>. Idag bestämmer du.</p>
+    <p>När du i Sprint 2 lät "Enable Row Level Security" stå påklickad sa du i praktiken: "Inget i det här arkivet är synligt utifrån — förrän jag uttryckligen säger annat." Det är en sund standardposition. Men det betyder också att din app, om vi inte gjorde något, skulle fråga efter siffrorna och få tillbaka tomhet. Vi behöver ge anon-nyckeln en uttrycklig läs-rättighet på tabellen <code>siffror</code>.</p>
+  </div>
+
+  <div class="action">
+    <span class="action-tag">Att göra</span>
+    <h4>Skapa en läs-policy för anon</h4>
+    <ol>
+      <li>I Supabase, gå till <strong>Authentication</strong> i vänstermarginalen och välj <strong>Policies</strong>.</li>
+      <li>Hitta din tabell <strong>siffror</strong> i listan. Den har idag noll policies — det visas som en varning.</li>
+      <li>Klicka <strong>"New Policy"</strong> på raden för <code>siffror</code>.</li>
+      <li>Välj alternativet <strong>"Get started quickly"</strong> → mallen <strong>"Enable read access for all users"</strong>.</li>
+      <li>I dialogen som öppnas — kontrollera att:
+        <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+          <li>Policy name: lämna defaultnamnet eller skriv <strong>Anon kan läsa siffror</strong></li>
+          <li>Allowed operation: <strong>SELECT</strong> (förvalt)</li>
+          <li>Target roles: ska inkludera <strong>anon</strong> (om bara <code>public</code> är förvalt — lägg till <code>anon</code>)</li>
+        </ul>
+      </li>
+      <li>Klicka <strong>"Review"</strong> och därefter <strong>"Save policy"</strong>.</li>
+      <li>Du ska nu se (1) policy listad på <code>siffror</code>-raden.</li>
+    </ol>
+    <div class="completion">
+      <label class="checkbox-wrap">
+        <input type="checkbox" data-step="fetch-create-policy">
+        <span>Anon-nyckeln får nu läsa tabellen siffror</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="memo">
+    <p><strong>Vad du nyss gjorde:</strong> Du skrev din första <em>Row Level Security-policy</em> — en regel som säger "den här rollen får göra den här operationen på den här tabellen". Du gjorde det med musen, inte med SQL, men en riktig regel ligger nu i din databas. När din app om en stund frågar efter siffrorna kommer Supabase tyst kontrollera regeln och svara "ja, det får du".</p>
+    <p>Om du vill se SQL-versionen av vad du nyss gjorde: klicka på policyn i listan. Du ser koden — något i stil med <code>CREATE POLICY ... FOR SELECT TO anon USING (true)</code>. Det är vad knapparna betydde.</p>
+  </div>
+
+  <!-- ============ STEG iii — BE CLAUDE SKRIVA KODEN ============ -->
+  <div class="step-heading">
+    <div class="step-num">iii.</div>
     <div class="step-title">Be Claude skriva hämta-koden</div>
   </div>
 
@@ -296,7 +338,7 @@
 
   <!-- ============ STEG iii — KLISTRA IN NYCKEL OCH URL ============ -->
   <div class="step-heading">
-    <div class="step-num">iii.</div>
+    <div class="step-num">iv.</div>
     <div class="step-title">Klistra in nyckel och URL i koden</div>
   </div>
 
@@ -334,7 +376,7 @@
 
   <!-- ============ STEG iv — PUSHA TILL GITHUB ============ -->
   <div class="step-heading">
-    <div class="step-num">iv.</div>
+    <div class="step-num">v.</div>
     <div class="step-title">Pusha den nya versionen till GitHub</div>
   </div>
 
@@ -364,7 +406,7 @@
 
   <!-- ============ STEG v — VERIFIERA OCH NJUT ============ -->
   <div class="step-heading">
-    <div class="step-num">v.</div>
+    <div class="step-num">vi.</div>
     <div class="step-title">Öppna din live-app</div>
   </div>
 
@@ -396,7 +438,7 @@
 
   <!-- ============ ORDLISTA ============ -->
   <div class="step-heading">
-    <div class="step-num">vi.</div>
+    <div class="step-num">vii.</div>
     <div class="step-title">Vad du nu kan</div>
   </div>
 
