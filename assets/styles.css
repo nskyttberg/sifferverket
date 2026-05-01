@@ -838,3 +838,246 @@ body::before {
   .principle .canon { font-size: 22px; }
   .principle .gloss { font-size: 15px; }
 }
+
+/* =============================================================
+   SIFFERVERKET INFORMERAR — direktivband och panel
+   Visas högst upp på alla sidor, ovanför corp-headern.
+   ============================================================= */
+
+/* === BANDET === */
+.directive-band {
+  background: var(--ink);
+  color: var(--paper);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  border-bottom: 1px solid var(--ink-soft);
+  transition: background 0.2s;
+}
+
+.directive-band:hover {
+  background: var(--ink-soft);
+}
+
+.directive-band:focus-visible {
+  outline: 2px solid var(--teal-glow);
+  outline-offset: -2px;
+}
+
+.directive-prefix {
+  color: var(--teal-glow);
+  font-weight: 500;
+}
+
+.directive-divider {
+  color: var(--ink-faint);
+  opacity: 0.6;
+}
+
+.directive-current {
+  color: var(--paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60ch;
+}
+
+.directive-unread {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--teal-glow);
+  border-radius: 50%;
+  margin-left: 4px;
+  animation: directive-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes directive-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* === BACKDROP === */
+.directive-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 42, 48, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.directive-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === PANELEN === */
+.directive-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 201;
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 80vh;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--ink-soft);
+  box-shadow: 0 8px 32px rgba(10, 42, 48, 0.4);
+}
+
+.directive-panel.open {
+  transform: translateY(0);
+}
+
+.directive-panel-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 32px 32px;
+}
+
+.directive-panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.directive-panel-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+
+.directive-panel-close {
+  background: none;
+  border: 1px solid var(--ink-faint);
+  color: var(--paper);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  transition: all 0.2s;
+  opacity: 0.7;
+}
+
+.directive-panel-close:hover {
+  border-color: var(--paper);
+  background: var(--ink-soft);
+  opacity: 1;
+}
+
+.directive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.directive-list li {
+  padding: 24px 0;
+  border-bottom: 1px dashed var(--ink-soft);
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 24px;
+  align-items: baseline;
+}
+
+.directive-list li:last-child {
+  border-bottom: none;
+}
+
+.directive-list .directive-id {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.directive-list .directive-date {
+  display: block;
+  font-size: 9px;
+  color: var(--ink-faint);
+  margin-top: 4px;
+  letter-spacing: 0.2em;
+}
+
+.directive-list .directive-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--paper);
+}
+
+.directive-list .directive-text em {
+  color: var(--teal-glow);
+  font-style: normal;
+}
+
+.directive-list li.unread .directive-id::before {
+  content: '· ';
+  color: var(--teal-glow);
+  font-weight: 600;
+}
+
+.directive-panel-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ink-soft);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+/* === MOBIL === */
+@media (max-width: 640px) {
+  .directive-band {
+    height: 28px;
+    font-size: 10px;
+    padding: 0 16px;
+    gap: 8px;
+  }
+  .directive-current {
+    max-width: 32ch;
+  }
+  .directive-prefix {
+    display: none;
+  }
+  .directive-divider {
+    display: none;
+  }
+  .directive-panel-inner {
+    padding: 32px 20px 20px;
+  }
+  .directive-panel-label {
+    font-size: 22px;
+  }
+  .directive-list li {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

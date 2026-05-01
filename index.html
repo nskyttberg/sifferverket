@@ -432,6 +432,28 @@
 </head>
 <body>
 
+<!-- SIFFERVERKET INFORMERAR — direktivband + panel -->
+<div class="directive-band" id="directiveBand" role="button" tabindex="0" aria-label="Öppna direktivlista">
+  <span class="directive-prefix">Sifferverket Informerar</span>
+  <span class="directive-divider">·</span>
+  <span class="directive-current" id="directiveCurrent">Inga direktiv inkomna.</span>
+  <span class="directive-unread" id="directiveUnread" hidden></span>
+</div>
+
+<aside class="directive-panel" id="directivePanel" aria-hidden="true">
+  <div class="directive-panel-inner">
+    <header class="directive-panel-header">
+      <div class="directive-panel-label">Nyheter från Öferdirektören</div>
+      <button class="directive-panel-close" id="directivePanelClose" aria-label="Stäng">✕</button>
+    </header>
+    <ol class="directive-list" id="directiveList"></ol>
+    <footer class="directive-panel-footer">
+      Sifferverket · Avdelning för Personalutveckling · Internt material
+    </footer>
+  </div>
+</aside>
+<div class="directive-backdrop" id="directiveBackdrop" hidden></div>
+
 <header class="corp-header">
   <a href="/" class="logo">
     <div class="logo-mark">S</div>

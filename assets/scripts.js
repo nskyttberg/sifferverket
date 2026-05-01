@@ -138,12 +138,120 @@
     });
   }
 
+  // ==================== SIFFERVERKET INFORMERAR ====================
+  // Direktivlogg från Öferdirektören. Sanningskälla: DIREKTIV-arrayen.
+  // Lägg nytt direktiv ÖVERST. Aldrig återanvänd ID.
+  const DIREKTIV = [
+    {
+      id: '0004',
+      date: '2026-05-01',
+      text: 'Biblioteket öppnar. Anställda tillråds att <em>vandra varsamt</em> i tidigare versioner. Det förflutna är inte ett museum, men det är inte heller ett laboratorium.'
+    },
+    {
+      id: '0003',
+      date: '2026-04-30',
+      text: 'Kolumnen <em>status</em> har införts i Arkivet. Befintliga siffror har automatiskt klassificerats som <em>inkommande</em> i avvaktan på raffinering.'
+    },
+    {
+      id: '0002',
+      date: '2026-04-29',
+      text: 'Säkerhetspolicy har införts på Arkivet. Anställd som ej kunnat hämta siffror i Sprint 3 ombedes uppdatera enligt nya direktiv.'
+    },
+    {
+      id: '0001',
+      date: '2026-04-28',
+      text: 'Nyckelsystemet förtydligat. <em>Anon-nyckeln</em> öppnar huvudentréen. Generalnyckeln vilar i låst skåp och får aldrig vidröras av extern konsult.'
+    }
+  ];
+
+  function initDirectives() {
+    const band = document.getElementById('directiveBand');
+    const current = document.getElementById('directiveCurrent');
+    const unreadDot = document.getElementById('directiveUnread');
+    const panel = document.getElementById('directivePanel');
+    const list = document.getElementById('directiveList');
+    const close = document.getElementById('directivePanelClose');
+    const backdrop = document.getElementById('directiveBackdrop');
+
+    if (!band || !panel) return; // sidan har inte direktiv-skelettet inkluderat
+
+    // Senaste direktiv visas i bandet
+    const latest = DIREKTIV[0];
+    if (latest) {
+      // Strippa <em>-taggar för bandet — de tillhör panelen
+      const plain = latest.text.replace(/<\/?em>/g, '');
+      current.textContent = plain;
+    } else {
+      current.textContent = 'Inga direktiv inkomna.';
+    }
+
+    // Olästa: jämför mot localStorage
+    const lastSeen = localStorage.getItem('sv-directive-last-seen') || '';
+    const unreadCount = DIREKTIV.filter(d => d.id > lastSeen).length;
+    if (unreadCount > 0) {
+      unreadDot.hidden = false;
+      unreadDot.title = unreadCount + ' nytt direktiv';
+    }
+
+    // Render hela listan i panelen
+    list.innerHTML = DIREKTIV.map(d => {
+      const isUnread = d.id > lastSeen;
+      return `
+        <li class="${isUnread ? 'unread' : ''}">
+          <div>
+            <span class="directive-id">Direktiv ${d.id}</span>
+            <span class="directive-date">${d.date}</span>
+          </div>
+          <div class="directive-text">${d.text}</div>
+        </li>
+      `;
+    }).join('');
+
+    function openPanel() {
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+      backdrop.hidden = false;
+      requestAnimationFrame(() => backdrop.classList.add('visible'));
+      document.body.style.overflow = 'hidden';
+
+      if (DIREKTIV.length > 0) {
+        localStorage.setItem('sv-directive-last-seen', DIREKTIV[0].id);
+        unreadDot.hidden = true;
+        setTimeout(() => {
+          list.querySelectorAll('li.unread').forEach(li => li.classList.remove('unread'));
+        }, 1200);
+      }
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      backdrop.classList.remove('visible');
+      setTimeout(() => { backdrop.hidden = true; }, 400);
+      document.body.style.overflow = '';
+    }
+
+    band.addEventListener('click', openPanel);
+    band.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openPanel();
+      }
+    });
+    close.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+    });
+  }
+
   // ==================== INIT ====================
   document.addEventListener('DOMContentLoaded', () => {
     initEmployeeName();
     initStartDate();
     initProgressTracking();
     initCopyButtons();
+    initDirectives();
   });
 
 })();

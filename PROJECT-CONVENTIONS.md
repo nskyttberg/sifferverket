@@ -316,4 +316,35 @@ Som rubriker eller punkter — välj efter behov:
 
 ---
 
+## Sifferverket Informerar — direktivlogg
+
+Direktivbandet längst upp på alla sidor visar löpande information från Öferdirektören om förändringar i kursen — buggfixar, designjusteringar, nya principer. Det är **kuraterad ändringslogg i fiktionens språk**.
+
+### Sanningskälla
+
+`DIREKTIV`-arrayen i `assets/scripts.js`. Nya direktiv läggs **överst** i arrayen.
+
+### Att lägga till ett nytt direktiv
+
+1. Bestäm nästa lediga ID (t.ex. `0005`)
+2. Skriv text i Sifferverket-stil — torr-byråkratisk, 1–2 meningar
+3. Lägg objektet överst i `DIREKTIV`-arrayen
+4. Commit: `direktiv: <kort beskrivning>`
+
+### Direktivskrivande
+
+- Inga utropstecken
+- Inga ursäkter
+- "Justeringar", "förtydliganden", "omklassificeringar" — aldrig "buggfixar" eller "fel"
+- `<em>` för viktiga ord — de blir teal-färgade i panelen
+
+### När direktiv ska skapas
+
+- Efter en signifikant kursförändring som eleven kan upptäcka
+- Vid säkerhetsuppdatering (RLS, nycklar, etc.)
+- Vid ny princip eller komponent
+- **Inte** för rena docs-ändringar eller refaktorer som inte påverkar elevens upplevelse
+
+---
+
 *Slut på PROJECT-CONVENTIONS.md*
