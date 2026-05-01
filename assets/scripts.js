@@ -143,6 +143,11 @@
   // Lägg nytt direktiv ÖVERST. Aldrig återanvänd ID.
   const DIREKTIV = [
     {
+      id: '0005',
+      date: '2026-05-01',
+      text: 'Förtydliganden införda i tjänstgöringsprocedurerna ett, två, tre och fyra. Anställda som tidigare upplevt <em>tysta avslag</em> i Arkivet uppmanas att granska sina policyer enligt nya direktiv.'
+    },
+    {
       id: '0004',
       date: '2026-05-01',
       text: 'Biblioteket öppnar. Anställda tillråds att <em>vandra varsamt</em> i tidigare versioner. Det förflutna är inte ett museum, men det är inte heller ett laboratorium.'
