@@ -1,6 +1,10 @@
 # DEPLOY.md — Instruktioner för Claude Code
 
-> **Till dig som läser detta:** Ge denna fil till Claude Code med en enkel prompt:
+> **Status: HISTORISK.** Denna runbook kördes 2026-04-25 (commit `ffc5da4`) och repot är sedan dess deployat på Vercel med GitHub-integration — varje push till `main` auto-deployar inom ~30 sekunder. Filen behålls för transparens och som återställnings-guide om repot någon gång behöver byggas upp från noll.
+>
+> **Vid normalt arbete:** ignorera denna fil. Sprintleveranser sköts via individuella `sprint-N.md`-filer enligt mallen i `SPRINT-TEMPLATE.md`.
+>
+> **Till dig som läser detta vid en återställning:** Ge denna fil till Claude Code med en enkel prompt:
 > *"Läs DEPLOY.md i projektmappen och kör igenom den steg för steg. Stoppa och fråga mig vid varje punkt som kräver mitt beslut eller mina inloggningsuppgifter."*
 >
 > Claude Code kommer då navigera den här filen som en checklista, köra alla terminal-kommandon själv, och stoppa vid de markerade beslutspunkterna.

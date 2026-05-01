@@ -24,7 +24,10 @@ sifferverket/
 ├── index.html              Landningssida + sprintöversikt
 ├── sprint-0/index.html     Anställningsdagen
 ├── sprint-1/index.html     Ditt skrivbord
-├── sprint-N/index.html     (kommer)
+├── sprint-2/index.html     Siffrorna anländer
+├── sprint-3/index.html     Receptionen pratar med arkivet
+├── sprint-4/index.html     Raffineringen
+├── sprint-N/index.html     (kommer — sprintar 5–7)
 ├── assets/
 │   ├── styles.css          Delad styling
 │   └── scripts.js          Delad klientlogik (progress, namn, etc.)

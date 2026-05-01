@@ -266,6 +266,8 @@ const ALL_STEPS = [
 
 4. **Progress-baren** uppdateras när bockrutor klickas på sprint-<<<N>>>-sidan
 
+5. **Externa länkar** — för varje `<a href="https://...">` du lagt till eller flyttat: öppna URL:en i en webbläsare och bekräfta att den landar på rätt ställe. Platshållarlänkar som `https://github.com/` (utan repo-path) ska aldrig committas.
+
 Om något inte stämmer: påpeka till mig istället för att gissa eller "fixa". Bättre att fråga än att göra ändringar i tidigare sprintars CSS eller logik.
 
 ---
