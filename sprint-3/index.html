@@ -202,6 +202,11 @@
     <p>Om du vill se SQL-versionen av vad du nyss gjorde: klicka på policyn i listan. Du ser koden — något i stil med <code>CREATE POLICY ... FOR SELECT TO anon USING (true)</code>. Det är vad knapparna betydde.</p>
   </div>
 
+  <div class="memo" style="border-left-color: var(--warning);">
+    <p><strong>Felsökning — viktigt att läsa innan du går vidare:</strong> Om matrisen senare i sprinten visar tomma celler trots att du har siffror i tabellen, är detta nästan alltid orsaken: <em>policyns "Target roles" inkluderar inte <code>anon</code></em>. Gå tillbaka till policyn (klicka på den i listan), kontrollera att <code>anon</code> står med, och spara om. Det är det vanligaste tysta felet i den här sprinten.</p>
+    <p>Andra orsaker kan vara felstavad URL eller nyckel — men då ger Console-fliken (F12 i webbläsaren) ett tydligt felmeddelande. RLS-fel är tyst: appen får tomt svar utan felmeddelande.</p>
+  </div>
+
   <!-- ============ STEG iii — BE CLAUDE SKRIVA KODEN ============ -->
   <div class="step-heading">
     <div class="step-num">iii.</div>
@@ -223,7 +228,7 @@
 
     (4) Varje sifferruta ska visa heltalsvärdet stort i italic Cormorant Garamond serif. De siffror där kansla är tom (NULL eller tom sträng) ska gråtonas och visa texten "ej raffinerad" under värdet i små versaler. Siffror som har en kansla visas i full färg utan etikett (det blir relevant först i nästa sprint).
 
-    (5) Använd off-white bakgrund (#e8e6dd) och mörkblågrön text (#0a2a30). Använd serif-typsnitt. Hela koden i en fil, inga externa filer förutom Cormorant Garamond från Google Fonts och Supabase JS från CDN. Ersätt {SUPABASE_URL} och {SUPABASE_ANON_KEY} med platshållare jag själv ska byta ut.
+    (5) Använd off-white bakgrund (#e8e6dd) och mörkblågrön text (#0a2a30). Använd serif-typsnitt. Hela koden i en fil, inga externa filer förutom Cormorant Garamond från Google Fonts och Supabase JS version 2 från CDN (https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2). Ersätt {SUPABASE_URL} och {SUPABASE_ANON_KEY} med platshållare jag själv ska byta ut.
 
     (6) Kommentera varje viktig kodrad med // så att en novis förstår vad som händer.
   </div>

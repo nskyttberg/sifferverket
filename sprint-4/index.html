@@ -182,14 +182,14 @@
       <li>I Supabase, gå till <strong>Authentication</strong> → <strong>Policies</strong>.</li>
       <li>Hitta din tabell <strong>siffror</strong>. Du har idag (1) policy från Sprint 3.</li>
       <li>Klicka <strong>"New Policy"</strong> på raden för <code>siffror</code>.</li>
-      <li>Välj <strong>"For full customization"</strong> (eller "Create policy from scratch", beroende på hur Supabase formulerar det idag).</li>
-      <li>Fyll i:
+      <li>I dialogen, välj <strong>"Create a new policy from scratch"</strong> (alltså <em>inte</em> mall-alternativet). Det är medvetet — UPDATE-policys behöver två fält ifyllda, och mallarna kan fylla i bara det ena.</li>
+      <li>Konfigurera policyn:
         <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
           <li>Policy name: <strong>Anon kan raffinera siffror</strong></li>
-          <li>Allowed operation: kryssa i <strong>UPDATE</strong></li>
+          <li>Allowed operation: <strong>UPDATE</strong></li>
           <li>Target roles: lägg till <strong>anon</strong></li>
-          <li>USING expression: <code>true</code></li>
-          <li>WITH CHECK expression: <code>true</code></li>
+          <li>USING expression: skriv <strong>true</strong></li>
+          <li>WITH CHECK expression: skriv <strong>true</strong> (även detta — båda fälten behöver fyllas)</li>
         </ul>
       </li>
       <li>Klicka <strong>"Review"</strong> och därefter <strong>"Save policy"</strong>.</li>
@@ -205,6 +205,10 @@
 
   <div class="memo">
     <p><strong>Två fält du just såg:</strong> <code>USING</code> och <code>WITH CHECK</code>. Det första bestämmer <em>vilka rader man får röra</em>. Det andra bestämmer <em>vilket nytt tillstånd raden får hamna i</em>. När båda är <code>true</code> betyder det "ändra vilken rad som helst till vilket tillstånd som helst". Det är en bred policy — passande för Sifferverkets enkla scenario, där bara du själv använder appen. I en app med riktiga användare skulle du istället skriva regler som <code>USING (user_id = auth.uid())</code> — "man får bara röra sina egna rader". Princip III i tillämpning.</p>
+  </div>
+
+  <div class="memo" style="border-left-color: var(--warning);">
+    <p><strong>Felsökning:</strong> Om dragningen senare i sprinten ser ut att fungera — siffran åker till hörnet och försvinner — men sedan kommer tillbaka när du laddar om sidan, betyder det att UPDATE-anropet faktiskt inte gick igenom. Vanligaste orsaken: <em>WITH CHECK-fältet är tomt</em>. Gå tillbaka till policyn och kontrollera att både USING <em>och</em> WITH CHECK står som <code>true</code>.</p>
   </div>
 
   <!-- ============ STEG iii — BE CLAUDE SKRIVA RAFFINERINGS-KODEN ============ -->
@@ -232,7 +236,7 @@
 
     (4) Runt matrisen ska fyra cirkulära "hörn-zoner" placeras: uppe-vänster = Oro, uppe-höger = Glädje, nere-vänster = Vrede, nere-höger = Längtan. Varje hörn har sin namn-etikett i italic serif och en romersk siffra (I, II, III, IV) under. Hörnens kantfärg matchar respektive känslofärg.
 
-    (5) Varje siffra ska kunna dras (drag and drop) med både mus och touch (använd Pointer Events). När en siffra dras: om den släpps över hörnet med samma kansla — uppdatera raden i Supabase med status='raffinerad', animera siffran in i hörnet och låt den fade:a bort, hämta sedan om datan så matrisen uppdateras. Om den släpps över FEL hörn — visa kort meddelande "Den siffran hör inte hemma där", låt hörnet skälva, och låt siffran glida tillbaka till sin plats. Om släppt utanför ett hörn — bara glid tillbaka, inget meddelande.
+    (5) Varje siffra ska kunna dras (drag and drop) med både mus och touch. Använd Pointer Events (pointerdown, pointermove, pointerup) — inte mouseEvent eller touchEvent var för sig — eftersom Pointer Events hanterar båda enhetstyperna med samma kod. Säkerställ att koden testar både desktop (mus) och mobil (fingertryckning) — det är vanligt att en av dem fungerar och den andra tystnar; båda måste fungera. Använd setPointerCapture för att hålla draget aktivt även om pekaren rör sig snabbt utanför elementet. När en siffra dras: om den släpps över hörnet med samma kansla — uppdatera raden i Supabase med status='raffinerad', animera siffran in i hörnet och låt den fade:a bort, hämta sedan om datan så matrisen uppdateras. Om den släpps över FEL hörn — visa kort meddelande "Den siffran hör inte hemma där", låt hörnet skälva, och låt siffran glida tillbaka till sin plats. Om släppt utanför ett hörn — bara glid tillbaka, inget meddelande.
 
     (6) När det inte finns några inkommande siffror kvar: dölj matrisen och visa istället texten "Inga inkommande siffror. Tjänstgöringen kan fortgå när nya siffror anländer." i italic Cormorant Garamond.
 

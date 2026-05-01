@@ -347,4 +347,31 @@ Direktivbandet längst upp på alla sidor visar löpande information från Öfer
 
 ---
 
+## Reserverat för framtiden — RPC
+
+**RPC** (Remote Procedure Call) — det vill säga, anropa en SQL-funktion på databasservern via `supabase.rpc('namn')` istället för direkt tabelloperation — är **medvetet utelämnat** från kursens nuvarande sprintar.
+
+### Varför inte nu
+
+Kursen rör sig inom direkta tabelloperationer: SELECT (Sprint 3), UPDATE (Sprint 4). Detta är pedagogiskt det enklaste — eleven ser en ett-till-ett-koppling mellan sin avsikt ("hämta", "ändra") och databasens svar.
+
+RPC introducerar abstraktion: eleven anropar en funktion utan att veta vad den gör inuti. Det är ett kraftfullt mönster — men kräver att eleven först är trygg i grunderna.
+
+### När RPC kan introduceras
+
+Lämpliga framtida tillfällen:
+- En sprint där eleven vill räkna eller aggregera (t.ex. "antal siffror per känsla") — det är där SQL-funktioner blir mer eleganta än flera klient-anrop
+- En sprint som introducerar serverside-validering — t.ex. "siffror måste vara mellan 1 och 99"
+- En sprint om prestanda — om/när någon framtida operation blir för långsam med direkt tabelloperation
+
+### Att tänka på vid framtida introduktion
+
+- En egen princip kan behövas (t.ex. *"Klienten ber. Servern bestämmer."*)
+- Eleven måste först förstå vad en SQL-funktion är — inte trivialt
+- Säkerhetsmodellen är annorlunda: RPC-anrop kontrolleras av funktionens egna SECURITY-direktiv, inte direkt av RLS
+
+Tills vidare: introducera inte RPC ad hoc. Det förtjänar en sprint i sig.
+
+---
+
 *Slut på PROJECT-CONVENTIONS.md*
