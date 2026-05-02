@@ -278,6 +278,53 @@
     });
   }
 
+  // ==================== BESÖKSSPÅRNING ====================
+  // Loggar varje browser max EN gång per dygn per sökväg till en
+  // `besok`-tabell i Sifferverkets egen Supabase. Ingen UI, ingen PII —
+  // bara timestamp, sökväg, och en pseudonym browser-UUID från localStorage.
+  // Tyst fel — om INSERT misslyckas påverkas inte sidan.
+  function initBesokTracker() {
+    // Normera path — Vercel cleanUrls drar bort trailing slash i prod, men
+    // localt (python http.server) ligger den kvar. Strip trailing slash så
+    // analyzen inte dubbelräknar `/sprint-3/` och `/sprint-3`.
+    const path = (() => {
+      const p = location.pathname;
+      if (p === '/') return '/';
+      return p.endsWith('/') ? p.slice(0, -1) : p;
+    })();
+
+    // Dygnsdedup — varje browser räknas högst en gång per dygn per sökväg
+    const today = new Date().toISOString().slice(0, 10);  // YYYY-MM-DD UTC
+    const dayKey = 'sv-besok-day:' + path;
+    if (localStorage.getItem(dayKey) === today) return;
+
+    // Browser-UUID — generera om saknas, återanvänd annars
+    let besokId = localStorage.getItem('sv-besok-id');
+    if (!besokId) {
+      besokId = (typeof crypto !== 'undefined' && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : (Math.random().toString(36).slice(2) + Date.now().toString(36));
+      localStorage.setItem('sv-besok-id', besokId);
+    }
+
+    // INSERT i bakgrunden — tyst fel
+    fetch(`${SIFFERVERKET_SUPABASE_URL}/rest/v1/besok`, {
+      method: 'POST',
+      headers: {
+        'apikey': SIFFERVERKET_SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SIFFERVERKET_SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ pad: path, besok_id: besokId })
+    }).then(res => {
+      if (res.ok) {
+        localStorage.setItem(dayKey, today);
+      }
+      // Vid icke-OK: gör inget. Saknad rad loggas vid nästa lyckade ladd.
+    }).catch(() => { /* network error — tyst */ });
+  }
+
   // ==================== AVDELNINGEN FÖR PERSONALÄRENDEN ====================
   // Feedback-formulär på /personalarenden/. Skickar INSERT till Sifferverkets
   // egen Supabase. Honeypot + min-längd-check ger lättviktigt spam-skydd.
@@ -383,6 +430,7 @@
     initCopyButtons();
     initDirectives();
     initSynpunktForm();
+    initBesokTracker();
   });
 
 })();

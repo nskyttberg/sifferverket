@@ -378,6 +378,66 @@ Inget dashboard byggs. Synpunkterna läses direkt i Supabase Table Editor av pro
 
 ---
 
+## Besöksspårning — `besok`-tabell
+
+För att kunna svara på frågor som *"hur många besökare har vi?"* finns en **osynlig instrumentering** som loggar sidladdningar i Sifferverkets egen Supabase. Ingen UI, ingen synlig räknare på sajten — datan läses i Table Editor / SQL Editor.
+
+### Tabell
+
+`besok` med kolumner:
+- `id` (BIGSERIAL)
+- `created_at` (TIMESTAMPTZ)
+- `pad` (sökväg, t.ex. `/`, `/sprint-3`, `/personalarenden`)
+- `besok_id` (random UUID lagrad i localStorage per browser)
+
+INSERT-only RLS för anon, **ingen SELECT-policy** — samma princip som `synpunkter`.
+
+### Vad loggas
+
+Varje browser räknas **högst en rad per sökväg per dygn** (UTC). Dygnsdedup via localStorage-key `sv-besok-day:<pad>`. Browser-UUID i localStorage-key `sv-besok-id` ger pseudonym browser-unicitet.
+
+Sökvägen normeras (trailing slash strippas utom på root) så `/sprint-3/` och `/sprint-3` räknas som samma sida. Det matchar Vercels `cleanUrls`-konfig.
+
+### Vad loggas INTE
+
+- Ingen IP-adress
+- Ingen user-agent
+- Ingen referrer
+- Ingen användar-aktivitet utöver sidladdning
+- Inga PII
+
+### Hur det läses
+
+Niclas frågar Claude (*"hur många besökare har vi?"*) och Claude levererar SQL-snuttar att köra i Supabase SQL Editor. Resultatet klistras tillbaka i chatten.
+
+Exempel på frågor och queryt:
+
+```sql
+-- Total besök senaste 7 dagar
+SELECT COUNT(*) FROM besok WHERE created_at > NOW() - INTERVAL '7 days';
+
+-- Unika browsers totalt
+SELECT COUNT(DISTINCT besok_id) FROM besok;
+
+-- Mest besökta sidor senaste 30 dagar
+SELECT pad, COUNT(*) AS antal
+FROM besok
+WHERE created_at > NOW() - INTERVAL '30 days'
+GROUP BY pad ORDER BY antal DESC;
+
+-- Besök per dag senaste veckan
+SELECT DATE(created_at) AS dag, COUNT(*) AS besok
+FROM besok
+WHERE created_at > NOW() - INTERVAL '7 days'
+GROUP BY dag ORDER BY dag;
+```
+
+### Tyst fel
+
+Om INSERT misslyckas (offline, server nere, RLS-fel) påverkas sajten inte. Saknad rad loggas vid nästa lyckade laddning av samma sida ett annat dygn.
+
+---
+
 ## Reserverat för framtiden — RPC
 
 **RPC** (Remote Procedure Call) — det vill säga, anropa en SQL-funktion på databasservern via `supabase.rpc('namn')` istället för direkt tabelloperation — är **medvetet utelämnat** från kursens nuvarande sprintar.
