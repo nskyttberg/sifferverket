@@ -69,7 +69,9 @@
     // Sprint 5
     'library-browse-history', 'library-view-old-commit', 'library-break-something', 'library-revert',
     // Sprint 6
-    'intake-create-policy', 'intake-build-page', 'intake-add-tabs', 'intake-download-delivery', 'intake-import-and-confirm'
+    'intake-create-policy', 'intake-build-page', 'intake-add-tabs', 'intake-download-delivery', 'intake-import-and-confirm',
+    // Sprint 7
+    'beyond-read-security', 'beyond-read-datamodel', 'beyond-read-claude-code', 'beyond-final-directive'
   ];
 
   // ==================== SIFFERVERKETS EGEN SUPABASE ====================
@@ -153,6 +155,11 @@
   // Direktivlogg från Öferdirektören. Sanningskälla: DIREKTIV-arrayen.
   // Lägg nytt direktiv ÖVERST. Aldrig återanvänd ID.
   const DIREKTIV = [
+    {
+      id: '0008',
+      date: '2026-05-02',
+      text: 'Sista <em>tjänstgöringen</em> har införts. Anställda som fullbordar samtliga sju sprintar är hädanefter att betrakta som <em>självgående</em>.'
+    },
     {
       id: '0007',
       date: '2026-05-01',

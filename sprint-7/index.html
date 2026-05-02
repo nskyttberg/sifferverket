@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 7: Bortom Sifferverket — Sifferverket</title>
+<meta name="description" content="Sprint 7 av Sifferverket-utbildningen: Vad du nu vet och vad som väntar bortom kursen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<!-- SIFFERVERKET INFORMERAR — direktivband + panel -->
+<div class="directive-band" id="directiveBand" role="button" tabindex="0" aria-label="Öppna direktivlista">
+  <span class="directive-prefix">Sifferverket Informerar</span>
+  <span class="directive-divider">·</span>
+  <span class="directive-current" id="directiveCurrent">Inga direktiv inkomna.</span>
+  <span class="directive-unread" id="directiveUnread" hidden></span>
+</div>
+
+<aside class="directive-panel" id="directivePanel" aria-hidden="true">
+  <div class="directive-panel-inner">
+    <header class="directive-panel-header">
+      <div class="directive-panel-label">Nyheter från Öferdirektören</div>
+      <button class="directive-panel-close" id="directivePanelClose" aria-label="Stäng">✕</button>
+    </header>
+    <ol class="directive-list" id="directiveList"></ol>
+    <footer class="directive-panel-footer">
+      Sifferverket · Avdelning för Personalutveckling · Internt material
+    </footer>
+  </div>
+</aside>
+<div class="directive-backdrop" id="directiveBackdrop" hidden></div>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 7 av 7</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-6/">← Sprint 6</a>
+  <span class="nav-center">Sprint 7 — Bortom Sifferverket</span>
+  <span class="nav-right-empty"></span>
+</nav>
+
+<main class="stage">
+  <section class="sprint">
+
+    <div class="sprint-marker">
+      <span class="num">7</span>
+      <span>Sprint Sju</span>
+    </div>
+    <h2 class="sprint-title">Bortom Sifferverket</h2>
+    <p class="sprint-subtitle">— det du nu vet finns; det som väntar.</p>
+
+    <div class="sprint-meta">
+      <div><strong>Tid</strong> ca 20–25 min</div>
+      <div><strong>Kostnad</strong> 0 kr</div>
+      <div><strong>Krav</strong> Sprint 6 avklarad</div>
+    </div>
+
+    <div class="prose">
+      <p class="lead">Du har slutfört din tjänstgöring. Sju sprintar, fyra principer, tre rum, två avdelningar och en app som faktiskt fungerar — byggd från grunden, av dig, utan att du skrivit en rad kod själv.</p>
+
+      <p>Den här sista sprinten är annorlunda. Du ska inte bygga något idag. Du ska <em>läsa</em>. Och i slutet ska du veta något viktigt: vad du <em>inte</em> har lärt dig — och varför det är okej. För Sifferverket har bara visat dig en del av världen.</p>
+
+      <p>Det är meningen. En kurs som täcker allt täcker inget på djupet. Sifferverket har gett dig <em>grunderna</em>, så att du själv kan ta nästa steg när du vill. Idag pekar vi på riktningarna.</p>
+    </div>
+
+    <!-- ============ DEL A — TVÅ SAKER DU NU VET FINNS ============ -->
+    <div class="part-divider">
+      <div class="part-num">Del A</div>
+      <h3 class="part-title">Två saker du nu vet finns</h3>
+      <p class="part-intro">Två områden vi medvetet undvikit i kursen — för att de skulle gjort den för komplex för en novis. Idag pekar vi bara på dem och ger dig prompter du kan använda för att utforska vidare på egen hand.</p>
+    </div>
+
+    <!-- Steg i — Säkerhet och användare -->
+    <div class="step-heading">
+      <div class="step-num">i.</div>
+      <div class="step-title">Säkerhet och användare</div>
+    </div>
+
+    <div class="prose">
+      <p>Din Sifferverket-app är öppen. Vem som helst med URL:en kan raffinera siffror, importera CSV-filer, ändra status. Det fungerar för en utbildningsprototyp. Men i en riktig produkt — banken, journalsystemet, sociala medier — finns det <em>användare</em>, och varje användare ser <em>sin egen</em> data.</p>
+
+      <p>Det här systemet kallas <strong>autentisering</strong> (vem är du?) och <strong>auktorisering</strong> (vad får du göra?). Det innebär:</p>
+
+      <ul style="list-style: disc; padding-left: 24px; margin-top: 8px; font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.8;">
+        <li>Användare loggar in med e-post och lösenord (eller via Google, Apple, etc.)</li>
+        <li>Varje användare får ett unikt <em>id</em> i databasen</li>
+        <li>Tabellerna får en kolumn <code>user_id</code> som binder rader till en specifik användare</li>
+        <li>RLS-policys (du minns dem från Sprint 3 och 4) använder <code>auth.uid()</code> för att låta användare se bara sina egna rader</li>
+      </ul>
+
+      <p style="margin-top: 16px;">Du har redan halvvägs förstått det här. Princip II sa: <em>nyckeln är inte siffrorna, nyckeln öppnar dörren till huvudentréen</em>. I autentisering blir det konkret: varje användare har sin egen nyckel, och dörren öppnar bara till deras eget rum.</p>
+
+      <p>Supabase har inbyggt stöd för det. Du behöver inte bygga det själv.</p>
+    </div>
+
+    <div class="explore">
+      <span class="explore-tag">Utforska vidare</span>
+      <h4>Ställ dessa frågor till Claude i en ny flik:</h4>
+      <ol class="explore-prompts">
+        <li>"Förklara hur Supabase auth fungerar för en novis. Hur loggar man in en användare och hur sparar man deras id i en tabell?"</li>
+        <li>"Visa mig hur en RLS-policy ser ut som bara låter en användare se sina egna rader i en tabell. Förklara varje del."</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="beyond-read-security">
+          <span>Jag har läst om säkerhet och användare</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Steg ii — Datamodellen som sten -->
+    <div class="step-heading">
+      <div class="step-num">ii.</div>
+      <div class="step-title">Datamodellen är sten — användargränssnittet är yta</div>
+    </div>
+
+    <div class="prose">
+      <p>I Sprint 4 lade du till en kolumn (<code>status</code>) i din tabell. Det gick på 30 sekunder med musen. Du kanske tänkte: <em>"Det här är inte svårt."</em></p>
+
+      <p>Och i ditt fall <em>var</em> det enkelt — för du var ensam användare med fyra siffror. Men föreställ dig en app med en miljon användare och hundra miljoner rader. Att lägga till en kolumn i en sådan tabell kan ta <em>timmar</em>, kräva <em>nedtid</em>, eller behöva en <em>migrationsstrategi</em> som tar veckor att planera.</p>
+
+      <p>Det är därför ett av programmeringsyrkets mest värdefulla mantra är:</p>
+
+      <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; color: var(--teal-deep); margin: 32px 0; line-height: 1.4;">Datamodellen är sten. Användargränssnittet är yta.</p>
+
+      <p>Du kan ändra färgen på en knapp på 30 sekunder. Du kan flytta om hela appens layout på en eftermiddag. Det är ytan. Den är mjuk.</p>
+
+      <p>Datamodellen — vilka tabeller du har, vilka kolumner, vilka relationer mellan dem — är stenen. Den är sista beslutet du fattar innan du bygger något, och första beslutet du ångrar när skalan ökar.</p>
+
+      <p>Det betyder två saker för dig som novis:</p>
+
+      <ul style="list-style: disc; padding-left: 24px; margin-top: 8px; font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.8;">
+        <li><strong>Tänk innan du bygger.</strong> Skissa datamodellen på papper innan du skapar tabeller. Vad ska finnas? Vad ska binda ihop? Vilka kolumner kommer ändras ofta, vilka aldrig?</li>
+        <li><strong>Var generös med kolumner från start.</strong> En extra valfri kolumn idag är gratis. En tillkommande kolumn om ett år, när du har data, är dyr.</li>
+      </ul>
+
+      <p>Princip III ramade redan in det här ur ett annat perspektiv: <em>datan är inte sin form, datan är sina tillstånd.</em> Idag tillägget: <em>formen själv är svår att ändra när tillstånden är många.</em></p>
+    </div>
+
+    <div class="explore">
+      <span class="explore-tag">Utforska vidare</span>
+      <h4>Ställ denna fråga till Claude i en ny flik:</h4>
+      <ol class="explore-prompts">
+        <li>"Jag har en idé om en app där användare ska kunna spara recept och dela med vänner. Hjälp mig skissa upp datamodellen — vilka tabeller och kolumner skulle jag behöva? Tänk i förväg på vad jag kanske vill kunna göra om ett år."</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="beyond-read-datamodel">
+          <span>Jag har läst om datamodellens beständighet</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ============ DEL B — NÄR MANUELLT BLIR AUTOMATISKT ============ -->
+    <div class="part-divider">
+      <div class="part-num">Del B</div>
+      <h3 class="part-title">När manuellt blir automatiskt</h3>
+      <p class="part-intro">Genom kursen har du gjort allt manuellt — kopierat kod från Claude in i Anteckningar, dragit filer till GitHub, klistrat in nycklar. Det är pedagogiskt rätt: du har sett varje steg. I verkligheten skulle ingen utvecklare jobba så.</p>
+    </div>
+
+    <!-- Steg iii — Claude Code -->
+    <div class="step-heading">
+      <div class="step-num">iii.</div>
+      <div class="step-title">Claude Code: nästa steg</div>
+    </div>
+
+    <div class="prose">
+      <p><strong>Claude Code</strong> är en version av Claude som lever direkt i din dators terminal och kan läsa, skriva och förändra filer själv. Istället för att kopiera kod från en chatt in i Anteckningar, ber du Claude Code att <em>"lägg till en knapp i index.html"</em> — och den gör det själv.</p>
+
+      <p>Det är samma Claude som du redan pratat med, men med fötter och händer i din egen mapp. Den kan:</p>
+
+      <ul style="list-style: disc; padding-left: 24px; margin-top: 8px; font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.8;">
+        <li>Läsa alla dina filer och förstå hur de hänger ihop</li>
+        <li>Skriva ny kod direkt in i dina filer (utan kopiera-klistra)</li>
+        <li>Köra kommandon — installera bibliotek, starta lokal server, push:a till GitHub</li>
+        <li>Ansluta till externa system som Supabase och se din databas</li>
+      </ul>
+
+      <p style="margin-top: 16px;">Det enda du behöver är en terminal, Node.js på din dator, och en Anthropic API-nyckel. Anthropic har en kort installationsguide som du kan följa när du är redo.</p>
+
+      <p>Men innan du installerar något — fundera över vad du vill att Claude Code ska göra för dig. Här är tre konkreta uppgifter som ger dig en första smak.</p>
+    </div>
+
+    <div class="explore">
+      <span class="explore-tag">Tre uppgifter att börja med</span>
+      <h4>När du har Claude Code installerat — testa dessa:</h4>
+      <ol class="explore-prompts">
+        <li>"Läs min index.html och berätta vad den gör. Förklara för mig som om jag aldrig sett koden förut."</li>
+        <li>"Lägg till en räknare i min app som visar hur många siffror som är raffinerade och hur många som är inkommande. Placera den under matrisen."</li>
+        <li>"Anslut till min Supabase-databas via MCP och föreslå tre nya kolumner till tabellen siffror som skulle göra appen rikare."</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="beyond-read-claude-code">
+          <span>Jag har läst om Claude Code</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="memo">
+      <p><strong>Värt att veta:</strong> Claude Code är gratis att börja med — Anthropic ger en startgrupp med API-krediter. För daglig användning krävs sedan ett abonnemang eller pay-as-you-go. Det är inte en stor investering — under 100 kr/månad räcker långt för en hobbyprogrammerare.</p>
+    </div>
+
+    <!-- Steg iv — Sista direktivet -->
+    <div class="step-heading">
+      <div class="step-num">iv.</div>
+      <div class="step-title">Det sista direktivet</div>
+    </div>
+
+    <div class="prose">
+      <p>Sifferverkets ledning har en sista mening till dig.</p>
+    </div>
+
+    <aside class="final-directive">
+      <div class="final-directive-stamp">Direktiv 0008 · Personalärendet</div>
+
+      <p class="final-directive-text">Anställda som slutfört tjänstgöringen är hädanefter att betrakta som <em>självgående</em>. Det är inte ett tillstånd man uppnår — det är ett förhållningssätt man väljer.</p>
+
+      <p class="final-directive-text">Sifferverket önskar tack och lycka till.</p>
+
+      <div class="final-directive-signature">— Öferdirektören</div>
+    </aside>
+
+    <div class="action">
+      <span class="action-tag">Bekräfta</span>
+      <h4>Mottag direktivet</h4>
+      <ol>
+        <li>Läs igenom direktivet en gång till.</li>
+        <li>Stanna en stund. Det är okej.</li>
+        <li>Klicka i rutan för att bekräfta att tjänstgöringen är fullbordad.</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="beyond-final-directive">
+          <span>Tjänstgöringen är fullbordad</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ============ AVSLUTNING ============ -->
+    <div class="decision">
+      <h3>Tjänstgöringen är fullbordad</h3>
+      <p>Du har slutfört Sifferverkets utbildning. Sju sprintar bakom dig, en värld bortom dem framför. Lycka till.</p>
+      <a href="/personalarenden/">Lämna en synpunkt om utbildningen ↗</a>
+    </div>
+
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · <a href="/personalarenden/">Personalärenden ↗</a> · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>
