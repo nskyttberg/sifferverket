@@ -1292,26 +1292,29 @@ body::before {
 
 /* =============================================================
    SPRINT 8 — arbetsledarkomponenter
-   .tool-choice/.tool-option, .prompt-pair/.prompt-block,
-   .watching-list, .reflection
+   .tool-choice/.tool-option, .choice-pair/.choice-block,
+   .prompt-pair/.prompt-block, .watching-list, .reflection
    Används bara på Sprint 8's arbetsledarsida.
    ============================================================= */
 
-.tool-choice {
+.tool-choice,
+.choice-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   margin: 32px 0;
 }
 
-.tool-option {
+.tool-option,
+.choice-block {
   padding: 32px 28px;
   background: var(--paper);
   border: 1px solid var(--rule);
   position: relative;
 }
 
-.tool-option .tool-tag {
+.tool-option .tool-tag,
+.choice-block .choice-tag {
   display: inline-block;
   font-size: 9px;
   letter-spacing: 0.4em;
@@ -1320,7 +1323,8 @@ body::before {
   margin-bottom: 12px;
 }
 
-.tool-option h4 {
+.tool-option h4,
+.choice-block h4 {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 22px;
@@ -1329,7 +1333,8 @@ body::before {
   margin-bottom: 16px;
 }
 
-.tool-option p {
+.tool-option p,
+.choice-block p {
   font-family: 'Cormorant Garamond', serif;
   font-size: 15px;
   line-height: 1.6;
@@ -1337,7 +1342,8 @@ body::before {
   margin-bottom: 12px;
 }
 
-.tool-option p strong {
+.tool-option p strong,
+.choice-block p strong {
   color: var(--ink);
   font-weight: 500;
 }
@@ -1505,13 +1511,15 @@ body::before {
 }
 
 @media (max-width: 720px) {
-  .tool-choice { grid-template-columns: 1fr; }
+  .tool-choice,
+  .choice-pair { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
   .reflection { padding: 32px 24px; }
   .prompt-block { padding: 20px 22px; }
-  .tool-option { padding: 24px 22px; }
+  .tool-option,
+  .choice-block { padding: 24px 22px; }
 }
 
 /* =============================================================

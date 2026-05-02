@@ -73,8 +73,8 @@
     // Sprint 7
     'beyond-read-security', 'beyond-read-datamodel', 'beyond-read-claude-code', 'beyond-final-directive',
     // Sprint 8
-    'foreman-choose-tool', 'foreman-plan-project', 'foreman-issue-orders',
-    'foreman-supervise', 'foreman-validate', 'foreman-reflect'
+    'foreman-choose-tool', 'foreman-set-stage', 'foreman-issue-master-order',
+    'foreman-supervise-build', 'foreman-validate', 'foreman-reflect'
   ];
 
   // ==================== SIFFERVERKETS EGEN SUPABASE ====================

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sprint 8: Arbetsledarträning — Sifferverket</title>
-<meta name="description" content="Kursens sista sprint: led Claude eller Claude Code i att bygga en ny app — ta rollen som arbetsledare istället för anställd.">
+<meta name="description" content="Kursens sista sprint: led Claude eller Claude Code i att bygga om Sifferverket-appen — och se vad som tog dig en månad ta fem minuter.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -66,10 +66,10 @@
       <span>Sprint Åtta</span>
     </div>
     <h2 class="sprint-title">Arbetsledarträning</h2>
-    <p class="sprint-subtitle">— från anställd till arbetsledare; från utförare till ledare.</p>
+    <p class="sprint-subtitle">— från anställd till arbetsledare; bygg om det du nyss byggt.</p>
 
     <div class="sprint-meta">
-      <div><strong>Tid</strong> ca 60–90 min</div>
+      <div><strong>Tid</strong> ca 45–75 min</div>
       <div><strong>Kostnad</strong> 0–20 kr</div>
       <div><strong>Krav</strong> Sprint 7 avklarad</div>
     </div>
@@ -77,11 +77,13 @@
     <div class="prose">
       <p class="lead">I sju sprintar har du varit <em>anställd</em>. Du har följt instruktioner, kopierat kod, tryckt på knappar i Supabase. Du har lärt dig hur en app fungerar genom att bygga en — manuellt, med dina egna fingrar.</p>
 
-      <p>Idag byter du roll. Du blir <em>arbetsledare</em>. Du har en arbetsstation, ett arbetsverktyg, en uppgift — och du har en arbetare som lyder. Arbetaren är AI. Du planerar, beordrar, granskar, ingriper, validerar.</p>
+      <p>Idag byter du roll. Du blir <em>arbetsledare</em>. Och uppgiften är specifik: du ska bygga om Sifferverket-appen. Inte en ny app — <em>samma</em> app. Samma fyra avdelningar, samma raffineringsmekanik, samma färgmatchning, samma allt. Men den här gången är det inte du som lägger fingret på koden. Det är AI:n.</p>
 
-      <p>Det här är inte en metafor. Det är en allt vanligare arbetsform i mjukvaruyrket. Och det är där det blir tydligt vad <strong>du</strong> tillför som människa — för det är inte längre att skriva kod. Det är att <em>se vad som är fel</em>, <em>veta vad som är värt att göra</em>, och <em>säga till när AI:n missförstår</em>.</p>
+      <p>Du planerar, du beordrar, du granskar, du ingriper. AI:n bygger.</p>
 
-      <p>Idag bygger du en ny app. Inte din Sifferverket-app — den är klar. En annan app. Du bestämmer vad. AI:n bygger.</p>
+      <p>Det här är inte en metafor. Det är en allt vanligare arbetsform i mjukvaruyrket. Och sista sprintens enskilt viktigaste lärdom finns inte i en princip eller en ordlista — den finns i <em>upplevelsen</em>. När du ser den färdiga appen är klar och tänker tillbaka på Sprint 2 till 6 — där varje moment tog dig en kväll, en eftermiddag, en hel dag — händer något inte kan förklaras med ord. Bara erfaras.</p>
+
+      <p>Ingen tidtagning idag. Ingen mätning. Bara arbete. Du kommer märka det själv.</p>
     </div>
 
     <div class="diagram">
@@ -89,12 +91,12 @@
       <div class="diagram-row">
         <div class="diagram-box">
           <span class="icon">D</span>
-          Du<br>planerar
+          Du<br>beordrar
         </div>
         <div class="diagram-arrow">→</div>
         <div class="diagram-box">
           <span class="icon">A</span>
-          AI:n<br>arbetar
+          AI:n<br>bygger
         </div>
         <div class="diagram-arrow">→</div>
         <div class="diagram-box">
@@ -118,7 +120,7 @@
       <div class="tool-option">
         <div class="tool-tag">Alternativ A · Mjukstart</div>
         <h4>Claude.ai i webbläsaren</h4>
-        <p>Du jobbar i en vanlig Claude-flik (samma som du använt genom hela kursen). Du ber Claude skriva kod, hen svarar, du flyttar koden manuellt. Det är samma flöde som tidigare — men nu styr <em>du</em> projektet, inte sprintspecifikationerna.</p>
+        <p>Du jobbar i en vanlig Claude-flik (samma som du använt genom hela kursen). Du ber Claude skriva kod, hen svarar, du flyttar koden manuellt. Det är samma flöde som tidigare — men nu styr <em>du</em> projektet.</p>
         <p><strong>För dig som:</strong> är ny i terminalen, inte vill installera nya verktyg, eller bara vill prova rollen utan teknisk friktion.</p>
         <p class="tool-cost">Kostnad: gratis (eller Claude Pro om du vill ha mer kapacitet).</p>
       </div>
@@ -126,7 +128,7 @@
       <div class="tool-option">
         <div class="tool-tag">Alternativ B · Verkligheten</div>
         <h4>Claude Code i terminal</h4>
-        <p>Du installerar Claude Code och låter den läsa, skriva och förändra filer direkt i din mapp. Eleven slipper kopiera-klistra. Detta är vad professionella utvecklare gör 2026.</p>
+        <p>Du installerar Claude Code och låter den läsa, skriva och förändra filer direkt i din mapp. Inget kopiera-klistra. Detta är vad professionella utvecklare gör 2026.</p>
         <p><strong>För dig som:</strong> har lite vana med terminalen (eller är redo att lära), vill se hur det faktiskt går till i yrket, eller har tid att installera ett nytt verktyg.</p>
         <p class="tool-cost">Kostnad: ca 20 kr för API-användning under denna sprint, eller gratis med en startgrupp krediter.</p>
         <p class="tool-link"><a href="https://docs.claude.com/en/docs/claude-code/quickstart" target="_blank" rel="noopener">Installation enligt Anthropics dokumentation ↗</a></p>
@@ -150,107 +152,119 @@
       </div>
     </div>
 
-    <!-- Steg ii — Planera projektet -->
+    <!-- Steg ii — Förbered scenen -->
     <div class="step-heading">
       <div class="step-num">ii.</div>
-      <div class="step-title">Planera ditt projekt</div>
+      <div class="step-title">Förbered scenen</div>
     </div>
 
     <div class="prose">
-      <p>Som arbetsledare är ditt första uppdrag att <em>veta vad som ska byggas</em>. Det är där människan tillför mest värde. AI:n kan inte göra detta åt dig — den vet inte vad du vill ha.</p>
+      <p>Du ska bygga om din Sifferverket-app, men du behöver bestämma <em>var</em>. Två val. Inget av dem är fel.</p>
+    </div>
 
-      <p>Du har två möjliga vägar: bygga en variant av Sifferverket (med kunskapen du redan har), eller bygga något helt eget. Båda går.</p>
+    <div class="choice-pair">
+
+      <div class="choice-block">
+        <div class="choice-tag">Val A · Bevara den första</div>
+        <h4>Bygg den nya appen i en separat mapp</h4>
+        <p>Din nuvarande Sifferverket-app står kvar. Du skapar en ny mapp (t.ex. <code>sifferverket-v2</code>) och bygger om från noll där. Ditt första verk finns kvar som minne — du kan jämföra dem live.</p>
+        <p>Och i Supabase: skapa en ny databas och tabell, eller låt den nya appen peka på samma. Båda går.</p>
+        <p><strong>För dig som:</strong> vill ha det första bygget kvar — som minne, som referens, eller bara av sentimentalitet.</p>
+      </div>
+
+      <div class="choice-block">
+        <div class="choice-tag">Val B · Riva och bygg om</div>
+        <h4>Bygg om i samma mapp och samma databas</h4>
+        <p>Du raderar innehållet i din befintliga <code>sifferverket</code>-mapp och låter AI:n återskapa allt på nytt. Din befintliga Supabase-databas finns kvar med alla siffror du importerat och raffinerat.</p>
+        <p>När den nya appen är klar fortsätter den exakt där den första slutade — fast nu byggd av AI på minuter. Det är symboliskt vackert: din historia förblir, formen byggs om.</p>
+        <p><strong>För dig som:</strong> tycker det är poetiskt att den gamla appen försvinner i samma rörelse som den nya föds.</p>
+      </div>
+
     </div>
 
     <div class="action">
       <span class="action-tag">Att göra</span>
-      <h4>Skissa ditt projekt</h4>
+      <h4>Förbered din arbetsplats</h4>
       <ol>
-        <li>Välj något att bygga. Det ska vara en webbapp som:
-          <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
-            <li>Använder en databas (Supabase eller liknande)</li>
-            <li>Har en frontend (HTML/CSS/JS eller React eller liknande)</li>
-            <li>Är så liten att du kan bygga den på 30–45 minuter</li>
-          </ul>
-        </li>
-        <li>Förslag på projekt om du inte har egen idé:
-          <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
-            <li><strong>"Tankebok"</strong> — du skriver in tankar, de visas som en kronologisk lista</li>
-            <li><strong>"Beröm-verket"</strong> — vänner skriver in beröm till varandra</li>
-            <li><strong>"Veckomeny"</strong> — du planerar middagar för en vecka, sparar och kan ändra</li>
-            <li><strong>"Receptarkivet"</strong> — du sparar recept med ingredienser och instruktioner</li>
-          </ul>
-        </li>
-        <li>Skriv ner — på papper eller i ett textdokument — tre saker:
-          <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
-            <li>Vad appen ska göra (en mening)</li>
-            <li>Vilka tabeller den behöver (max 3)</li>
-            <li>Vilka tre saker användaren ska kunna göra i den</li>
-          </ul>
-        </li>
+        <li>Bestäm dig för Val A eller Val B.</li>
+        <li><strong>Om Val A:</strong> Skapa en ny mapp på ditt skrivbord (eller ett nytt GitHub-repo om du vill deploya parallellt). Ha den öppen.</li>
+        <li><strong>Om Val B:</strong> Öppna din befintliga sifferverket-mapp. Eventuella filer du vill behålla (t.ex. <code>inkommande-leverans-001.csv</code>) — flytta dem temporärt till skrivbordet.</li>
+        <li>Ha din Supabase-flik öppen så du har URL och anon-nyckel redo.</li>
       </ol>
       <div class="completion">
         <label class="checkbox-wrap">
-          <input type="checkbox" data-step="foreman-plan-project">
-          <span>Jag har skissat mitt projekt på papper</span>
+          <input type="checkbox" data-step="foreman-set-stage">
+          <span>Min arbetsplats är förberedd</span>
         </label>
       </div>
     </div>
 
     <div class="memo">
-      <p><strong>Vad du nyss gjorde:</strong> Du gjorde det viktigaste en arbetsledare gör — du <em>preciserade uppgiften</em>. Innan du sa ett ord till AI:n visste du själv vad som skulle byggas. Det är skillnaden mellan att leda och att hoppas.</p>
-      <p>Princip III är fortfarande aktiv: <em>datan är inte sin form, datan är sina tillstånd</em>. När du valde dina tabeller valde du också vilka tillstånd din app skulle stödja. Var sparsam — du kan alltid lägga till senare medan betongen är våt.</p>
+      <p><strong>Värt att notera:</strong> Detta är första gången i kursen där du fattar ett <em>strategiskt</em> beslut snarare än ett <em>tekniskt</em>. Det är inte en självklarhet vilket val som är "rätt" — det beror på vad du själv vill bevara. Det är arbetsledarens första roll: att fatta beslut där det inte finns ett uppenbart svar.</p>
     </div>
 
-    <!-- Steg iii — Utfärda första ordern -->
+    <!-- Steg iii — Utfärda huvudordern -->
     <div class="step-heading">
       <div class="step-num">iii.</div>
-      <div class="step-title">Utfärda din första order</div>
+      <div class="step-title">Utfärda huvudordern</div>
     </div>
 
     <div class="prose">
-      <p>Nu är det dags att börja prata med din arbetare. Hur prompten ser ut beror på vilket verktyg du valt.</p>
+      <p>Nu är det dags. Du kommer skicka <em>en</em> prompt till AI:n som beskriver hela Sifferverket från grunden. Det är medvetet att det är en lång prompt — i verkligheten skulle du kanske dela upp det i steg, men för pedagogikens skull ska du nu se vad AI:n kan göra på en gång.</p>
+
+      <p>Anpassa prompten där så är angivet i hakparenteser. Resten är fast.</p>
     </div>
 
     <div class="prompt-pair">
 
       <div class="prompt-block prompt-claude-ai">
         <div class="prompt-tag">Om du valt Claude.ai (Alternativ A)</div>
-        <p>Klistra in följande prompt i din nya Claude-flik. Anpassa innehållet i hakparenteserna till ditt projekt:</p>
+        <p>Klistra in i din Claude-flik:</p>
         <div class="claude-prompt">
-          Hej Claude. Jag är arbetsledare för ett litet webbappprojekt och du är min utvecklare. Här är vad du ska bygga:
+          Hej Claude. Jag är arbetsledare för ett litet webbappprojekt och du är min utvecklare. Jag har precis gått en utbildning där jag byggde appen Sifferverket manuellt. Nu ska du bygga om den åt mig — strukturellt identisk, men på minuter istället för veckor.
 
-          <strong>Vad appen ska göra:</strong> [din mening från Steg ii]
+          <strong>Vad Sifferverket är:</strong>
+          En lekfull webbapp inspirerad av en dystopisk byråkratisk fiktion. Anställda raffinerar siffror genom att sortera dem i fyra "känslohinkar": Oro, Glädje, Vrede, Längtan. Estetiken är saklig, mörk, off-white papper, mörkblågrön text, italic Cormorant Garamond rubriker, IBM Plex Mono brödtext.
 
-          <strong>Datamodell:</strong> [dina tabeller med kolumner — t.ex. "tabell 'tankar' med id, text, created_at"]
+          <strong>Vad du ska bygga:</strong>
+          En ren HTML/JavaScript-app i en enda fil (index.html), plus en separat fil <code>inkommande/index.html</code> för CSV-importavdelningen. Ingen build-process, ingen npm. Använd Supabase JS v2 från CDN.
 
-          <strong>Användaren ska kunna:</strong> [tre saker användaren ska kunna göra]
+          <strong>Funktionalitet på huvudsidan (index.html):</strong>
+          1. Rubrik "Välkommen till Sifferverket" och "Anställd: [DITT NAMN]"
+          2. Avdelningsflikar uppe: I Raffinering (aktiv) | II Inkommande
+          3. En 3×3-matris där mittencellen visar bokstaven S i en cirkel (sigill), och de övriga 8 cellerna visar upp till 8 siffror där status='inkommande'
+          4. Varje siffra har sin emotionella färg: oro=#5a6b6e, gladje=#c4a574, vrede=#c44a1f, langtan=#0e4d52
+          5. Fyra hörn-zoner runt matrisen för raffinering: uppe-vänster=Oro, uppe-höger=Glädje, nere-vänster=Vrede, nere-höger=Längtan. Hörnens kantfärg matchar respektive känsla.
+          6. Drag-och-släpp-mekanik (Pointer Events för både mus och touch): dra siffra till hörn med samma färg → raffinerad (UPDATE Supabase med status='raffinerad'), siffran absorberas och fade:as bort. Drag till fel hörn → "Den siffran hör inte hemma där", hörnet skälver, siffra glider tillbaka.
+          7. När alla inkommande siffror är raffinerade: visa "Inga inkommande siffror. Tjänstgöringen kan fortgå när nya siffror anländer."
 
-          Bygg detta som en webbapp i ren HTML och JavaScript med Supabase som databas. En enda HTML-fil. Cormorant Garamond serif som typsnitt, off-white bakgrund, mörkblågrön text. Inkludera kommentarer på varje viktig kodrad så att jag kan följa vad som händer.
+          <strong>Funktionalitet på inkommande/index.html:</strong>
+          1. Samma avdelningsflikar (Inkommande aktiv).
+          2. Drag-och-släpp-zon för CSV-fil.
+          3. Förhandsgranskning efter parsing: tabell med rader (varde, kansla, färgkodad).
+          4. Knappar "Avbryt sändning" och "Vidarebefordra till Arkivet" — den senare gör INSERT i Supabase med status='inkommande'.
 
-          Innan du börjar koda — bekräfta att du förstår uppgiften, och föreslå om något i min plan verkar saknas eller är inkonsistent. Jag vill granska din plan innan du skriver kod.
+          <strong>Datamodell (redan finns i min Supabase):</strong>
+          Tabell "siffror" med kolumnerna id, varde (heltal), kansla (text: oro/gladje/vrede/langtan), status (text: inkommande/raffinerad), created_at. Tre RLS-policies finns: SELECT, UPDATE, INSERT — alla för anon-rollen med <code>true</code>-villkor.
+
+          <strong>Mina Supabase-credentials:</strong>
+          URL: [DIN SUPABASE URL]
+          Anon-nyckel: [DIN ANON-NYCKEL]
+
+          <strong>Innan du börjar koda:</strong>
+          Beskriv kort vad du tänker bygga och i vilken ordning. Identifiera om något i min beställning verkar inkonsekvent eller saknat. Jag vill granska planen innan du producerar kod.
         </div>
       </div>
 
       <div class="prompt-block prompt-claude-code">
         <div class="prompt-tag">Om du valt Claude Code (Alternativ B)</div>
-        <p>I terminalen, kör först:</p>
-        <pre><code>mkdir mitt-nya-projekt
-cd mitt-nya-projekt
-claude</code></pre>
-        <p>När Claude Code öppnas, klistra in samma typ av prompt:</p>
+        <p>I terminalen, i din valda mapp:</p>
+        <pre><code>claude</code></pre>
+        <p>Klistra in samma prompt som ovan, men byt ut första meningen mot:</p>
         <div class="claude-prompt">
-          Du är min utvecklare i ett litet webbappprojekt. Jag är arbetsledare. Här är vad du ska bygga:
+          Du är min utvecklare. Skapa filerna direkt i den här mappen — index.html i roten och inkommande/index.html i en undermapp.
 
-          <strong>Vad appen ska göra:</strong> [din mening från Steg ii]
-
-          <strong>Datamodell:</strong> [dina tabeller med kolumner]
-
-          <strong>Användaren ska kunna:</strong> [tre saker]
-
-          Skapa filerna i den här mappen. En enda index.html, ren HTML/JS, Supabase som databas. Använd Cormorant Garamond, off-white bakgrund, mörkblågrön text. Kommentera viktiga kodrader.
-
-          Innan du börjar — beskriv för mig vad du tänker göra, vilka filer du tänker skapa, och om något i planen verkar saknas. Jag vill bekräfta innan du börjar koda.
+          [Resten av prompten är identisk med Claude.ai-versionen]
         </div>
       </div>
 
@@ -260,41 +274,47 @@ claude</code></pre>
       <span class="action-tag">Att göra</span>
       <h4>Skicka ordern och granska planen</h4>
       <ol>
-        <li>Klistra in prompten med dina egna värden ifyllda.</li>
+        <li>Klistra in prompten med dina egna värden ifyllda (namn, Supabase URL, anon-nyckel).</li>
         <li>AI:n svarar med sin <em>plan</em> — inte med kod ännu.</li>
-        <li>Läs igenom planen. Sätter den fingret på det du faktiskt vill bygga? Saknas något?</li>
-        <li>Om planen är fel: säg till. <em>"Du missade att tabellen ska ha en kategori-kolumn."</em> AI:n korrigerar. Det här är arbetsledarens viktigaste rörelse — att invända innan arbetet börjar.</li>
+        <li>Läs igenom planen. Ser den ut att täcka det du beställt? Saknas något?</li>
+        <li>Om planen är fel: säg till. <em>"Du missade att hörnen ska ha samma färg som känslan."</em> AI:n korrigerar.</li>
         <li>När planen ser rätt ut: säg <em>"Bra, börja bygga."</em></li>
       </ol>
       <div class="completion">
         <label class="checkbox-wrap">
-          <input type="checkbox" data-step="foreman-issue-orders">
+          <input type="checkbox" data-step="foreman-issue-master-order">
           <span>Planen är godkänd och bygget är igång</span>
         </label>
       </div>
     </div>
 
-    <!-- Steg iv — Övervaka arbetet -->
+    <div class="memo">
+      <p><strong>Den kanske viktigaste rörelsen:</strong> AI:n erbjuder en plan; du invänder. Det är där människan tillför värde — du <em>vet</em> hur Sifferverket ska kännas eftersom du byggt den. AI:n har bara din beställning. Hitta en sak du tror är fel eller otillräcklig och låt AI:n korrigera. Det är arbetsledarrytmen.</p>
+    </div>
+
+    <!-- Steg iv — Övervaka bygget -->
     <div class="step-heading">
       <div class="step-num">iv.</div>
-      <div class="step-title">Övervaka arbetet</div>
+      <div class="step-title">Övervaka bygget</div>
     </div>
 
     <div class="prose">
       <p>Nu jobbar AI:n. Din uppgift är att <em>se vad som händer</em>. Inte att hjälpa till. Inte att skriva. Bara att granska och, vid behov, ingripa.</p>
-      <p>Det är där det blir intressant. Du kommer märka tre saker som professionella arbetsledare lever med dagligen.</p>
     </div>
 
     <div class="watching-list">
       <ol>
         <li>
-          <strong>AI:n missförstår ibland.</strong> Den kan bygga något helt annat än du bad om — fast den tror att den gör rätt. Du måste se det och säga till. <em>"Nej, jag bad om en lista, inte en tabell. Gör om."</em>
+          <strong>Du kommer märka det.</strong> Det som tog dig en kväll i Sprint 2 — skapa tabell, mata in siffror, koppla appen — gör AI:n medan du dricker kaffe. Det är okej att stanna upp och bara märka det. Det är en av kursens viktigaste lärdomar och den är okänsosam.
         </li>
         <li>
-          <strong>AI:n missar saker.</strong> Den kan glömma RLS-policyn (du minns från Sprint 3). Den kan glömma att skapa Supabase-tabellen. Den kan generera kod som inte fungerar med de senaste API:erna. Du behöver veta nog för att se när något saknas.
+          <strong>AI:n missförstår ibland.</strong> Den kan bygga något som inte ser ut som du tänkte. Du måste se det och säga till. <em>"Hörnen ska vara cirklar, inte fyrkanter. Och Oro ska vara uppe-vänster, inte uppe-höger."</em>
         </li>
         <li>
-          <strong>AI:n går snabbare än du.</strong> Det som tog dig 30 minuter i Sprint 3 (skapa tabell, skriva HTML, koppla ihop) tar AI:n 30 sekunder. Det är obehagligt och vackert samtidigt.
+          <strong>AI:n missar saker.</strong> Den kanske glömmer att hantera det tomma tillståndet ("Inga inkommande siffror"). Du behöver veta nog för att se när något saknas — och du <em>vet</em> nog, för du har byggt detta själv.
+        </li>
+        <li>
+          <strong>AI:n går snabbare än du.</strong> Det som tog dig en månad blir gjort på en eftermiddag. Det är obehagligt och vackert samtidigt.
         </li>
       </ol>
     </div>
@@ -303,15 +323,16 @@ claude</code></pre>
       <span class="action-tag">Att göra</span>
       <h4>Övervaka och ingrip</h4>
       <ol>
-        <li>Låt AI:n bygga den första versionen. Läs vad den gör.</li>
-        <li>När den är klar — testa appen lokalt. Fungerar den?</li>
-        <li>Om något inte fungerar: säg till. <em>"Det blir ett fel när jag försöker spara. Felmeddelandet är X. Fixa det."</em></li>
-        <li>Om något fungerar men inte som du tänkt: säg till. <em>"Jag ville att listan skulle vara nedåt-stigande, inte uppåt."</em></li>
-        <li>Iterera. Tre, fyra, fem rundor av <em>du säger → AI gör → du granskar</em>. Det är arbetsledarrytmen.</li>
+        <li>Låt AI:n bygga. Läs vad den gör.</li>
+        <li>När den är klar — testa appen lokalt. Fungerar matrisen? Drar du en siffra till rätt hörn — försvinner den? Drar du till fel — kommer den tillbaka?</li>
+        <li>Klicka på Avdelning II och pröva CSV-importen. Använd <code>inkommande-leverans-001.csv</code> om du har den kvar, eller skapa en ny enkel CSV.</li>
+        <li>Om något inte fungerar: säg till AI:n. <em>"Det blir ett fel när jag försöker dra. Felmeddelandet är X. Fixa det."</em></li>
+        <li>Om något fungerar men inte ser rätt ut: säg till. <em>"Färgen på Vrede-hörnet är fel — det ska vara rost, inte rött."</em></li>
+        <li>Iterera. Tre, fyra, fem rundor av <em>du säger → AI gör → du granskar</em>. Det är rytmen.</li>
       </ol>
       <div class="completion">
         <label class="checkbox-wrap">
-          <input type="checkbox" data-step="foreman-supervise">
+          <input type="checkbox" data-step="foreman-supervise-build">
           <span>Appen fungerar i grundläget</span>
         </label>
       </div>
@@ -328,28 +349,29 @@ claude</code></pre>
     </div>
 
     <div class="prose">
-      <p>Innan du deployar — gör en sista granskning. Sätter dig några minuter och prövar appen som om du var användaren, inte byggaren.</p>
+      <p>Innan du deployar — gör en sista granskning. Sätt dig några minuter och pröva appen som om du var användaren, inte byggaren.</p>
     </div>
 
     <div class="action">
       <span class="action-tag">Att göra</span>
       <h4>Sluttest och deploy</h4>
       <ol>
-        <li>Pröva appen i webbläsaren. Klicka allt. Mata in fula data (tomma fält, för långa texter, specialtecken).</li>
-        <li>Hittar du fel? Be AI:n fixa dem.</li>
-        <li>När du är nöjd: be AI:n hjälpa dig deploya till Vercel — samma flöde som du gjorde i Sprint 1, fast nu i ett nytt repo eller en ny mapp.</li>
+        <li>Öppna både Avdelning I och Avdelning II. Klicka mellan dem. Fungerar navigationen?</li>
+        <li>Mata in fula data (en CSV med felaktiga rader, dra siffror snabbt, klicka mellan flikar mitt under en raffinering). Hittar du något som krånglar?</li>
+        <li>Hittar du fel: be AI:n fixa dem.</li>
+        <li>När du är nöjd: be AI:n hjälpa dig deploya. Om Val A: ny GitHub repo + Vercel deploy. Om Val B: pusha till befintligt repo.</li>
         <li>Öppna din nya app live. Det fungerar.</li>
       </ol>
       <div class="completion">
         <label class="checkbox-wrap">
           <input type="checkbox" data-step="foreman-validate">
-          <span>Min nya app är live</span>
+          <span>Min nya Sifferverket-app är live</span>
         </label>
       </div>
     </div>
 
     <div class="memo">
-      <p><strong>Stanna en sekund.</strong> Tänk på vad du just gjort. Din app finns på internet. Du har inte skrivit en rad kod själv. Och ändå — du planerade den, beordrade den, granskade varje viktigt val, ingrep när det behövdes. Det är <em>din</em> app. AI:n var arbetare. Du var arbetsledare.</p>
+      <p><strong>Stanna en sekund.</strong> Du har just byggt om hela det du tillbringade kursen med att bygga. Och du har inte skrivit en rad kod själv. Och ändå — du planerade den, beordrade den, granskade varje viktigt val, ingrep när det behövdes. Det är <em>din</em> app. AI:n var arbetare. Du var arbetsledare.</p>
     </div>
 
     <!-- Steg vi — Reflektion -->
@@ -363,14 +385,15 @@ claude</code></pre>
     </div>
 
     <aside class="reflection">
-      <p class="reflection-question">När var det jobbigast?</p>
-      <p>Förmodligen när AI:n gjorde fel och du inte direkt visste varför. Den kände eller kommer infinna sig: <em>"Är det jag som missförstått, eller AI:n?"</em> — det är exakt den känslan en riktig arbetsledare lever med varje dag.</p>
+      <p class="reflection-question">Vad du nyss upplevt</p>
+      <p>Du har byggt samma sak två gånger. Första gången — sju sprintar, kanske två veckor av läsning, försök, kopiera-klistra, frustrerade ögonblick, små segrar. Andra gången — ett par timmar, kanske mindre. Samma form. Olika vägar.</p>
 
-      <p class="reflection-question">När var det enklast?</p>
-      <p>Förmodligen när du visste exakt vad du ville ha. När din egen plan från Steg ii var skarp gick beställningen rätt på första försöket. När planen var luddig blev resultatet luddigt.</p>
+      <p>Det första bygget gjorde dig till någon som <em>förstår</em> Sifferverket. Det andra bygget visade dig att <em>bygga är inte längre den dyra delen</em>. Det dyra är att veta vad som ska byggas, hur det ska se ut, var det är fel.</p>
 
-      <p class="reflection-question">Vad gjorde du som AI:n inte kunde?</p>
-      <p><strong>Du visste vad som skulle byggas.</strong> Inte hur — det vet AI:n bättre — utan <em>vad</em>. Och du visste när det var fel. Den som vet vad och vet när det är fel kommer aldrig att ersättas av en arbetare som bara vet hur.</p>
+      <p class="reflection-question">Vad du gjorde som AI:n inte kunde</p>
+      <p><strong>Du visste vad Sifferverket var.</strong> Inte hur kod skrivs — det vet AI:n bättre — utan <em>vad slutresultatet ska kännas som</em>. Du visste att hörnen skulle ha samma färg som siffrorna. Du visste att tom-tillståndet skulle vara poetiskt. Du visste när AI:n missförstod, för du hade redan upplevt det rätta.</p>
+
+      <p>Den som vet vad och vet när det är fel kommer aldrig att ersättas av en arbetare som bara vet hur.</p>
 
       <p class="reflection-final">Det är arbetsledarens värde. Det är ditt värde. Behåll det.</p>
     </aside>
@@ -394,7 +417,7 @@ claude</code></pre>
     <!-- ============ AVSLUTNING ============ -->
     <div class="decision">
       <h3>Tjänstgöringen är fullbordad</h3>
-      <p>Du har gått genom Sifferverkets utbildning. Åtta sprintar bakom dig — som anställd och som arbetsledare. Världen är öppen.</p>
+      <p>Du har byggt Sifferverket två gånger. En gång som anställd. En gång som arbetsledare. Mellan dem ligger en värld av skillnad. Världen är öppen.</p>
       <a href="/personalarenden/">Lämna en synpunkt om utbildningen ↗</a>
     </div>
 
