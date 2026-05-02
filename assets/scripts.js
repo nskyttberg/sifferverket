@@ -71,7 +71,10 @@
     // Sprint 6
     'intake-create-policy', 'intake-build-page', 'intake-add-tabs', 'intake-download-delivery', 'intake-import-and-confirm',
     // Sprint 7
-    'beyond-read-security', 'beyond-read-datamodel', 'beyond-read-claude-code', 'beyond-final-directive'
+    'beyond-read-security', 'beyond-read-datamodel', 'beyond-read-claude-code', 'beyond-final-directive',
+    // Sprint 8
+    'foreman-choose-tool', 'foreman-plan-project', 'foreman-issue-orders',
+    'foreman-supervise', 'foreman-validate', 'foreman-reflect'
   ];
 
   // ==================== SIFFERVERKETS EGEN SUPABASE ====================
@@ -155,6 +158,11 @@
   // Direktivlogg från Öferdirektören. Sanningskälla: DIREKTIV-arrayen.
   // Lägg nytt direktiv ÖVERST. Aldrig återanvänd ID.
   const DIREKTIV = [
+    {
+      id: '0009',
+      date: '2026-05-02',
+      text: '<em>Arbetsledarträning</em> har införts som frivillig sista tjänstgöring. Anställda som genomför momentet betraktas som <em>fullt operationsmogna</em>.'
+    },
     {
       id: '0008',
       date: '2026-05-02',

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 8: Arbetsledarträning — Sifferverket</title>
+<meta name="description" content="Kursens sista sprint: led Claude eller Claude Code i att bygga en ny app — ta rollen som arbetsledare istället för anställd.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<!-- SIFFERVERKET INFORMERAR — direktivband + panel -->
+<div class="directive-band" id="directiveBand" role="button" tabindex="0" aria-label="Öppna direktivlista">
+  <span class="directive-prefix">Sifferverket Informerar</span>
+  <span class="directive-divider">·</span>
+  <span class="directive-current" id="directiveCurrent">Inga direktiv inkomna.</span>
+  <span class="directive-unread" id="directiveUnread" hidden></span>
+</div>
+
+<aside class="directive-panel" id="directivePanel" aria-hidden="true">
+  <div class="directive-panel-inner">
+    <header class="directive-panel-header">
+      <div class="directive-panel-label">Nyheter från Öferdirektören</div>
+      <button class="directive-panel-close" id="directivePanelClose" aria-label="Stäng">✕</button>
+    </header>
+    <ol class="directive-list" id="directiveList"></ol>
+    <footer class="directive-panel-footer">
+      Sifferverket · Avdelning för Personalutveckling · Internt material
+    </footer>
+  </div>
+</aside>
+<div class="directive-backdrop" id="directiveBackdrop" hidden></div>
+
+<header class="corp-header">
+  <a href="/" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">
+      <div class="name">Sifferverket</div>
+      <div class="sub">Personal · Utbildning</div>
+    </div>
+  </a>
+  <div class="header-meta">
+    <div>Dokument <span class="doc-id">SV-EDU-001</span></div>
+    <div>Sprint 8 av 8</div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<nav class="sprint-nav">
+  <a href="/sprint-7/">← Sprint 7</a>
+  <span class="nav-center">Sprint 8 — Arbetsledarträning</span>
+  <span class="nav-right-empty"></span>
+</nav>
+
+<main class="stage">
+  <section class="sprint">
+
+    <div class="sprint-marker">
+      <span class="num">8</span>
+      <span>Sprint Åtta</span>
+    </div>
+    <h2 class="sprint-title">Arbetsledarträning</h2>
+    <p class="sprint-subtitle">— från anställd till arbetsledare; från utförare till ledare.</p>
+
+    <div class="sprint-meta">
+      <div><strong>Tid</strong> ca 60–90 min</div>
+      <div><strong>Kostnad</strong> 0–20 kr</div>
+      <div><strong>Krav</strong> Sprint 7 avklarad</div>
+    </div>
+
+    <div class="prose">
+      <p class="lead">I sju sprintar har du varit <em>anställd</em>. Du har följt instruktioner, kopierat kod, tryckt på knappar i Supabase. Du har lärt dig hur en app fungerar genom att bygga en — manuellt, med dina egna fingrar.</p>
+
+      <p>Idag byter du roll. Du blir <em>arbetsledare</em>. Du har en arbetsstation, ett arbetsverktyg, en uppgift — och du har en arbetare som lyder. Arbetaren är AI. Du planerar, beordrar, granskar, ingriper, validerar.</p>
+
+      <p>Det här är inte en metafor. Det är en allt vanligare arbetsform i mjukvaruyrket. Och det är där det blir tydligt vad <strong>du</strong> tillför som människa — för det är inte längre att skriva kod. Det är att <em>se vad som är fel</em>, <em>veta vad som är värt att göra</em>, och <em>säga till när AI:n missförstår</em>.</p>
+
+      <p>Idag bygger du en ny app. Inte din Sifferverket-app — den är klar. En annan app. Du bestämmer vad. AI:n bygger.</p>
+    </div>
+
+    <div class="diagram">
+      <div class="diagram-title">Vad som händer i denna sprint</div>
+      <div class="diagram-row">
+        <div class="diagram-box">
+          <span class="icon">D</span>
+          Du<br>planerar
+        </div>
+        <div class="diagram-arrow">→</div>
+        <div class="diagram-box">
+          <span class="icon">A</span>
+          AI:n<br>arbetar
+        </div>
+        <div class="diagram-arrow">→</div>
+        <div class="diagram-box">
+          <span class="icon">D</span>
+          Du<br>granskar
+        </div>
+      </div>
+    </div>
+
+    <!-- Steg i — Välj ditt arbetsverktyg -->
+    <div class="step-heading">
+      <div class="step-num">i.</div>
+      <div class="step-title">Välj ditt arbetsverktyg</div>
+    </div>
+
+    <div class="prose">
+      <p>Det finns två sätt att jobba med Claude som arbetsledare. Båda fungerar. Välj efter hur du känner dig.</p>
+    </div>
+
+    <div class="tool-choice">
+      <div class="tool-option">
+        <div class="tool-tag">Alternativ A · Mjukstart</div>
+        <h4>Claude.ai i webbläsaren</h4>
+        <p>Du jobbar i en vanlig Claude-flik (samma som du använt genom hela kursen). Du ber Claude skriva kod, hen svarar, du flyttar koden manuellt. Det är samma flöde som tidigare — men nu styr <em>du</em> projektet, inte sprintspecifikationerna.</p>
+        <p><strong>För dig som:</strong> är ny i terminalen, inte vill installera nya verktyg, eller bara vill prova rollen utan teknisk friktion.</p>
+        <p class="tool-cost">Kostnad: gratis (eller Claude Pro om du vill ha mer kapacitet).</p>
+      </div>
+
+      <div class="tool-option">
+        <div class="tool-tag">Alternativ B · Verkligheten</div>
+        <h4>Claude Code i terminal</h4>
+        <p>Du installerar Claude Code och låter den läsa, skriva och förändra filer direkt i din mapp. Eleven slipper kopiera-klistra. Detta är vad professionella utvecklare gör 2026.</p>
+        <p><strong>För dig som:</strong> har lite vana med terminalen (eller är redo att lära), vill se hur det faktiskt går till i yrket, eller har tid att installera ett nytt verktyg.</p>
+        <p class="tool-cost">Kostnad: ca 20 kr för API-användning under denna sprint, eller gratis med en startgrupp krediter.</p>
+        <p class="tool-link"><a href="https://docs.claude.com/en/docs/claude-code/quickstart" target="_blank" rel="noopener">Installation enligt Anthropics dokumentation ↗</a></p>
+      </div>
+    </div>
+
+    <div class="action">
+      <span class="action-tag">Att göra</span>
+      <h4>Bestäm dig — och förbered ditt verktyg</h4>
+      <ol>
+        <li>Läs igenom de två alternativen ovan.</li>
+        <li><strong>Om du väljer Claude.ai:</strong> öppna en ny tom Claude-flik. Det är allt.</li>
+        <li><strong>Om du väljer Claude Code:</strong> följ Anthropics installationsguide. Det tar 10–15 minuter och du behöver Node.js och en API-nyckel. Om något fastnar — gå tillbaka till Alternativ A och kom tillbaka senare.</li>
+        <li>Ha verktyget öppet och redo innan du går vidare till nästa steg.</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="foreman-choose-tool">
+          <span>Jag har valt och förberett mitt arbetsverktyg</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Steg ii — Planera projektet -->
+    <div class="step-heading">
+      <div class="step-num">ii.</div>
+      <div class="step-title">Planera ditt projekt</div>
+    </div>
+
+    <div class="prose">
+      <p>Som arbetsledare är ditt första uppdrag att <em>veta vad som ska byggas</em>. Det är där människan tillför mest värde. AI:n kan inte göra detta åt dig — den vet inte vad du vill ha.</p>
+
+      <p>Du har två möjliga vägar: bygga en variant av Sifferverket (med kunskapen du redan har), eller bygga något helt eget. Båda går.</p>
+    </div>
+
+    <div class="action">
+      <span class="action-tag">Att göra</span>
+      <h4>Skissa ditt projekt</h4>
+      <ol>
+        <li>Välj något att bygga. Det ska vara en webbapp som:
+          <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+            <li>Använder en databas (Supabase eller liknande)</li>
+            <li>Har en frontend (HTML/CSS/JS eller React eller liknande)</li>
+            <li>Är så liten att du kan bygga den på 30–45 minuter</li>
+          </ul>
+        </li>
+        <li>Förslag på projekt om du inte har egen idé:
+          <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+            <li><strong>"Tankebok"</strong> — du skriver in tankar, de visas som en kronologisk lista</li>
+            <li><strong>"Beröm-verket"</strong> — vänner skriver in beröm till varandra</li>
+            <li><strong>"Veckomeny"</strong> — du planerar middagar för en vecka, sparar och kan ändra</li>
+            <li><strong>"Receptarkivet"</strong> — du sparar recept med ingredienser och instruktioner</li>
+          </ul>
+        </li>
+        <li>Skriv ner — på papper eller i ett textdokument — tre saker:
+          <ul style="list-style: disc; padding-left: 24px; margin-top: 8px;">
+            <li>Vad appen ska göra (en mening)</li>
+            <li>Vilka tabeller den behöver (max 3)</li>
+            <li>Vilka tre saker användaren ska kunna göra i den</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="foreman-plan-project">
+          <span>Jag har skissat mitt projekt på papper</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="memo">
+      <p><strong>Vad du nyss gjorde:</strong> Du gjorde det viktigaste en arbetsledare gör — du <em>preciserade uppgiften</em>. Innan du sa ett ord till AI:n visste du själv vad som skulle byggas. Det är skillnaden mellan att leda och att hoppas.</p>
+      <p>Princip III är fortfarande aktiv: <em>datan är inte sin form, datan är sina tillstånd</em>. När du valde dina tabeller valde du också vilka tillstånd din app skulle stödja. Var sparsam — du kan alltid lägga till senare medan betongen är våt.</p>
+    </div>
+
+    <!-- Steg iii — Utfärda första ordern -->
+    <div class="step-heading">
+      <div class="step-num">iii.</div>
+      <div class="step-title">Utfärda din första order</div>
+    </div>
+
+    <div class="prose">
+      <p>Nu är det dags att börja prata med din arbetare. Hur prompten ser ut beror på vilket verktyg du valt.</p>
+    </div>
+
+    <div class="prompt-pair">
+
+      <div class="prompt-block prompt-claude-ai">
+        <div class="prompt-tag">Om du valt Claude.ai (Alternativ A)</div>
+        <p>Klistra in följande prompt i din nya Claude-flik. Anpassa innehållet i hakparenteserna till ditt projekt:</p>
+        <div class="claude-prompt">
+          Hej Claude. Jag är arbetsledare för ett litet webbappprojekt och du är min utvecklare. Här är vad du ska bygga:
+
+          <strong>Vad appen ska göra:</strong> [din mening från Steg ii]
+
+          <strong>Datamodell:</strong> [dina tabeller med kolumner — t.ex. "tabell 'tankar' med id, text, created_at"]
+
+          <strong>Användaren ska kunna:</strong> [tre saker användaren ska kunna göra]
+
+          Bygg detta som en webbapp i ren HTML och JavaScript med Supabase som databas. En enda HTML-fil. Cormorant Garamond serif som typsnitt, off-white bakgrund, mörkblågrön text. Inkludera kommentarer på varje viktig kodrad så att jag kan följa vad som händer.
+
+          Innan du börjar koda — bekräfta att du förstår uppgiften, och föreslå om något i min plan verkar saknas eller är inkonsistent. Jag vill granska din plan innan du skriver kod.
+        </div>
+      </div>
+
+      <div class="prompt-block prompt-claude-code">
+        <div class="prompt-tag">Om du valt Claude Code (Alternativ B)</div>
+        <p>I terminalen, kör först:</p>
+        <pre><code>mkdir mitt-nya-projekt
+cd mitt-nya-projekt
+claude</code></pre>
+        <p>När Claude Code öppnas, klistra in samma typ av prompt:</p>
+        <div class="claude-prompt">
+          Du är min utvecklare i ett litet webbappprojekt. Jag är arbetsledare. Här är vad du ska bygga:
+
+          <strong>Vad appen ska göra:</strong> [din mening från Steg ii]
+
+          <strong>Datamodell:</strong> [dina tabeller med kolumner]
+
+          <strong>Användaren ska kunna:</strong> [tre saker]
+
+          Skapa filerna i den här mappen. En enda index.html, ren HTML/JS, Supabase som databas. Använd Cormorant Garamond, off-white bakgrund, mörkblågrön text. Kommentera viktiga kodrader.
+
+          Innan du börjar — beskriv för mig vad du tänker göra, vilka filer du tänker skapa, och om något i planen verkar saknas. Jag vill bekräfta innan du börjar koda.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="action">
+      <span class="action-tag">Att göra</span>
+      <h4>Skicka ordern och granska planen</h4>
+      <ol>
+        <li>Klistra in prompten med dina egna värden ifyllda.</li>
+        <li>AI:n svarar med sin <em>plan</em> — inte med kod ännu.</li>
+        <li>Läs igenom planen. Sätter den fingret på det du faktiskt vill bygga? Saknas något?</li>
+        <li>Om planen är fel: säg till. <em>"Du missade att tabellen ska ha en kategori-kolumn."</em> AI:n korrigerar. Det här är arbetsledarens viktigaste rörelse — att invända innan arbetet börjar.</li>
+        <li>När planen ser rätt ut: säg <em>"Bra, börja bygga."</em></li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="foreman-issue-orders">
+          <span>Planen är godkänd och bygget är igång</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Steg iv — Övervaka arbetet -->
+    <div class="step-heading">
+      <div class="step-num">iv.</div>
+      <div class="step-title">Övervaka arbetet</div>
+    </div>
+
+    <div class="prose">
+      <p>Nu jobbar AI:n. Din uppgift är att <em>se vad som händer</em>. Inte att hjälpa till. Inte att skriva. Bara att granska och, vid behov, ingripa.</p>
+      <p>Det är där det blir intressant. Du kommer märka tre saker som professionella arbetsledare lever med dagligen.</p>
+    </div>
+
+    <div class="watching-list">
+      <ol>
+        <li>
+          <strong>AI:n missförstår ibland.</strong> Den kan bygga något helt annat än du bad om — fast den tror att den gör rätt. Du måste se det och säga till. <em>"Nej, jag bad om en lista, inte en tabell. Gör om."</em>
+        </li>
+        <li>
+          <strong>AI:n missar saker.</strong> Den kan glömma RLS-policyn (du minns från Sprint 3). Den kan glömma att skapa Supabase-tabellen. Den kan generera kod som inte fungerar med de senaste API:erna. Du behöver veta nog för att se när något saknas.
+        </li>
+        <li>
+          <strong>AI:n går snabbare än du.</strong> Det som tog dig 30 minuter i Sprint 3 (skapa tabell, skriva HTML, koppla ihop) tar AI:n 30 sekunder. Det är obehagligt och vackert samtidigt.
+        </li>
+      </ol>
+    </div>
+
+    <div class="action">
+      <span class="action-tag">Att göra</span>
+      <h4>Övervaka och ingrip</h4>
+      <ol>
+        <li>Låt AI:n bygga den första versionen. Läs vad den gör.</li>
+        <li>När den är klar — testa appen lokalt. Fungerar den?</li>
+        <li>Om något inte fungerar: säg till. <em>"Det blir ett fel när jag försöker spara. Felmeddelandet är X. Fixa det."</em></li>
+        <li>Om något fungerar men inte som du tänkt: säg till. <em>"Jag ville att listan skulle vara nedåt-stigande, inte uppåt."</em></li>
+        <li>Iterera. Tre, fyra, fem rundor av <em>du säger → AI gör → du granskar</em>. Det är arbetsledarrytmen.</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="foreman-supervise">
+          <span>Appen fungerar i grundläget</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="memo">
+      <p><strong>Notera vad du nyss gjorde:</strong> Du var inte programmerare. Du var <em>granskare</em>. Du behövde inte kunna skriva koden — men du behövde kunna <em>se om den var rätt</em>. Det är en helt annan färdighet, och den blir alltmer värdefull i mjukvaruyrket.</p>
+    </div>
+
+    <!-- Steg v — Validera och deploya -->
+    <div class="step-heading">
+      <div class="step-num">v.</div>
+      <div class="step-title">Validera och deploya</div>
+    </div>
+
+    <div class="prose">
+      <p>Innan du deployar — gör en sista granskning. Sätter dig några minuter och prövar appen som om du var användaren, inte byggaren.</p>
+    </div>
+
+    <div class="action">
+      <span class="action-tag">Att göra</span>
+      <h4>Sluttest och deploy</h4>
+      <ol>
+        <li>Pröva appen i webbläsaren. Klicka allt. Mata in fula data (tomma fält, för långa texter, specialtecken).</li>
+        <li>Hittar du fel? Be AI:n fixa dem.</li>
+        <li>När du är nöjd: be AI:n hjälpa dig deploya till Vercel — samma flöde som du gjorde i Sprint 1, fast nu i ett nytt repo eller en ny mapp.</li>
+        <li>Öppna din nya app live. Det fungerar.</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="foreman-validate">
+          <span>Min nya app är live</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="memo">
+      <p><strong>Stanna en sekund.</strong> Tänk på vad du just gjort. Din app finns på internet. Du har inte skrivit en rad kod själv. Och ändå — du planerade den, beordrade den, granskade varje viktigt val, ingrep när det behövdes. Det är <em>din</em> app. AI:n var arbetare. Du var arbetsledare.</p>
+    </div>
+
+    <!-- Steg vi — Reflektion -->
+    <div class="step-heading">
+      <div class="step-num">vi.</div>
+      <div class="step-title">Reflektion</div>
+    </div>
+
+    <div class="prose">
+      <p>Sista steget. Inga klick, ingen åtgärd. Bara läs och tänk.</p>
+    </div>
+
+    <aside class="reflection">
+      <p class="reflection-question">När var det jobbigast?</p>
+      <p>Förmodligen när AI:n gjorde fel och du inte direkt visste varför. Den kände eller kommer infinna sig: <em>"Är det jag som missförstått, eller AI:n?"</em> — det är exakt den känslan en riktig arbetsledare lever med varje dag.</p>
+
+      <p class="reflection-question">När var det enklast?</p>
+      <p>Förmodligen när du visste exakt vad du ville ha. När din egen plan från Steg ii var skarp gick beställningen rätt på första försöket. När planen var luddig blev resultatet luddigt.</p>
+
+      <p class="reflection-question">Vad gjorde du som AI:n inte kunde?</p>
+      <p><strong>Du visste vad som skulle byggas.</strong> Inte hur — det vet AI:n bättre — utan <em>vad</em>. Och du visste när det var fel. Den som vet vad och vet när det är fel kommer aldrig att ersättas av en arbetare som bara vet hur.</p>
+
+      <p class="reflection-final">Det är arbetsledarens värde. Det är ditt värde. Behåll det.</p>
+    </aside>
+
+    <div class="action">
+      <span class="action-tag">Bekräfta</span>
+      <h4>Avsluta tjänstgöringen</h4>
+      <ol>
+        <li>Läs reflektionen ovan en gång till.</li>
+        <li>Ta din tid.</li>
+        <li>När du känner dig redo — bocka av. Tjänstgöringen är fullbordad.</li>
+      </ol>
+      <div class="completion">
+        <label class="checkbox-wrap">
+          <input type="checkbox" data-step="foreman-reflect">
+          <span>Jag har reflekterat och tjänstgöringen är fullbordad</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ============ AVSLUTNING ============ -->
+    <div class="decision">
+      <h3>Tjänstgöringen är fullbordad</h3>
+      <p>Du har gått genom Sifferverkets utbildning. Åtta sprintar bakom dig — som anställd och som arbetsledare. Världen är öppen.</p>
+      <a href="/personalarenden/">Lämna en synpunkt om utbildningen ↗</a>
+    </div>
+
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="motto">Siffrorna kallar. Vi svarar.</div>
+  <div>Sifferverket © Eviga år · <a href="/personalarenden/">Personalärenden ↗</a> · Avdelning för Personalutveckling</div>
+</footer>
+
+<script src="/assets/scripts.js"></script>
+</body>
+</html>

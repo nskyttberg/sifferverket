@@ -1291,6 +1291,230 @@ body::before {
 }
 
 /* =============================================================
+   SPRINT 8 — arbetsledarkomponenter
+   .tool-choice/.tool-option, .prompt-pair/.prompt-block,
+   .watching-list, .reflection
+   Används bara på Sprint 8's arbetsledarsida.
+   ============================================================= */
+
+.tool-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.tool-option {
+  padding: 32px 28px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  position: relative;
+}
+
+.tool-option .tool-tag {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  margin-bottom: 12px;
+}
+
+.tool-option h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.tool-option p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.tool-option p strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.tool-option .tool-cost {
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink-faint);
+  font-style: normal;
+  letter-spacing: 0.05em;
+  margin-top: 16px;
+}
+
+.tool-option .tool-link {
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-style: normal;
+}
+
+.tool-option .tool-link a {
+  color: var(--teal-deep);
+}
+
+.prompt-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.prompt-block {
+  padding: 24px 28px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--teal);
+}
+
+.prompt-block .prompt-tag {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  margin-bottom: 12px;
+}
+
+.prompt-block p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.prompt-block pre {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 12px 0;
+  overflow-x: auto;
+}
+
+.prompt-block pre code {
+  color: inherit;
+  background: none;
+  padding: 0;
+}
+
+.watching-list {
+  margin: 24px 0;
+  padding: 28px 32px;
+  background: var(--paper-dim);
+  border-left: 3px solid var(--teal-deep);
+}
+
+.watching-list ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.watching-list ol li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+
+.watching-list ol li:last-child {
+  margin-bottom: 0;
+}
+
+.watching-list ol li strong {
+  color: var(--teal-deep);
+  font-weight: 500;
+  font-style: normal;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.watching-list ol li em {
+  color: var(--ink);
+  font-style: italic;
+}
+
+.reflection {
+  margin: 48px auto;
+  max-width: 60ch;
+  padding: 48px 40px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  position: relative;
+}
+
+.reflection::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 0.5px solid var(--rule);
+  pointer-events: none;
+}
+
+.reflection .reflection-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--teal-deep);
+  margin-bottom: 12px;
+  margin-top: 24px;
+}
+
+.reflection .reflection-question:first-child {
+  margin-top: 0;
+}
+
+.reflection p:not(.reflection-question):not(.reflection-final) {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+.reflection .reflection-final {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ink);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--rule);
+  line-height: 1.5;
+}
+
+.reflection p strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .tool-choice { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .reflection { padding: 32px 24px; }
+  .prompt-block { padding: 20px 22px; }
+  .tool-option { padding: 24px 22px; }
+}
+
+/* =============================================================
    AVDELNINGEN FÖR PERSONALÄRENDEN
    Egen feedback-sida på /personalarenden/
    ============================================================= */
