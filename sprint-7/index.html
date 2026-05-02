@@ -144,23 +144,31 @@
 
       <p>Du kan ändra färgen på en knapp på 30 sekunder. Du kan flytta om hela appens layout på en eftermiddag. Det är ytan. Den är mjuk.</p>
 
-      <p>Datamodellen — vilka tabeller du har, vilka kolumner, vilka relationer mellan dem — är stenen. Den är sista beslutet du fattar innan du bygger något, och första beslutet du ångrar när skalan ökar.</p>
+      <p>Datamodellen — vilka tabeller du har, vilka kolumner, vilka relationer mellan dem — är stenen. Den är jobbig att ändra när du har många användare och mycket data. Det är därför värt att ta den på allvar.</p>
 
-      <p>Det betyder två saker för dig som novis:</p>
+      <p>Men det betyder <em>inte</em> att du ska planera allt på papper innan du börjar. Du kommer ändå inte tänka ut allt — ingen gör det. Det fungerande arbetssättet är motsatsen:</p>
+
+      <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: var(--ink); margin: 32px 0; line-height: 1.5;">Bygg datamodellen tidigt. Testa tidigt. Gör misstagen tidigt. Bygg om.</p>
+
+      <p>Det är vad du redan gjort i den här kursen. Du byggde tabellen <code>siffror</code> i Sprint 2 utan att veta vad <code>status</code>-kolumnen skulle innebära. När du nådde Sprint 4 insåg du att den behövdes, och la till den. Det kostade 30 sekunder.</p>
+
+      <p>Det är så det ska fungera. När du har fyra rader och en användare är allt billigt. När du har en miljon rader och tusentals användare är allt dyrt. <strong>Gör så många misstag du kan i den första fasen — det är då de är gratis.</strong></p>
+
+      <p>Två praktiska konsekvenser:</p>
 
       <ul style="list-style: disc; padding-left: 24px; margin-top: 8px; font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.8;">
-        <li><strong>Tänk innan du bygger.</strong> Skissa datamodellen på papper innan du skapar tabeller. Vad ska finnas? Vad ska binda ihop? Vilka kolumner kommer ändras ofta, vilka aldrig?</li>
-        <li><strong>Var generös med kolumner från start.</strong> En extra valfri kolumn idag är gratis. En tillkommande kolumn om ett år, när du har data, är dyr.</li>
+        <li><strong>Iterera i små bitar.</strong> Bygg datamodellen för en funktion. Bygg frontend för samma funktion. Testa båda. Lär. Sedan nästa funktion. Inte: bygg hela datamodellen, sedan hela frontend, sedan upptäck att modellen var fel.</li>
+        <li><strong>Var inte rädd för att riva.</strong> Tidigt i ett projekt är det billigare att göra om än att tänka rätt. Senare är det tvärtom. Var hård mot dig själv när det är billigt.</li>
       </ul>
 
-      <p>Princip III ramade redan in det här ur ett annat perspektiv: <em>datan är inte sin form, datan är sina tillstånd.</em> Idag tillägget: <em>formen själv är svår att ändra när tillstånden är många.</em></p>
+      <p>Princip III ramade redan in det här ur ett annat perspektiv: <em>datan är inte sin form, datan är sina tillstånd.</em> Idag tillägget: <em>formen själv är svår att ändra när tillstånden är många — så ändra den medan tillstånden är få.</em></p>
     </div>
 
     <div class="explore">
       <span class="explore-tag">Utforska vidare</span>
       <h4>Ställ denna fråga till Claude i en ny flik:</h4>
       <ol class="explore-prompts">
-        <li>"Jag har en idé om en app där användare ska kunna spara recept och dela med vänner. Hjälp mig skissa upp datamodellen — vilka tabeller och kolumner skulle jag behöva? Tänk i förväg på vad jag kanske vill kunna göra om ett år."</li>
+        <li>"Jag har en idé om en app där användare ska kunna spara recept och dela med vänner. Hjälp mig skissa en första, enkel datamodell — bara så mycket som behövs för att jag ska kunna börja bygga och testa. Vi kan iterera senare."</li>
       </ol>
       <div class="completion">
         <label class="checkbox-wrap">
