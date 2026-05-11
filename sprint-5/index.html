@@ -203,15 +203,25 @@
     <p><strong>Pulsera lugnt.</strong> Det här ska kännas obekvämt — det är hela poängen. Du har just fört in ett fel i din publika app. Det är synligt för alla. <em>Och det går att ångra.</em> Det ska du göra nu.</p>
   </div>
 
-  <!-- ============ STEG iv — ÅNGRA MED REVERT ============ -->
+  <!-- ============ STEG iv — ÅNGRA EN HÄNDELSE ============ -->
   <div class="step-heading">
     <div class="step-num">iv.</div>
-    <div class="step-title">Ångra med Revert</div>
+    <div class="step-title">Ångra en händelse</div>
   </div>
 
   <div class="prose">
-    <p>GitHub har en knapp som heter <strong>Revert</strong>. Den gör en ny commit som är en exakt motsats till en tidigare commit. Tänk dig att du i en räknebok skrev "+5" och sen vill ångra — då skriver du "−5". Resultatet blir noll. Bibliotekets historia får båda raderna kvar (5 har skrivits, −5 har skrivits) men summan är som om ingenting hänt.</p>
+    <p>I Git finns en princip som heter <strong>revert</strong>. Tänk dig att du i en räknebok skrev "+5" och sen vill ångra — då skriver du "−5". Resultatet blir noll. Bibliotekets historia får båda raderna kvar (5 har skrivits, −5 har skrivits) men summan är som om ingenting hänt.</p>
     <p>Det är skillnaden mellan att <em>radera</em> historien (omöjligt) och att <em>neutralisera</em> en händelse (alltid möjligt).</p>
+    <p>GitHub erbjuder ibland en Revert-knapp direkt på webben — på sidan för en sammanslagen pull request, eller på en enskild commit. När knappen syns: klicka, och GitHub föreslår neutraliseringen åt dig.</p>
+    <p>Om knappen inte syns betyder det att GitHub inte vågar göra neutraliseringen automatiskt — kanske för att den krockar med något senare. Då gör du istället detta: öppna ett samtal med Claude och be om hjälp. En prompt som fungerar:</p>
+  </div>
+
+  <div class="claude-prompt">
+    Jag har gjort en commit i mitt GitHub-repo som jag vill ångra. Repots namn är [namn]. Den commit jag vill neutralisera har meddelandet [meddelande] (eller hash [hash] om du vet den). Förklara steg för steg vad jag ska göra — jag arbetar bara i GitHubs webbgränssnitt och i Vercel.
+  </div>
+
+  <div class="prose">
+    <p>Claude ger dig då den exakta vägen vidare. Principen är densamma vare sig knappen syns eller inte: ingenting raderas, en motsats läggs till.</p>
   </div>
 
   <div class="action">
@@ -221,22 +231,25 @@
       <li>Gå till din commit-historik igen (samma plats som i Steg i).</li>
       <li>Hitta din senaste commit — den med meddelandet "oavsiktlig skada".</li>
       <li>Klicka på <strong>"..."</strong>-knappen (tre prickar) eller direkt på commitens meddelande för att öppna den.</li>
-      <li>I det övre högra hörnet på commit-sidan, leta efter en knapp som heter <strong>"Revert"</strong>. Klicka på den.</li>
-      <li>GitHub frågar om du vill skapa en ny pull request eller commit direkt. Välj <strong>"Commit directly to the main branch"</strong>.</li>
-      <li>Klicka "Commit changes".</li>
+      <li>Leta i det övre högra hörnet efter en knapp som heter <strong>"Revert"</strong>.
+        <ul>
+          <li><strong>Om knappen syns:</strong> klicka. GitHub frågar om du vill skapa en pull request eller committa direkt — välj <strong>"Commit directly to the main branch"</strong> och klicka "Commit changes".</li>
+          <li><strong>Om knappen inte syns:</strong> kopiera commitens hash (den korta sträng som syns vid commiten), öppna ett samtal med Claude med prompten ovan och följ instruktionerna du får tillbaka.</li>
+        </ul>
+      </li>
       <li>Vänta 30 sekunder. Öppna din Vercel-URL och uppdatera. Rubriken ska vara tillbaka till "Välkommen till Sifferverket".</li>
-      <li>Gå tillbaka till commit-historiken. Du har nu <em>fem</em> commits istället för fyra. Den gamla "oavsiktlig skada" är fortfarande där — och en ny "Revert oavsiktlig skada" har lagts till. Båda är bevittnade.</li>
+      <li>Gå tillbaka till commit-historiken. Du har nu <em>fem</em> commits istället för fyra. Den gamla "oavsiktlig skada" är fortfarande där — och en ny commit som neutraliserar den har lagts till. Båda är bevittnade.</li>
     </ol>
     <div class="completion">
       <label class="checkbox-wrap">
         <input type="checkbox" data-step="library-revert">
-        <span>Min app är återställd via Revert</span>
+        <span>Min app är återställd</span>
       </label>
     </div>
   </div>
 
   <div class="memo">
-    <p><strong>Stanna en sekund.</strong> Du har precis gjort något som mjukvaruyrket har använt för att rädda sig själv från katastrof i decennier. Du har infört ett medvetet fel, sett det manifesteras, och återställt det utan att rita över historien. Det krävdes inget terminalkommando, ingen specialkunskap — bara en knapp i ett webb-UI.</p>
+    <p><strong>Stanna en sekund.</strong> Du har precis gjort något som mjukvaruyrket har använt för att rädda sig själv från katastrof i decennier. Du har infört ett medvetet fel, sett det manifesteras, och återställt det utan att rita över historien. Det krävdes inget terminalkommando, ingen specialkunskap — bara webbgränssnittet och, om knappen inte fanns, en fråga till Claude.</p>
     <p>Det här är vad versionshantering är värt. När det börjar gå riktigt fel — vilket det kommer göra någon gång — vet du att biblioteket finns. Det är inte ett räddningsplan. Det är en grund.</p>
   </div>
 
